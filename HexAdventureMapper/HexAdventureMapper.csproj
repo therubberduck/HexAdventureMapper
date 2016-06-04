@@ -89,6 +89,8 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Painting\IPainterUi.cs" />
+    <Compile Include="Painting\Painter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TileConfig\TileConfigInterface.cs" />

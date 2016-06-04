@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using HexAdventureMapper.Database;
 using HexAdventureMapper.DataObjects;
+using HexAdventureMapper.Painting;
 using HexAdventureMapper.TileConfig;
 using HexAdventureMapper.Views;
 using HexAdventureMapper.Visualizer;
@@ -12,9 +13,9 @@ using HexAdventureMapper.Visualizer;
 namespace HexAdventureMapper
 {
 
-    public partial class MainWindow : Form
+    public partial class MainWindow : Form, IPainterUi
     {
-        private enum DrawingTools
+        public enum DrawingTools
         {
             Select,
             Terrain,
@@ -26,7 +27,7 @@ namespace HexAdventureMapper
         private DbInterface _db;
         private TileConfigInterface _tiles;
         private HexMapFactory _hexMapFactory;
-
+        private Painter _painter;
 
         private DrawingTools _currentDrawingTools;
         private HexCoordinate _lastDraggedHex;
@@ -41,6 +42,7 @@ namespace HexAdventureMapper
             _db = new DbInterface();
             _tiles = new TileConfigInterface();
             _hexMapFactory = new HexMapFactory(_tiles, _db, imgHexMap);
+            _painter = new Painter(this, _db);
 
             foreach (TileComponent terrain in _tiles.GetTerrain())
             {
@@ -60,14 +62,14 @@ namespace HexAdventureMapper
             }
             cmbIcon.SelectedIndex = 0;
 
-            List<string> riverSizes = new List<string> {"Small", "Medium", "Large"};
+            List<string> riverSizes = new List<string> {"Stream", "River, Small", "River, Large"};
             foreach (string riverSize in riverSizes)
             {
                 cmbRiver.Items.Add(riverSize);
             }
             cmbRiver.SelectedIndex = 1;
 
-            List<string> roadSizes = new List<string> { "Small", "Medium", "Large" };
+            List<string> roadSizes = new List<string> { "Trail", "Dirt Road", "Cobbled Road" };
             foreach (string roadSize in roadSizes)
             {
                 cmbRoad.Items.Add(roadSize);
@@ -80,10 +82,38 @@ namespace HexAdventureMapper
             DrawMap();
         }
 
+        public DrawingTools GetDrawingTool()
+        {
+            return _currentDrawingTools;
+        }
+
+        public int GetTerrainId()
+        {
+            return _tiles.GetTerrain()[cmbTerrain.SelectedIndex].Id;
+        }
+
+        public int GetVegetationId()
+        {
+            return _tiles.GetVegetation()[cmbVegetation.SelectedIndex].Id;
+        }
+
+        public int GetIconId()
+        {
+            return _tiles.GetIcons()[cmbIcon.SelectedIndex].Id;
+        }
+
+        public int GetRiverId()
+        {
+            return cmbRiver.SelectedIndex;
+        }
+
+        public int GetRoadId()
+        {
+            return cmbRoad.SelectedIndex + 3;
+        }
+
         private void DrawMap()
         {
-            //var hexes = _db.Hexes.GetAll();
-            //var map = _hexMapFactory.MakeMapFromEntireArea(hexes);
             var map = _hexMapFactory.MakeLocalMap();
             imgHexMap.Image = map;
 
@@ -118,9 +148,9 @@ namespace HexAdventureMapper
         {
             if (_currentDrawingTools == DrawingTools.Select)
             {
-                _hexMapFactory.SelectedCoordinate = e.HexMapCoordinate;
+                _hexMapFactory.SelectedCoordinate = e.HexWorldCoordinate;
                 
-                Hex hex = _db.Hexes.GetForCoordinate(e.HexMapCoordinate);
+                Hex hex = _db.Hexes.GetForCoordinate(e.HexWorldCoordinate);
                 if (hex != null)
                 {
                     txtDetail.Text = hex.Detail;
@@ -130,38 +160,9 @@ namespace HexAdventureMapper
                     txtDetail.Text = "";
                 }
             }
-            else if (_currentDrawingTools == DrawingTools.Terrain)
+            else if (_painter.TryPaint(e))
             {
-                int terrainId = _tiles.GetTerrain()[cmbTerrain.SelectedIndex].Id;
-                int vegetationId = _tiles.GetVegetation()[cmbVegetation.SelectedIndex].Id;
-
-                if (_db.Hexes.HexExists(e.HexMapCoordinate))
-                {
-                    _db.Hexes.UpdateTerrain(e.HexMapCoordinate, terrainId, vegetationId);
-                }
-                else
-                {
-                    _db.Hexes.Create(e.HexMapCoordinate, terrainId, vegetationId);
-                }
-                
-            }
-            else if (_currentDrawingTools == DrawingTools.Icons)
-            {
-                int iconId = _tiles.GetIcons()[cmbIcon.SelectedIndex].Id;
-
-                if (!_db.Hexes.HexExists(e.HexMapCoordinate))
-                {
-                    _db.Hexes.Create(e.HexMapCoordinate, 0, 0);
-                }
-                _db.Hexes.UpdateIcon(e.HexMapCoordinate, iconId);
-            }
-            else if (_currentDrawingTools == DrawingTools.River)
-            {
-                DrawConnection(e, cmbRiver.SelectedIndex);
-            }
-            else if (_currentDrawingTools == DrawingTools.Road)
-            {
-                DrawConnection(e, cmbRoad.SelectedIndex + 3);
+                //Successfully painted
             }
 
             DrawMap();
@@ -169,41 +170,9 @@ namespace HexAdventureMapper
 
         private void RemoveTerrain(MapEventArgs e)
         {
-            if (_currentDrawingTools == DrawingTools.River)
+            if (_painter.TryRemove(e))
             {
-                RemoveConnection(e, cmbRiver.SelectedIndex);
-            }
-            else if (_currentDrawingTools == DrawingTools.Road)
-            {
-                RemoveConnection(e, cmbRoad.SelectedIndex + 3);
-            }
-
-            DrawMap();
-        }
-
-        private void DrawConnection(MapEventArgs e, int type)
-        {
-            Direction direction = PositionManager.PartOfHexClicked((int)e.X, (int)e.Y);
-            if (direction != Direction.None)
-            {
-                _db.HexConnections.Create(e.HexMapCoordinate, type, direction);
-                HexCoordinate mapNeighborCoordinate = PositionManager.NeighborTo(e.HexMapCoordinate, direction);
-                Debug.WriteLine("First is X: " + e.HexMapCoordinate.X + " Y: " + e.HexMapCoordinate.Y);
-                Debug.WriteLine("Neighbor is X: " + mapNeighborCoordinate.X + " Y: " + mapNeighborCoordinate.Y);
-                Direction oppositeDirection = PositionManager.OppositeDirection(direction);
-                _db.HexConnections.Create(mapNeighborCoordinate, type, oppositeDirection);
-            }
-        }
-
-        private void RemoveConnection(MapEventArgs e, int type)
-        {
-            Direction direction = PositionManager.PartOfHexClicked((int)e.X, (int)e.Y);
-            if (direction != Direction.None)
-            {
-                _db.HexConnections.Remove(e.HexMapCoordinate, direction);
-                HexCoordinate mapNeighborCoordinate = PositionManager.NeighborTo(e.HexMapCoordinate, direction);
-                Direction oppositeDirection = PositionManager.OppositeDirection(direction);
-                _db.HexConnections.Remove(mapNeighborCoordinate, oppositeDirection);
+                DrawMap();
             }
         }
 
@@ -342,11 +311,5 @@ namespace HexAdventureMapper
                 Application.Exit();
             }
         }
-
-        //private void imgHexMap_Resize(object sender, System.EventArgs e)
-        //{
-        //    _hexMapFactory.SelectedCoordinate = null;
-        //    DrawMap();
-        //}
     }
 }

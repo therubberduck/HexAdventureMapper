@@ -20,9 +20,8 @@ namespace HexAdventureMapper.Database
             Hexes = new DbHex(this, dbWrapper);
             HexConnections = new DbHexConnection(this, dbWrapper);
 
-            dbWrapper.CreateTables(new IDbModule[] {Hexes, HexConnections});
-
-            TestData.AddTestData(this);
+            //dbWrapper.CreateTables(new IDbModule[] {Hexes, HexConnections});
+            //TestData.AddTestData(this);
         }
 
         public void SaveDb()

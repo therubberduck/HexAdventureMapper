@@ -84,16 +84,17 @@ namespace HexAdventureMapper.Views
         public long Y { get; private set; }
         public MouseButtons Button { get; private set; }
         public int Clicks { get; private set; }
-        public HexCoordinate HexMapCoordinate { get; private set; }
+        public HexCoordinate HexWorldCoordinate { get; private set; }
         public HexCoordinate HexScreenCoordinate { get; private set; }
+        public Direction PartOfHexClicked => PositionManager.PartOfHexClicked((int) X, (int) Y);
 
-        public MapEventArgs(long mouseX, long mouseY, MouseButtons mouseButton, int clicks, HexCoordinate hexMapCoordinate)
+        public MapEventArgs(long mouseX, long mouseY, MouseButtons mouseButton, int clicks, HexCoordinate hexWorldCoordinate)
         {
             X = mouseX;
             Y = mouseY;
             Button = mouseButton;
             Clicks = clicks;
-            HexMapCoordinate = hexMapCoordinate;
+            HexWorldCoordinate = hexWorldCoordinate;
             HexScreenCoordinate = PositionManager.ScreenToHex(X, Y);
         }
     }
