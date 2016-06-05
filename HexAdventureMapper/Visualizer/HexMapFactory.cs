@@ -35,6 +35,10 @@ namespace HexAdventureMapper.Visualizer
 
         public Image MakeMapFromEntireArea(List<Hex> hexes)
         {
+            if (_mapBox.Width == 0 || _mapBox.Height == 0)
+            {
+                return null;
+            }
             var map = new Bitmap(_mapBox.Width, _mapBox.Height);
             using (Graphics graphics = Graphics.FromImage(map))
             {
