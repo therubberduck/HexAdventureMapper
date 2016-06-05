@@ -158,10 +158,10 @@ namespace HexAdventureMapper.Painting
         {
             if (direction != Direction.None)
             {
-                _db.HexConnections.Remove(worldCoordinate, direction);
+                _db.HexConnections.Remove(worldCoordinate, direction, type);
                 HexCoordinate mapNeighborCoordinate = PositionManager.NeighborTo(worldCoordinate, direction);
                 Direction oppositeDirection = PositionManager.OppositeDirection(direction);
-                _db.HexConnections.Remove(mapNeighborCoordinate, oppositeDirection);
+                _db.HexConnections.Remove(mapNeighborCoordinate, oppositeDirection, type);
                 return true;
             }
             else

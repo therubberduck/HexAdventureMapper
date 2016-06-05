@@ -35,9 +35,9 @@ namespace HexAdventureMapper.Database.Modules
             return Db.Insert(TableName, new[] { HexCoorX, HexCoorY, Type, ToEdge }, new object[] { coor.X, coor.Y, type, (int)toEdge });
         }
 
-        public void Remove(HexCoordinate coor, Direction toEdge)
+        public void Remove(HexCoordinate coor, Direction toEdge, int type)
         {
-            Db.Delete(TableName, new[] { HexCoorX, HexCoorY, ToEdge }, new object[] { coor.X, coor.Y, (int)toEdge });
+            Db.Delete(TableName, new[] { HexCoorX, HexCoorY, ToEdge, Type }, new object[] { coor.X, coor.Y, (int)toEdge, type });
         }
 
         public List<HexConnection> GetConnectionsForHex(HexCoordinate coor)
