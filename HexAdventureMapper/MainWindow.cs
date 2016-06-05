@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using HexAdventureMapper.Database;
@@ -118,8 +119,11 @@ namespace HexAdventureMapper
 
         private void DrawMap()
         {
-            imgHexMap.Image = _hexMapFactory.MakeLocalMap();
-
+            Image map = _hexMapFactory.MakeLocalMap();
+            if (map != null)
+            {
+                imgHexMap.Image = map;
+            }
         }
 
         private void imgHexMap_MapDrag(object sender, MapEventArgs e)
