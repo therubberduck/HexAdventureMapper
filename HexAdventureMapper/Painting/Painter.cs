@@ -35,11 +35,11 @@ namespace HexAdventureMapper.Painting
             }
             else if (drawingTool == MainWindow.DrawingTools.River)
             {
-                PaintRiver(e.HexWorldCoordinate, e.PartOfHexClicked);
+                return PaintRiver(e.HexWorldCoordinate, e.PartOfHexClicked);
             }
             else if (drawingTool == MainWindow.DrawingTools.Road)
             {
-                PaintRoad(e.HexWorldCoordinate, e.PartOfHexClicked);
+                return PaintRoad(e.HexWorldCoordinate, e.PartOfHexClicked);
             }
             else
             {
@@ -61,11 +61,11 @@ namespace HexAdventureMapper.Painting
             }
             else if (drawingTool == MainWindow.DrawingTools.River)
             {
-                RemoveRiver(e.HexWorldCoordinate, e.PartOfHexClicked);
+                return RemoveRiver(e.HexWorldCoordinate, e.PartOfHexClicked);
             }
             else if (drawingTool == MainWindow.DrawingTools.Road)
             {
-                RemoveRoad(e.HexWorldCoordinate, e.PartOfHexClicked);
+                return RemoveRoad(e.HexWorldCoordinate, e.PartOfHexClicked);
             }
             else
             {
@@ -100,14 +100,14 @@ namespace HexAdventureMapper.Painting
             _db.Hexes.UpdateIcon(worldCoordinate, iconId);
         }
 
-        public void PaintRiver(HexCoordinate worldCoordinate, Direction direction)
+        public bool PaintRiver(HexCoordinate worldCoordinate, Direction direction)
         {
-            DrawConnection(worldCoordinate, direction, _uiInterface.GetRiverId());
+            return DrawConnection(worldCoordinate, direction, _uiInterface.GetRiverId());
         }
 
-        public void PaintRoad(HexCoordinate worldCoordinate, Direction direction)
+        public bool PaintRoad(HexCoordinate worldCoordinate, Direction direction)
         {
-            DrawConnection(worldCoordinate, direction, _uiInterface.GetRoadId());
+            return DrawConnection(worldCoordinate, direction, _uiInterface.GetRoadId());
         }
 
         private void ClearTerrain(HexCoordinate worldCoordinate)
@@ -126,17 +126,17 @@ namespace HexAdventureMapper.Painting
             }
         }
 
-        public void RemoveRiver(HexCoordinate worldCoordinate, Direction direction)
+        public bool RemoveRiver(HexCoordinate worldCoordinate, Direction direction)
         {
-            RemoveConnection(worldCoordinate, direction, _uiInterface.GetRiverId());
+            return RemoveConnection(worldCoordinate, direction, _uiInterface.GetRiverId());
         }
 
-        public void RemoveRoad(HexCoordinate worldCoordinate, Direction direction)
+        public bool RemoveRoad(HexCoordinate worldCoordinate, Direction direction)
         {
-            RemoveConnection(worldCoordinate, direction, _uiInterface.GetRoadId());
+            return RemoveConnection(worldCoordinate, direction, _uiInterface.GetRoadId());
         }
 
-        private void DrawConnection(HexCoordinate worldCoordinate, Direction direction, int type)
+        private bool DrawConnection(HexCoordinate worldCoordinate, Direction direction, int type)
         {
             if (direction != Direction.None)
             {
@@ -146,10 +146,15 @@ namespace HexAdventureMapper.Painting
                 Debug.WriteLine("Neighbor is X: " + mapNeighborCoordinate.X + " Y: " + mapNeighborCoordinate.Y);
                 Direction oppositeDirection = PositionManager.OppositeDirection(direction);
                 _db.HexConnections.Create(mapNeighborCoordinate, type, oppositeDirection);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        private void RemoveConnection(HexCoordinate worldCoordinate, Direction direction, int type)
+        private bool RemoveConnection(HexCoordinate worldCoordinate, Direction direction, int type)
         {
             if (direction != Direction.None)
             {
@@ -157,6 +162,11 @@ namespace HexAdventureMapper.Painting
                 HexCoordinate mapNeighborCoordinate = PositionManager.NeighborTo(worldCoordinate, direction);
                 Direction oppositeDirection = PositionManager.OppositeDirection(direction);
                 _db.HexConnections.Remove(mapNeighborCoordinate, oppositeDirection);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
