@@ -114,8 +114,7 @@ namespace HexAdventureMapper
 
         private void DrawMap()
         {
-            var map = _hexMapFactory.MakeLocalMap();
-            imgHexMap.Image = map;
+            imgHexMap.Image = _hexMapFactory.MakeLocalMap();
 
         }
 
@@ -123,11 +122,10 @@ namespace HexAdventureMapper
         {
             if (e.Button == MouseButtons.Left)
             {
-                HexCoordinate currentCoordinate = PositionManager.ScreenToHex(e.X, e.Y);
-                if (_lastDraggedHex == null || !_lastDraggedHex.Equals(currentCoordinate))
+                if (_lastDraggedHex == null || !_lastDraggedHex.Equals(e.HexScreenCoordinate))
                 {
-                    _lastDraggedHex = currentCoordinate;
-                    PaintTerrain(e);
+                    _lastDraggedHex = e.HexScreenCoordinate;
+                    imgHexMap_MapClick(sender, e);
                 }
             }
         }
@@ -136,98 +134,81 @@ namespace HexAdventureMapper
         {
             if (e.Button == MouseButtons.Left)
             {
-                PaintTerrain(e);
+                if (_currentDrawingTools == DrawingTools.Select)
+                {
+                    _hexMapFactory.SelectedCoordinate = e.HexWorldCoordinate;
+                    DrawMap();
+
+                    Hex hex = _db.Hexes.GetForCoordinate(e.HexWorldCoordinate);
+                    if (hex != null)
+                    {
+                        txtDetail.Text = hex.Detail;
+                    }
+                    else
+                    {
+                        txtDetail.Text = "";
+                    }
+                }
+                else if (_painter.TryPaint(e))
+                {
+                    DrawMap();
+                }
             }
             else if (e.Button == MouseButtons.Right)
             {
-                RemoveTerrain(e);
-            }
-        }
-
-        private void PaintTerrain(MapEventArgs e)
-        {
-            if (_currentDrawingTools == DrawingTools.Select)
-            {
-                _hexMapFactory.SelectedCoordinate = e.HexWorldCoordinate;
-                
-                Hex hex = _db.Hexes.GetForCoordinate(e.HexWorldCoordinate);
-                if (hex != null)
+                if (_painter.TryRemove(e))
                 {
-                    txtDetail.Text = hex.Detail;
-                }
-                else
-                {
-                    txtDetail.Text = "";
+                    DrawMap();
                 }
             }
-            else if (_painter.TryPaint(e))
+        }
+
+        private void Combobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (sender == cmbTerrain || sender == cmbVegetation)
             {
-                //Successfully painted
+                rbTerrain.Checked = true;
             }
-
-            DrawMap();
-        }
-
-        private void RemoveTerrain(MapEventArgs e)
-        {
-            if (_painter.TryRemove(e))
+            else if (sender == cmbIcon)
             {
-                DrawMap();
+                rbIcons.Checked = true;
+            }
+            else if (sender == cmbRiver)
+            {
+                rbRiver.Checked = true;
+            }
+            else if (sender == cmbRoad)
+            {
+                rbRoad.Checked = true;
             }
         }
 
-        private void cmbTerrain_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void RadioButton_CheckedChanged(object sender, System.EventArgs e)
         {
-            rbTerrain.Checked = true;
-        }
-
-        private void cmbVegetation_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            rbTerrain.Checked = true;
-        }
-
-        private void cmbIcon_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            rbIcons.Checked = true;
-        }
-
-        private void cmbRiver_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            rbRiver.Checked = true;
-        }
-
-        private void cmbRoad_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            rdRoad.Checked = true;
-        }
-
-        private void rbSelect_CheckedChanged(object sender, System.EventArgs e)
-        {
-            _currentDrawingTools = DrawingTools.Select;
-        }
-
-        private void rbTerrain_CheckedChanged(object sender, System.EventArgs e)
-        {
-            _currentDrawingTools = DrawingTools.Terrain;
-            _hexMapFactory.SelectedCoordinate = null;
-        }
-
-        private void rbIcons_CheckedChanged(object sender, System.EventArgs e)
-        {
-            _currentDrawingTools = DrawingTools.Icons;
-            _hexMapFactory.SelectedCoordinate = null;
-        }
-
-        private void rbRiver_CheckedChanged(object sender, System.EventArgs e)
-        {
-            _currentDrawingTools = DrawingTools.River;
-            _hexMapFactory.SelectedCoordinate = null;
-        }
-
-        private void rdRoad_CheckedChanged(object sender, System.EventArgs e)
-        {
-            _currentDrawingTools = DrawingTools.Road;
-            _hexMapFactory.SelectedCoordinate = null;
+            if (sender == rbSelect)
+            {
+                _currentDrawingTools = DrawingTools.Select;
+            }
+            else
+            {
+                if (sender == rbTerrain)
+                {
+                    _currentDrawingTools = DrawingTools.Terrain;
+                }
+                else if (sender == rbIcons)
+                {
+                    _currentDrawingTools = DrawingTools.Icons;
+                }
+                else if (sender == rbRiver)
+                {
+                    _currentDrawingTools = DrawingTools.River;
+                }
+                else if (sender == rbRoad)
+                {
+                    _currentDrawingTools = DrawingTools.Road;
+                }
+                _hexMapFactory.SelectedCoordinate = null;
+            }
         }
 
         private void txtDetail_TextChanged(object sender, System.EventArgs e)

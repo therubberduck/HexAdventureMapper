@@ -43,7 +43,7 @@ namespace HexAdventureMapper
             this.rbIcons = new System.Windows.Forms.RadioButton();
             this.rbRiver = new System.Windows.Forms.RadioButton();
             this.cmbRiver = new System.Windows.Forms.ComboBox();
-            this.rdRoad = new System.Windows.Forms.RadioButton();
+            this.rbRoad = new System.Windows.Forms.RadioButton();
             this.cmbRoad = new System.Windows.Forms.ComboBox();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -124,7 +124,7 @@ namespace HexAdventureMapper
             this.rbSelect.TabStop = true;
             this.rbSelect.Text = "Select";
             this.rbSelect.UseVisualStyleBackColor = true;
-            this.rbSelect.CheckedChanged += new System.EventHandler(this.rbSelect_CheckedChanged);
+            this.rbSelect.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // cmbTerrain
             // 
@@ -133,7 +133,7 @@ namespace HexAdventureMapper
             this.cmbTerrain.Name = "cmbTerrain";
             this.cmbTerrain.Size = new System.Drawing.Size(101, 21);
             this.cmbTerrain.TabIndex = 2;
-            this.cmbTerrain.SelectedIndexChanged += new System.EventHandler(this.cmbTerrain_SelectedIndexChanged);
+            this.cmbTerrain.SelectedIndexChanged += new System.EventHandler(this.Combobox_SelectedIndexChanged);
             // 
             // cmbVegetation
             // 
@@ -142,7 +142,7 @@ namespace HexAdventureMapper
             this.cmbVegetation.Name = "cmbVegetation";
             this.cmbVegetation.Size = new System.Drawing.Size(101, 21);
             this.cmbVegetation.TabIndex = 3;
-            this.cmbVegetation.SelectedIndexChanged += new System.EventHandler(this.cmbVegetation_SelectedIndexChanged);
+            this.cmbVegetation.SelectedIndexChanged += new System.EventHandler(this.Combobox_SelectedIndexChanged);
             // 
             // cmbIcon
             // 
@@ -151,7 +151,7 @@ namespace HexAdventureMapper
             this.cmbIcon.Name = "cmbIcon";
             this.cmbIcon.Size = new System.Drawing.Size(101, 21);
             this.cmbIcon.TabIndex = 5;
-            this.cmbIcon.SelectedIndexChanged += new System.EventHandler(this.cmbIcon_SelectedIndexChanged);
+            this.cmbIcon.SelectedIndexChanged += new System.EventHandler(this.Combobox_SelectedIndexChanged);
             // 
             // rbTerrain
             // 
@@ -162,7 +162,7 @@ namespace HexAdventureMapper
             this.rbTerrain.TabIndex = 6;
             this.rbTerrain.TabStop = true;
             this.rbTerrain.UseVisualStyleBackColor = true;
-            this.rbTerrain.CheckedChanged += new System.EventHandler(this.rbTerrain_CheckedChanged);
+            this.rbTerrain.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // rbIcons
             // 
@@ -173,7 +173,7 @@ namespace HexAdventureMapper
             this.rbIcons.TabIndex = 7;
             this.rbIcons.TabStop = true;
             this.rbIcons.UseVisualStyleBackColor = true;
-            this.rbIcons.CheckedChanged += new System.EventHandler(this.rbIcons_CheckedChanged);
+            this.rbIcons.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // rbRiver
             // 
@@ -184,7 +184,7 @@ namespace HexAdventureMapper
             this.rbRiver.TabIndex = 8;
             this.rbRiver.TabStop = true;
             this.rbRiver.UseVisualStyleBackColor = true;
-            this.rbRiver.CheckedChanged += new System.EventHandler(this.rbRiver_CheckedChanged);
+            this.rbRiver.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // cmbRiver
             // 
@@ -193,18 +193,18 @@ namespace HexAdventureMapper
             this.cmbRiver.Name = "cmbRiver";
             this.cmbRiver.Size = new System.Drawing.Size(101, 21);
             this.cmbRiver.TabIndex = 9;
-            this.cmbRiver.SelectedIndexChanged += new System.EventHandler(this.cmbRiver_SelectedIndexChanged);
+            this.cmbRiver.SelectedIndexChanged += new System.EventHandler(this.Combobox_SelectedIndexChanged);
             // 
-            // rdRoad
+            // rbRoad
             // 
-            this.rdRoad.AutoSize = true;
-            this.rdRoad.Location = new System.Drawing.Point(12, 161);
-            this.rdRoad.Name = "rdRoad";
-            this.rdRoad.Size = new System.Drawing.Size(14, 13);
-            this.rdRoad.TabIndex = 10;
-            this.rdRoad.TabStop = true;
-            this.rdRoad.UseVisualStyleBackColor = true;
-            this.rdRoad.CheckedChanged += new System.EventHandler(this.rdRoad_CheckedChanged);
+            this.rbRoad.AutoSize = true;
+            this.rbRoad.Location = new System.Drawing.Point(12, 161);
+            this.rbRoad.Name = "rbRoad";
+            this.rbRoad.Size = new System.Drawing.Size(14, 13);
+            this.rbRoad.TabIndex = 10;
+            this.rbRoad.TabStop = true;
+            this.rbRoad.UseVisualStyleBackColor = true;
+            this.rbRoad.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // cmbRoad
             // 
@@ -213,7 +213,7 @@ namespace HexAdventureMapper
             this.cmbRoad.Name = "cmbRoad";
             this.cmbRoad.Size = new System.Drawing.Size(101, 21);
             this.cmbRoad.TabIndex = 11;
-            this.cmbRoad.SelectedIndexChanged += new System.EventHandler(this.cmbRoad_SelectedIndexChanged);
+            this.cmbRoad.SelectedIndexChanged += new System.EventHandler(this.Combobox_SelectedIndexChanged);
             // 
             // menuStrip
             // 
@@ -281,7 +281,7 @@ namespace HexAdventureMapper
             this.Controls.Add(this.btnMoveWest);
             this.Controls.Add(this.rbSelect);
             this.Controls.Add(this.cmbRoad);
-            this.Controls.Add(this.rdRoad);
+            this.Controls.Add(this.rbRoad);
             this.Controls.Add(this.cmbRiver);
             this.Controls.Add(this.rbRiver);
             this.Controls.Add(this.rbIcons);
@@ -317,7 +317,7 @@ namespace HexAdventureMapper
         private System.Windows.Forms.RadioButton rbIcons;
         private System.Windows.Forms.RadioButton rbRiver;
         private System.Windows.Forms.ComboBox cmbRiver;
-        private System.Windows.Forms.RadioButton rdRoad;
+        private System.Windows.Forms.RadioButton rbRoad;
         private System.Windows.Forms.ComboBox cmbRoad;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
