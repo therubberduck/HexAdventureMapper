@@ -72,7 +72,7 @@ namespace HexAdventureMapper
             }
             cmbRiver.SelectedIndex = 1;
 
-            List<string> roadSizes = new List<string> { "Trail", "Dirt Road", "Cobbled Road" };
+            List<string> roadSizes = new List<string> { "Trail", "Dirt Road", "Cobbled Road", "Ancient Road" };
             foreach (string roadSize in roadSizes)
             {
                 cmbRoad.Items.Add(roadSize);

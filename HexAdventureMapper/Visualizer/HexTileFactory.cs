@@ -149,6 +149,10 @@ namespace HexAdventureMapper.Visualizer
                         color = Color.DimGray;
                         roadWidth = 4;
                         break;
+                    case 6:
+                        color = Color.DarkSeaGreen;
+                        roadWidth = 4;
+                        break;
                     default:
                         color = Color.Brown;
                         roadWidth = 1;
