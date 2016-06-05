@@ -29,6 +29,8 @@ namespace HexAdventureMapper
         private HexMapFactory _hexMapFactory;
         private Painter _painter;
 
+        private System.Threading.Timer _autoSaveTimer;
+
         private DrawingTools _currentDrawingTools;
         private HexCoordinate _lastDraggedHex;
 
@@ -80,6 +82,8 @@ namespace HexAdventureMapper
             rbTerrain.Checked = true;
 
             DrawMap();
+
+            _autoSaveTimer = new System.Threading.Timer(e => AutoSave(), null, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
         }
 
         public DrawingTools GetDrawingTool()
@@ -250,6 +254,17 @@ namespace HexAdventureMapper
             DrawMap();
         }
 
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Do you really want a new map? You will lose all unsaved work.", "New Map", MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Stop);
+            if (result == DialogResult.OK)
+            {
+                _db.ClearDb();
+                DrawMap();
+            }
+        }
+
         private void loadToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
@@ -260,10 +275,15 @@ namespace HexAdventureMapper
             DialogResult result = fileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                string dbPath = "db.sqlite";
-                string savePath = fileDialog.FileName;
-                File.Copy(savePath, dbPath, true);
-                DrawMap();
+                DialogResult result2 = MessageBox.Show("Do you really want to load the map? You will lose all unsaved work.", "Load Map", MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Stop);
+                if (result2 == DialogResult.OK)
+                {
+                    string dbPath = "db.sqlite";
+                    string savePath = fileDialog.FileName;
+                    File.Copy(savePath, dbPath, true);
+                    DrawMap();
+                }
             }
         }
 
@@ -281,6 +301,13 @@ namespace HexAdventureMapper
                 string savePath = fileDialog.FileName;
                 File.Copy(dbPath, savePath, true);
             }
+        }
+
+        private void AutoSave()
+        {
+            string dbPath = "db.sqlite";
+            string savePath = "autosave.ham";
+            File.Copy(dbPath, savePath, true);
         }
 
         private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)
