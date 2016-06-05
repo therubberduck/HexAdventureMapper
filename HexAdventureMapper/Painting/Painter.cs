@@ -51,7 +51,15 @@ namespace HexAdventureMapper.Painting
         public bool TryRemove(MapEventArgs e)
         {
             MainWindow.DrawingTools drawingTool = _uiInterface.GetDrawingTool();
-            if (drawingTool == MainWindow.DrawingTools.River)
+            if (drawingTool == MainWindow.DrawingTools.Terrain)
+            {
+                ClearTerrain(e.HexWorldCoordinate);
+            }
+            else if (drawingTool == MainWindow.DrawingTools.Icons)
+            {
+                ClearIcons(e.HexWorldCoordinate);
+            }
+            else if (drawingTool == MainWindow.DrawingTools.River)
             {
                 RemoveRiver(e.HexWorldCoordinate, e.PartOfHexClicked);
             }
@@ -100,6 +108,22 @@ namespace HexAdventureMapper.Painting
         public void PaintRoad(HexCoordinate worldCoordinate, Direction direction)
         {
             DrawConnection(worldCoordinate, direction, _uiInterface.GetRoadId());
+        }
+
+        private void ClearTerrain(HexCoordinate worldCoordinate)
+        {
+            if (_db.Hexes.HexExists(worldCoordinate))
+            {
+                _db.Hexes.ClearTerrain(worldCoordinate);
+            }
+        }
+
+        private void ClearIcons(HexCoordinate worldCoordinate)
+        {
+            if (_db.Hexes.HexExists(worldCoordinate))
+            {
+                _db.Hexes.ClearIcons(worldCoordinate);
+            }
         }
 
         public void RemoveRiver(HexCoordinate worldCoordinate, Direction direction)

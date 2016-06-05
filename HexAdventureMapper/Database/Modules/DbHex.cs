@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using HexAdventureMapper.Database.WorkingClasses;
@@ -99,6 +100,16 @@ namespace HexAdventureMapper.Database.Modules
         public void UpdateDetail(HexCoordinate coor, string detail)
         {
             Db.Update(TableName, new[] { Detail }, new object[] { detail }, new[] { CoordinateX, CoordinateY }, new object[] { coor.X, coor.Y });
+        }
+
+        public void ClearTerrain(HexCoordinate worldCoordinate)
+        {
+            UpdateTerrain(worldCoordinate, 0, 0);
+        }
+
+        public void ClearIcons(HexCoordinate worldCoordinate)
+        {
+            UpdateIcon(worldCoordinate, 0);
         }
 
         protected override Hex MakeObject(object[] dbObject)
