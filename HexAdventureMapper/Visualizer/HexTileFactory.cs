@@ -205,7 +205,7 @@ namespace HexAdventureMapper.Visualizer
 
         private void AddIconLayer(Graphics graphics, Hex hex)
         {
-            var pictureLocationAndSize = new Rectangle(0, 0, hexWidth, hexHeight);
+            var pictureLocationAndSize = new Rectangle(hexWidth/4, hexHeight/4, hexWidth/2, hexHeight/2);
 
             var iconImageLocation = _tiles.GetIcon(hex.Icons[0]).ImageLocation;
             using (var image = Image.FromFile(iconImageLocation))
