@@ -48,7 +48,7 @@ namespace HexAdventureMapper.Database.Modules
 
             return Db.Insert(TableName, 
                 new [] {CoordinateX, CoordinateY, Terrain, Vegetation, Icons, Detail, RiverOffsetX, RiverOffsetY, RoadOffsetX, RoadOffsetY}, 
-                new object[] { coor.X, coor.Y, terrainId, vegetationId, 0, "", -5, 0, 0, 0});
+                new object[] { coor.X, coor.Y, terrainId, vegetationId, 0, "", -10, 0, 0, 0});
         }
 
         public bool HexExists(HexCoordinate coordinate)
