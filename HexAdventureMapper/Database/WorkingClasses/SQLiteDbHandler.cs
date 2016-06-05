@@ -150,18 +150,29 @@ namespace HexAdventureMapper.Database.WorkingClasses
         public void Update(string table, string[] columns, object[] values, string[] whereColumns, object[] whereValues)
         {
             string setString = "";
+            List<SQLiteParameter> parameters = new List<SQLiteParameter>();
             for (int i = 0; i < columns.Length; i++)
             {
-                object value = values[i];
-                value = FormatValueAsString(value);
-                setString += columns[i] + "=" + value + ",";
+                setString += columns[i] + "=@value" + i + ",";
+                SQLiteParameter param = new SQLiteParameter()
+                {
+                    ParameterName = "@value" + i,
+                    Value = values[i]
+                };
+                parameters.Add(param);
             }
             setString = setString.Remove(setString.Length - 1);
 
             string whereString = MakeWhereString(whereColumns, whereValues);
 
-            string commandString = "Update " + table + " set " + setString + " where " + whereString;
-            ExecuteCommand(commandString);
+            string commandString = "UPDATE " + table + " SET " + setString + " WHERE " + whereString;
+
+            SQLiteCommand cmd = new SQLiteCommand(commandString, _conn);
+            foreach (var sqLiteParameter in parameters)
+            {
+                cmd.Parameters.Add(sqLiteParameter);
+            }
+            cmd.ExecuteNonQuery();
         }
 
         public void Delete(string table, string whereColumn, object whereValue)
