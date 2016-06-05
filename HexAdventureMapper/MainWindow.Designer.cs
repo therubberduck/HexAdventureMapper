@@ -47,11 +47,11 @@ namespace HexAdventureMapper
             this.cmbRoad = new System.Windows.Forms.ComboBox();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imgHexMap = new HexAdventureMapper.Views.MapBox();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgHexMap)).BeginInit();
             this.SuspendLayout();
@@ -135,6 +135,7 @@ namespace HexAdventureMapper
             this.cmbTerrain.Size = new System.Drawing.Size(101, 21);
             this.cmbTerrain.TabIndex = 2;
             this.cmbTerrain.SelectedIndexChanged += new System.EventHandler(this.Combobox_SelectedIndexChanged);
+            this.cmbTerrain.Click += new System.EventHandler(this.ComboBox_Clicked);
             // 
             // cmbVegetation
             // 
@@ -144,6 +145,7 @@ namespace HexAdventureMapper
             this.cmbVegetation.Size = new System.Drawing.Size(101, 21);
             this.cmbVegetation.TabIndex = 3;
             this.cmbVegetation.SelectedIndexChanged += new System.EventHandler(this.Combobox_SelectedIndexChanged);
+            this.cmbVegetation.Click += new System.EventHandler(this.ComboBox_Clicked);
             // 
             // cmbIcon
             // 
@@ -153,6 +155,7 @@ namespace HexAdventureMapper
             this.cmbIcon.Size = new System.Drawing.Size(101, 21);
             this.cmbIcon.TabIndex = 5;
             this.cmbIcon.SelectedIndexChanged += new System.EventHandler(this.Combobox_SelectedIndexChanged);
+            this.cmbIcon.Click += new System.EventHandler(this.ComboBox_Clicked);
             // 
             // rbTerrain
             // 
@@ -195,6 +198,7 @@ namespace HexAdventureMapper
             this.cmbRiver.Size = new System.Drawing.Size(101, 21);
             this.cmbRiver.TabIndex = 9;
             this.cmbRiver.SelectedIndexChanged += new System.EventHandler(this.Combobox_SelectedIndexChanged);
+            this.cmbRiver.Click += new System.EventHandler(this.ComboBox_Clicked);
             // 
             // rbRoad
             // 
@@ -215,6 +219,7 @@ namespace HexAdventureMapper
             this.cmbRoad.Size = new System.Drawing.Size(101, 21);
             this.cmbRoad.TabIndex = 11;
             this.cmbRoad.SelectedIndexChanged += new System.EventHandler(this.Combobox_SelectedIndexChanged);
+            this.cmbRoad.Click += new System.EventHandler(this.ComboBox_Clicked);
             // 
             // menuStrip
             // 
@@ -237,24 +242,31 @@ namespace HexAdventureMapper
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -270,13 +282,6 @@ namespace HexAdventureMapper
             this.imgHexMap.TabIndex = 4;
             this.imgHexMap.TabStop = false;
             this.imgHexMap.SizeChanged += new System.EventHandler(this.imgHexMap_SizeChanged);
-            // 
-            // newToolStripMenuItem
-            // 
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.newToolStripMenuItem.Text = "New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // MainWindow
             // 

@@ -224,6 +224,11 @@ namespace HexAdventureMapper
             }
         }
 
+        private void ComboBox_Clicked(object sender, EventArgs e)
+        {
+            ((ComboBox)sender).DroppedDown = true;
+        }
+
         private void RadioButton_CheckedChanged(object sender, System.EventArgs e)
         {
             if (sender == rbSelect)
