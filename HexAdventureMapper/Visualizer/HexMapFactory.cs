@@ -61,13 +61,45 @@ namespace HexAdventureMapper.Visualizer
                     HexCoordinate positionOnVisibleMap = SelectedCoordinate.Minus(_mapBox.TopLeftCoordinate);
                     Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
                     var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
-                    
+
                     using (var image = Image.FromFile("Images/SelectBorder.png"))
                     {
                         graphics.DrawImage(image, pictureLocationAndSize);
                     }
                 }
-                
+
+            }
+            return map;
+        }
+
+        public Image RedrawHex(HexCoordinate worldCoordinate, Image map)
+        {
+            using (Graphics graphics = Graphics.FromImage(map))
+            {
+                graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                var hex = _db.Hexes.GetForCoordinate(worldCoordinate);
+
+                HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(_mapBox.TopLeftCoordinate);
+                Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
+                var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
+
+                Image image = HexTileFactory.GetMapTileFor(hex);
+                graphics.DrawImage(image, pictureLocationAndSize);
+
+                if (SelectedCoordinate != null)
+                {
+                    positionOnVisibleMap = SelectedCoordinate.Minus(_mapBox.TopLeftCoordinate);
+                    positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
+                    pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
+
+                    using (var selectImage = Image.FromFile("Images/SelectBorder.png"))
+                    {
+                        graphics.DrawImage(selectImage, pictureLocationAndSize);
+                    }
+                }
             }
             return map;
         }

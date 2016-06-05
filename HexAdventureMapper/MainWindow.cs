@@ -144,30 +144,61 @@ namespace HexAdventureMapper
             {
                 if (_currentDrawingTools == DrawingTools.Select)
                 {
-                    _hexMapFactory.SelectedCoordinate = e.HexWorldCoordinate;
-                    DrawMap();
-
-                    Hex hex = _db.Hexes.GetForCoordinate(e.HexWorldCoordinate);
-                    if (hex != null)
+                    SelectHex(e);
+                }
+                else if (_painter.TryPaint(e)) //Since we are not selecting, we are painting. Try to paint
+                {
+                    if (_currentDrawingTools == DrawingTools.River || _currentDrawingTools == DrawingTools.Road)
                     {
-                        txtDetail.Text = hex.Detail;
+                        //For connections, we also redraw the neighboring hex, since it also gets a connection that needs drawing
+                        var neighborHex = PositionManager.NeighborTo(e.HexWorldCoordinate, e.PartOfHexClicked);
+                        imgHexMap.Image = _hexMapFactory.RedrawHex(e.HexWorldCoordinate, imgHexMap.Image);
+                        imgHexMap.Image = _hexMapFactory.RedrawHex(neighborHex, imgHexMap.Image);
                     }
                     else
                     {
-                        txtDetail.Text = "";
+                        imgHexMap.Image = _hexMapFactory.RedrawHex(e.HexWorldCoordinate, imgHexMap.Image); //Redraw the changed hex
                     }
-                }
-                else if (_painter.TryPaint(e))
-                {
-                    DrawMap();
                 }
             }
             else if (e.Button == MouseButtons.Right)
             {
-                if (_painter.TryRemove(e))
+                if (_painter.TryRemove(e)) //Try to delete
                 {
-                    DrawMap();
+                    if (_currentDrawingTools == DrawingTools.River || _currentDrawingTools == DrawingTools.Road)
+                    {
+                        //For connections, we also redraw the neighboring hex, since it also has a connection removed that needs drawing
+                        var neighborHex = PositionManager.NeighborTo(e.HexWorldCoordinate, e.PartOfHexClicked);
+                        imgHexMap.Image = _hexMapFactory.RedrawHex(e.HexWorldCoordinate, imgHexMap.Image);
+                        imgHexMap.Image = _hexMapFactory.RedrawHex(neighborHex, imgHexMap.Image);
+                    }
+                    else
+                    {
+                        imgHexMap.Image = _hexMapFactory.RedrawHex(e.HexWorldCoordinate, imgHexMap.Image); //Redraw the changed hex
+                    }
                 }
+            }
+        }
+
+        private void SelectHex(MapEventArgs e)
+        {
+            if (_hexMapFactory.SelectedCoordinate != null) //Redraw the previously selected hex (deselect) if there was a previously selected hex
+            {
+                imgHexMap.Image = _hexMapFactory.RedrawHex(_hexMapFactory.SelectedCoordinate, imgHexMap.Image);
+            }
+
+            _hexMapFactory.SelectedCoordinate = e.HexWorldCoordinate; //Mark the new hex as selected
+            imgHexMap.Image = _hexMapFactory.RedrawHex(e.HexWorldCoordinate, imgHexMap.Image); //Draw the selection
+
+            //Update the textfield with the hex's detail (if any)
+            Hex hex = _db.Hexes.GetForCoordinate(e.HexWorldCoordinate);
+            if (hex != null)
+            {
+                txtDetail.Text = hex.Detail;
+            }
+            else
+            {
+                txtDetail.Text = "";
             }
         }
 
