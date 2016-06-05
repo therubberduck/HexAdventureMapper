@@ -126,6 +126,15 @@ namespace HexAdventureMapper
             }
         }
 
+        private void DrawHex(HexCoordinate coordinate)
+        {
+            Image map = _hexMapFactory.RedrawHex(coordinate, imgHexMap.Image);
+            if (map != null)
+            {
+                imgHexMap.Image = map;
+            }
+        }
+
         private void imgHexMap_MapDrag(object sender, MapEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -152,12 +161,12 @@ namespace HexAdventureMapper
                     {
                         //For connections, we also redraw the neighboring hex, since it also gets a connection that needs drawing
                         var neighborHex = PositionManager.NeighborTo(e.HexWorldCoordinate, e.PartOfHexClicked);
-                        imgHexMap.Image = _hexMapFactory.RedrawHex(e.HexWorldCoordinate, imgHexMap.Image);
-                        imgHexMap.Image = _hexMapFactory.RedrawHex(neighborHex, imgHexMap.Image);
+                        DrawHex(e.HexWorldCoordinate);
+                        DrawHex(neighborHex);
                     }
                     else
                     {
-                        imgHexMap.Image = _hexMapFactory.RedrawHex(e.HexWorldCoordinate, imgHexMap.Image); //Redraw the changed hex
+                        DrawHex(e.HexWorldCoordinate); //Redraw the changed hex
                     }
                 }
             }
@@ -169,12 +178,12 @@ namespace HexAdventureMapper
                     {
                         //For connections, we also redraw the neighboring hex, since it also has a connection removed that needs drawing
                         var neighborHex = PositionManager.NeighborTo(e.HexWorldCoordinate, e.PartOfHexClicked);
-                        imgHexMap.Image = _hexMapFactory.RedrawHex(e.HexWorldCoordinate, imgHexMap.Image);
-                        imgHexMap.Image = _hexMapFactory.RedrawHex(neighborHex, imgHexMap.Image);
+                        DrawHex(e.HexWorldCoordinate);
+                        DrawHex(neighborHex);
                     }
                     else
                     {
-                        imgHexMap.Image = _hexMapFactory.RedrawHex(e.HexWorldCoordinate, imgHexMap.Image); //Redraw the changed hex
+                        DrawHex(e.HexWorldCoordinate); //Redraw the changed hex
                     }
                 }
             }
@@ -186,11 +195,11 @@ namespace HexAdventureMapper
             {
                 var selectedCoordinate = _hexMapFactory.SelectedCoordinate;
                 _hexMapFactory.SelectedCoordinate = null; //We set the SelectedCoordinate to null, so that hexMapFactory knows it is not selected
-                imgHexMap.Image = _hexMapFactory.RedrawHex(selectedCoordinate, imgHexMap.Image);
+                DrawHex(selectedCoordinate);
             }
 
             _hexMapFactory.SelectedCoordinate = e.HexWorldCoordinate; //Mark the new hex as selected
-            imgHexMap.Image = _hexMapFactory.RedrawHex(e.HexWorldCoordinate, imgHexMap.Image); //Draw the selection
+            DrawHex(e.HexWorldCoordinate); //Draw the selection
 
             //Update the textfield with the hex's detail (if any)
             Hex hex = _db.Hexes.GetForCoordinate(e.HexWorldCoordinate);

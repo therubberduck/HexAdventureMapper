@@ -82,6 +82,11 @@ namespace HexAdventureMapper.Visualizer
 
                 var hex = _db.Hexes.GetForCoordinate(worldCoordinate);
 
+                if (hex == null)
+                {
+                    return null;
+                }
+
                 HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(_mapBox.TopLeftCoordinate);
                 Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
                 var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
