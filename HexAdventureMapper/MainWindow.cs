@@ -184,7 +184,9 @@ namespace HexAdventureMapper
         {
             if (_hexMapFactory.SelectedCoordinate != null) //Redraw the previously selected hex (deselect) if there was a previously selected hex
             {
-                imgHexMap.Image = _hexMapFactory.RedrawHex(_hexMapFactory.SelectedCoordinate, imgHexMap.Image);
+                var selectedCoordinate = _hexMapFactory.SelectedCoordinate;
+                _hexMapFactory.SelectedCoordinate = null; //We set the SelectedCoordinate to null, so that hexMapFactory knows it is not selected
+                imgHexMap.Image = _hexMapFactory.RedrawHex(selectedCoordinate, imgHexMap.Image);
             }
 
             _hexMapFactory.SelectedCoordinate = e.HexWorldCoordinate; //Mark the new hex as selected
