@@ -49,7 +49,7 @@ namespace HexAdventureMapper.Visualizer
                 else
                 {
                     AddTerrainLayers(graphics, hex);
-                    _mapTileImages[tileMarker] = image;
+                    _mapTileImages[tileMarker] = image.Clone() as Bitmap;
                 }
 
                 AddRiverLayer(graphics, hex);
