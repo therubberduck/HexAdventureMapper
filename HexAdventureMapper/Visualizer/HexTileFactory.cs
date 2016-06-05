@@ -165,6 +165,12 @@ namespace HexAdventureMapper.Visualizer
 
         private int[] HexConnectionPointsFor(HexConnection hexConnection, Point offset)
         {
+            //Same offset for all river hexes
+            if (offset.X != 0)
+            {
+                offset.X = -10;
+            }
+
             int midPointX = hexWidth/2 + offset.X;
             int midPointY = hexHeight/2 + offset.Y;
 
@@ -199,8 +205,8 @@ namespace HexAdventureMapper.Visualizer
             var sin = Math.Sin(angle);
             var cos = Math.Cos(angle);
 
-            edgeX = (int)(midPointX + sin * 22);
-            edgeY = (int)(midPointY + cos * 22);
+            edgeX = (int)(midPointX + sin * 30); //30 is the length of the river piece
+            edgeY = (int)(midPointY + cos * 30); //it is longer than we need, but the precise value (22) leaves gaps
 
             var points = new int[] {midPointX, midPointY, edgeX, edgeY};
 
