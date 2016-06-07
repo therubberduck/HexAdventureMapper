@@ -19,7 +19,7 @@ namespace HexAdventureMapper.Visualizer
 
         public static Point HexToScreen(long x, long y)
         {
-            return new Point((int)x * 37, (int)y * 44 + (int)x % 2 * 22);
+            return new Point((int)x * 37, (int)y * 44 + (int)Math.Abs(x % 2) * 22);
         }
 
         public static HexCoordinate ScreenToHex(long x, long y)

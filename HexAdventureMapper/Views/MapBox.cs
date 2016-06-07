@@ -24,7 +24,7 @@ namespace HexAdventureMapper.Views
             get
             {
                 HexCoordinate mapSizeInHexes = PositionManager.ScreenToHex(Size.Width + 1, Size.Height + 1);
-                return new Rectangle((int) TopLeftCoordinate.X - 1, (int)TopLeftCoordinate.Y - 1, (int) mapSizeInHexes.X, (int) mapSizeInHexes.Y);
+                return new Rectangle((int) TopLeftCoordinate.X - 1, (int)TopLeftCoordinate.Y - 1, (int) mapSizeInHexes.X + 1, (int) mapSizeInHexes.Y + 1);
             }
         }
 
