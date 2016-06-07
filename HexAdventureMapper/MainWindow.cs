@@ -158,7 +158,7 @@ namespace HexAdventureMapper
                     {
                         //For connections, we also redraw the neighboring hex, since it also gets a connection that needs drawing
                         var neighborHex = PositionManager.NeighborTo(e.HexWorldCoordinate, e.PartOfHexClicked);
-                        DrawHex(e.HexWorldCoordinate); 
+                        DrawHex(neighborHex); 
                     }
                 }
                 DrawHex(e.HexWorldCoordinate); //Redraw the changed hex
