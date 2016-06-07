@@ -31,10 +31,10 @@ namespace HexAdventureMapper
         private void InitializeComponent()
         {
             this.txtDetail = new System.Windows.Forms.TextBox();
-            this.btnMoveWest = new System.Windows.Forms.Button();
-            this.btnMoveEast = new System.Windows.Forms.Button();
-            this.btnMoveNorth = new System.Windows.Forms.Button();
-            this.btnMoveSouth = new System.Windows.Forms.Button();
+            this.btnMoveWest1 = new System.Windows.Forms.Button();
+            this.btnMoveEast2 = new System.Windows.Forms.Button();
+            this.btnMoveNorth1 = new System.Windows.Forms.Button();
+            this.btnMoveSouth1 = new System.Windows.Forms.Button();
             this.rbSelect = new System.Windows.Forms.RadioButton();
             this.cmbTerrain = new System.Windows.Forms.ComboBox();
             this.cmbVegetation = new System.Windows.Forms.ComboBox();
@@ -51,6 +51,14 @@ namespace HexAdventureMapper
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnMoveEast1 = new System.Windows.Forms.Button();
+            this.btnMoveEast3 = new System.Windows.Forms.Button();
+            this.btnMoveWest2 = new System.Windows.Forms.Button();
+            this.btnMoveWest3 = new System.Windows.Forms.Button();
+            this.btnMoveNorth2 = new System.Windows.Forms.Button();
+            this.btnMoveNorth3 = new System.Windows.Forms.Button();
+            this.btnMoveSouth2 = new System.Windows.Forms.Button();
+            this.btnMoveSouth3 = new System.Windows.Forms.Button();
             this.imgHexMap = new HexAdventureMapper.Views.MapBox();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgHexMap)).BeginInit();
@@ -67,53 +75,52 @@ namespace HexAdventureMapper
             this.txtDetail.TabIndex = 1;
             this.txtDetail.TextChanged += new System.EventHandler(this.txtDetail_TextChanged);
             // 
-            // btnMoveWest
+            // btnMoveWest1
             // 
-            this.btnMoveWest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnMoveWest1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnMoveWest.Location = new System.Drawing.Point(139, 53);
-            this.btnMoveWest.Name = "btnMoveWest";
-            this.btnMoveWest.Size = new System.Drawing.Size(30, 491);
-            this.btnMoveWest.TabIndex = 13;
-            this.btnMoveWest.Text = "<";
-            this.btnMoveWest.UseVisualStyleBackColor = true;
-            this.btnMoveWest.Click += new System.EventHandler(this.btnMoveWest_Click);
+            this.btnMoveWest1.Location = new System.Drawing.Point(139, 169);
+            this.btnMoveWest1.Name = "btnMoveWest1";
+            this.btnMoveWest1.Size = new System.Drawing.Size(30, 262);
+            this.btnMoveWest1.TabIndex = 13;
+            this.btnMoveWest1.Text = "<";
+            this.btnMoveWest1.UseVisualStyleBackColor = true;
+            this.btnMoveWest1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnMoveWest1_MouseClick);
             // 
-            // btnMoveEast
+            // btnMoveEast2
             // 
-            this.btnMoveEast.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnMoveEast2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMoveEast2.Location = new System.Drawing.Point(627, 63);
+            this.btnMoveEast2.Name = "btnMoveEast2";
+            this.btnMoveEast2.Size = new System.Drawing.Size(30, 100);
+            this.btnMoveEast2.TabIndex = 14;
+            this.btnMoveEast2.Text = ">\r\n>";
+            this.btnMoveEast2.UseVisualStyleBackColor = true;
+            this.btnMoveEast2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnMoveEast2_MouseClick);
+            // 
+            // btnMoveNorth1
+            // 
+            this.btnMoveNorth1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMoveEast.Location = new System.Drawing.Point(627, 53);
-            this.btnMoveEast.Name = "btnMoveEast";
-            this.btnMoveEast.Size = new System.Drawing.Size(30, 491);
-            this.btnMoveEast.TabIndex = 14;
-            this.btnMoveEast.Text = ">";
-            this.btnMoveEast.UseVisualStyleBackColor = true;
-            this.btnMoveEast.Click += new System.EventHandler(this.btnMoveEast_Click);
+            this.btnMoveNorth1.Location = new System.Drawing.Point(281, 27);
+            this.btnMoveNorth1.Name = "btnMoveNorth1";
+            this.btnMoveNorth1.Size = new System.Drawing.Size(234, 30);
+            this.btnMoveNorth1.TabIndex = 15;
+            this.btnMoveNorth1.Text = "^";
+            this.btnMoveNorth1.UseVisualStyleBackColor = true;
+            this.btnMoveNorth1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnMoveNorth1_MouseClick);
             // 
-            // btnMoveNorth
+            // btnMoveSouth1
             // 
-            this.btnMoveNorth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnMoveSouth1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMoveNorth.Location = new System.Drawing.Point(158, 27);
-            this.btnMoveNorth.Name = "btnMoveNorth";
-            this.btnMoveNorth.Size = new System.Drawing.Size(463, 30);
-            this.btnMoveNorth.TabIndex = 15;
-            this.btnMoveNorth.Text = "^";
-            this.btnMoveNorth.UseVisualStyleBackColor = true;
-            this.btnMoveNorth.Click += new System.EventHandler(this.btnMoveNorth_Click);
-            // 
-            // btnMoveSouth
-            // 
-            this.btnMoveSouth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMoveSouth.Location = new System.Drawing.Point(165, 543);
-            this.btnMoveSouth.Name = "btnMoveSouth";
-            this.btnMoveSouth.Size = new System.Drawing.Size(463, 30);
-            this.btnMoveSouth.TabIndex = 16;
-            this.btnMoveSouth.Text = "V";
-            this.btnMoveSouth.UseVisualStyleBackColor = true;
-            this.btnMoveSouth.Click += new System.EventHandler(this.btnMoveSouth_Click);
+            this.btnMoveSouth1.Location = new System.Drawing.Point(281, 543);
+            this.btnMoveSouth1.Name = "btnMoveSouth1";
+            this.btnMoveSouth1.Size = new System.Drawing.Size(234, 30);
+            this.btnMoveSouth1.TabIndex = 16;
+            this.btnMoveSouth1.Text = "V";
+            this.btnMoveSouth1.UseVisualStyleBackColor = true;
+            this.btnMoveSouth1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnMoveSouth1_MouseClick);
             // 
             // rbSelect
             // 
@@ -270,6 +277,93 @@ namespace HexAdventureMapper
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // btnMoveEast1
+            // 
+            this.btnMoveEast1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMoveEast1.Location = new System.Drawing.Point(627, 169);
+            this.btnMoveEast1.Name = "btnMoveEast1";
+            this.btnMoveEast1.Size = new System.Drawing.Size(30, 262);
+            this.btnMoveEast1.TabIndex = 18;
+            this.btnMoveEast1.Text = ">";
+            this.btnMoveEast1.UseVisualStyleBackColor = true;
+            this.btnMoveEast1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnMoveEast1_MouseClick);
+            // 
+            // btnMoveEast3
+            // 
+            this.btnMoveEast3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMoveEast3.Location = new System.Drawing.Point(627, 437);
+            this.btnMoveEast3.Name = "btnMoveEast3";
+            this.btnMoveEast3.Size = new System.Drawing.Size(30, 100);
+            this.btnMoveEast3.TabIndex = 19;
+            this.btnMoveEast3.Text = ">\r\n>\r\n>";
+            this.btnMoveEast3.UseVisualStyleBackColor = true;
+            this.btnMoveEast3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnMoveEast3_MouseClick);
+            // 
+            // btnMoveWest2
+            // 
+            this.btnMoveWest2.Location = new System.Drawing.Point(139, 63);
+            this.btnMoveWest2.Name = "btnMoveWest2";
+            this.btnMoveWest2.Size = new System.Drawing.Size(30, 100);
+            this.btnMoveWest2.TabIndex = 20;
+            this.btnMoveWest2.Text = "<\r\n<";
+            this.btnMoveWest2.UseVisualStyleBackColor = true;
+            this.btnMoveWest2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnMoveWest2_MouseClick);
+            // 
+            // btnMoveWest3
+            // 
+            this.btnMoveWest3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnMoveWest3.Location = new System.Drawing.Point(139, 437);
+            this.btnMoveWest3.Name = "btnMoveWest3";
+            this.btnMoveWest3.Size = new System.Drawing.Size(30, 100);
+            this.btnMoveWest3.TabIndex = 21;
+            this.btnMoveWest3.Text = "<\r\n<\r\n<";
+            this.btnMoveWest3.UseVisualStyleBackColor = true;
+            this.btnMoveWest3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnMoveWest3_MouseClick);
+            // 
+            // btnMoveNorth2
+            // 
+            this.btnMoveNorth2.Location = new System.Drawing.Point(175, 27);
+            this.btnMoveNorth2.Name = "btnMoveNorth2";
+            this.btnMoveNorth2.Size = new System.Drawing.Size(100, 30);
+            this.btnMoveNorth2.TabIndex = 22;
+            this.btnMoveNorth2.Text = "^^";
+            this.btnMoveNorth2.UseVisualStyleBackColor = true;
+            this.btnMoveNorth2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnMoveNorth2_MouseClick);
+            // 
+            // btnMoveNorth3
+            // 
+            this.btnMoveNorth3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMoveNorth3.Location = new System.Drawing.Point(521, 27);
+            this.btnMoveNorth3.Name = "btnMoveNorth3";
+            this.btnMoveNorth3.Size = new System.Drawing.Size(100, 30);
+            this.btnMoveNorth3.TabIndex = 23;
+            this.btnMoveNorth3.Text = "^^^";
+            this.btnMoveNorth3.UseVisualStyleBackColor = true;
+            this.btnMoveNorth3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnMoveNorth3_MouseClick);
+            // 
+            // btnMoveSouth2
+            // 
+            this.btnMoveSouth2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnMoveSouth2.Location = new System.Drawing.Point(175, 543);
+            this.btnMoveSouth2.Name = "btnMoveSouth2";
+            this.btnMoveSouth2.Size = new System.Drawing.Size(100, 30);
+            this.btnMoveSouth2.TabIndex = 24;
+            this.btnMoveSouth2.Text = "VV";
+            this.btnMoveSouth2.UseVisualStyleBackColor = true;
+            this.btnMoveSouth2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnMoveSouth2_MouseClick);
+            // 
+            // btnMoveSouth3
+            // 
+            this.btnMoveSouth3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMoveSouth3.Location = new System.Drawing.Point(521, 543);
+            this.btnMoveSouth3.Name = "btnMoveSouth3";
+            this.btnMoveSouth3.Size = new System.Drawing.Size(100, 30);
+            this.btnMoveSouth3.TabIndex = 25;
+            this.btnMoveSouth3.Text = "VVV";
+            this.btnMoveSouth3.UseVisualStyleBackColor = true;
+            this.btnMoveSouth3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnMoveSouth3_MouseClick);
+            // 
             // imgHexMap
             // 
             this.imgHexMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -288,11 +382,19 @@ namespace HexAdventureMapper
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(885, 585);
+            this.Controls.Add(this.btnMoveSouth3);
+            this.Controls.Add(this.btnMoveSouth2);
+            this.Controls.Add(this.btnMoveNorth3);
+            this.Controls.Add(this.btnMoveNorth2);
+            this.Controls.Add(this.btnMoveWest3);
+            this.Controls.Add(this.btnMoveWest2);
+            this.Controls.Add(this.btnMoveEast3);
+            this.Controls.Add(this.btnMoveEast1);
             this.Controls.Add(this.imgHexMap);
-            this.Controls.Add(this.btnMoveSouth);
-            this.Controls.Add(this.btnMoveNorth);
-            this.Controls.Add(this.btnMoveEast);
-            this.Controls.Add(this.btnMoveWest);
+            this.Controls.Add(this.btnMoveSouth1);
+            this.Controls.Add(this.btnMoveNorth1);
+            this.Controls.Add(this.btnMoveEast2);
+            this.Controls.Add(this.btnMoveWest1);
             this.Controls.Add(this.rbSelect);
             this.Controls.Add(this.cmbRoad);
             this.Controls.Add(this.rbRoad);
@@ -318,10 +420,10 @@ namespace HexAdventureMapper
 
         #endregion
         private System.Windows.Forms.TextBox txtDetail;
-        private System.Windows.Forms.Button btnMoveWest;
-        private System.Windows.Forms.Button btnMoveEast;
-        private System.Windows.Forms.Button btnMoveNorth;
-        private System.Windows.Forms.Button btnMoveSouth;
+        private System.Windows.Forms.Button btnMoveWest1;
+        private System.Windows.Forms.Button btnMoveEast2;
+        private System.Windows.Forms.Button btnMoveNorth1;
+        private System.Windows.Forms.Button btnMoveSouth1;
         private MapBox imgHexMap;
         private System.Windows.Forms.RadioButton rbSelect;
         private System.Windows.Forms.ComboBox cmbTerrain;
@@ -339,6 +441,14 @@ namespace HexAdventureMapper
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.Button btnMoveEast1;
+        private System.Windows.Forms.Button btnMoveEast3;
+        private System.Windows.Forms.Button btnMoveWest2;
+        private System.Windows.Forms.Button btnMoveWest3;
+        private System.Windows.Forms.Button btnMoveNorth2;
+        private System.Windows.Forms.Button btnMoveNorth3;
+        private System.Windows.Forms.Button btnMoveSouth2;
+        private System.Windows.Forms.Button btnMoveSouth3;
     }
 }
 

@@ -14,6 +14,8 @@ namespace HexAdventureMapper.Visualizer
         South,
         SouthWest,
         NorthWest,
+        East,
+        West,
         None
     }
 }

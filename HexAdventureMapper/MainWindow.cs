@@ -271,34 +271,6 @@ namespace HexAdventureMapper
             _db.Hexes.UpdateDetail(_hexMapFactory.SelectedCoordinate, txtDetail.Text);
         }
 
-        private void btnMoveNorth_Click(object sender, System.EventArgs e)
-        {
-            imgHexMap.UpdateVerticalOffset(-2);
-            _hexMapFactory.SelectedCoordinate = null;
-            DrawMap();
-        }
-
-        private void btnMoveWest_Click(object sender, System.EventArgs e)
-        {
-            imgHexMap.UpdateHorizontalOffset(-2);
-            _hexMapFactory.SelectedCoordinate = null;
-            DrawMap();
-        }
-
-        private void btnMoveSouth_Click(object sender, System.EventArgs e)
-        {
-            imgHexMap.UpdateVerticalOffset(2);
-            _hexMapFactory.SelectedCoordinate = null;
-            DrawMap();
-        }
-
-        private void btnMoveEast_Click(object sender, System.EventArgs e)
-        {
-            imgHexMap.UpdateHorizontalOffset(2);
-            _hexMapFactory.SelectedCoordinate = null;
-            DrawMap();
-        }
-
         private void imgHexMap_SizeChanged(object sender, System.EventArgs e)
         {
             _hexMapFactory.SelectedCoordinate = null;
@@ -369,6 +341,87 @@ namespace HexAdventureMapper
             {
                 Application.Exit();
             }
+        }
+
+        private void btnMoveNorth1_MouseClick(object sender, MouseEventArgs e)
+        {
+            MoveWindow(Direction.North, 2);
+        }
+
+        private void btnMoveNorth2_MouseClick(object sender, MouseEventArgs e)
+        {
+            MoveWindow(Direction.North, 8);
+        }
+
+        private void btnMoveNorth3_MouseClick(object sender, MouseEventArgs e)
+        {
+            MoveWindow(Direction.North, 24);
+        }
+
+        private void btnMoveWest1_MouseClick(object sender, MouseEventArgs e)
+        {
+            MoveWindow(Direction.West, 2);
+        }
+
+        private void btnMoveWest2_MouseClick(object sender, MouseEventArgs e)
+        {
+            MoveWindow(Direction.West, 8);
+        }
+
+        private void btnMoveWest3_MouseClick(object sender, MouseEventArgs e)
+        {
+            MoveWindow(Direction.West, 24);
+        }
+
+        private void btnMoveSouth1_MouseClick(object sender, MouseEventArgs e)
+        {
+            MoveWindow(Direction.South, 2);
+        }
+
+        private void btnMoveSouth2_MouseClick(object sender, MouseEventArgs e)
+        {
+            MoveWindow(Direction.South, 8);
+        }
+
+        private void btnMoveSouth3_MouseClick(object sender, MouseEventArgs e)
+        {
+            MoveWindow(Direction.South, 24);
+        }
+
+        private void btnMoveEast1_MouseClick(object sender, MouseEventArgs e)
+        {
+            MoveWindow(Direction.East, 2);
+        }
+
+        private void btnMoveEast2_MouseClick(object sender, MouseEventArgs e)
+        {
+            MoveWindow(Direction.East, 8);
+        }
+
+        private void btnMoveEast3_MouseClick(object sender, MouseEventArgs e)
+        {
+            MoveWindow(Direction.East, 24);
+        }
+
+        private void MoveWindow(Direction direction, int distance)
+        {
+            _hexMapFactory.SelectedCoordinate = null;
+            switch (direction)
+            {
+                    case Direction.North:
+                    imgHexMap.UpdateVerticalOffset(-distance);
+                    break;
+                    case Direction.East:
+                    imgHexMap.UpdateHorizontalOffset(distance);
+                    break;
+                    case Direction.South:
+                    imgHexMap.UpdateVerticalOffset(distance);
+                    break;
+                    case Direction.West:
+                    imgHexMap.UpdateHorizontalOffset(-distance);
+                    break;
+            }
+            DrawMap();
         }
     }
 }
