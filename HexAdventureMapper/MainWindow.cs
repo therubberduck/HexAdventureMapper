@@ -70,17 +70,17 @@ namespace HexAdventureMapper
             {
                 cmbRiver.Items.Add(riverSize);
             }
-            cmbRiver.SelectedIndex = 1;
+            cmbRiver.SelectedIndex = 0;
 
             List<string> roadSizes = new List<string> { "Trail", "Dirt Road", "Cobbled Road", "Ancient Road" };
             foreach (string roadSize in roadSizes)
             {
                 cmbRoad.Items.Add(roadSize);
             }
-            cmbRoad.SelectedIndex = 1;
+            cmbRoad.SelectedIndex = 0;
 
 
-            rbTerrain.Checked = true;
+            rbSelect.Checked = true;
 
             DrawMap();
 
@@ -151,24 +151,17 @@ namespace HexAdventureMapper
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (_currentDrawingTools == DrawingTools.Select)
-                {
-                    SelectHex(e);
-                }
-                else if (_painter.TryPaint(e)) //Since we are not selecting, we are painting. Try to paint
+                SelectHex(e);
+                if (_painter.TryPaint(e)) //Since we are not selecting, we are painting. Try to paint
                 {
                     if (_currentDrawingTools == DrawingTools.River || _currentDrawingTools == DrawingTools.Road)
                     {
                         //For connections, we also redraw the neighboring hex, since it also gets a connection that needs drawing
                         var neighborHex = PositionManager.NeighborTo(e.HexWorldCoordinate, e.PartOfHexClicked);
-                        DrawHex(e.HexWorldCoordinate);
-                        DrawHex(neighborHex);
-                    }
-                    else
-                    {
-                        DrawHex(e.HexWorldCoordinate); //Redraw the changed hex
+                        DrawHex(e.HexWorldCoordinate); 
                     }
                 }
+                DrawHex(e.HexWorldCoordinate); //Redraw the changed hex
             }
             else if (e.Button == MouseButtons.Right)
             {
@@ -199,7 +192,6 @@ namespace HexAdventureMapper
             }
 
             _hexMapFactory.SelectedCoordinate = e.HexWorldCoordinate; //Mark the new hex as selected
-            DrawHex(e.HexWorldCoordinate); //Draw the selection
 
             //Update the textfield with the hex's detail (if any)
             Hex hex = _db.Hexes.GetForCoordinate(e.HexWorldCoordinate);
@@ -262,7 +254,6 @@ namespace HexAdventureMapper
                 {
                     _currentDrawingTools = DrawingTools.Road;
                 }
-                _hexMapFactory.SelectedCoordinate = null;
             }
         }
 
