@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using HexAdventureMapper.Database;
 using HexAdventureMapper.DataObjects;
@@ -10,6 +11,7 @@ using HexAdventureMapper.Painting;
 using HexAdventureMapper.TileConfig;
 using HexAdventureMapper.Views;
 using HexAdventureMapper.Visualizer;
+using Timer = System.Threading.Timer;
 
 namespace HexAdventureMapper
 {
@@ -40,7 +42,13 @@ namespace HexAdventureMapper
         
         private DrawingTools _currentDrawingTools;
         private ViewingType _viewingType;
+
         private HexCoordinate _lastDraggedHex;
+
+        private HexCoordinate _lastScheduledDetailSave;
+        private Timer _saveDetailTimer;
+
+        private System.Threading.Timer _autoSaveTimer;
 
         public MainWindow()
         {
@@ -79,6 +87,8 @@ namespace HexAdventureMapper
             _viewingType = ViewingType.Icons;
 
             DrawMap();
+
+            _autoSaveTimer = new Timer(e => AutoSave(), null, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
         }
 
         public DrawingTools GetDrawingTool()
@@ -276,7 +286,27 @@ namespace HexAdventureMapper
 
         private void txtDetail_TextChanged(object sender, System.EventArgs e)
         {
-            _db.Hexes.UpdateDetail(_hexMapFactory.SelectedCoordinate, txtDetail.Text);
+            //If the last scheduled detail update was to this hex, unschedule it, since we are making a new one (for this hex)
+            if (_saveDetailTimer != null && _lastScheduledDetailSave.Equals(_hexMapFactory.SelectedCoordinate))
+            {
+                _saveDetailTimer.Dispose();
+            }
+            //Schedule a detail update after 1 second (so we wait to update until the user is done typing)
+            TimerCallback callback = SaveDetailText;
+            object[] state = {_hexMapFactory.SelectedCoordinate, txtDetail.Text};
+            _saveDetailTimer = new Timer(callback, state, TimeSpan.FromSeconds(1), TimeSpan.FromMilliseconds(-1));
+
+            //Update which hex is scheduled for an update, for use next time this event gets called
+            _lastScheduledDetailSave = _hexMapFactory.SelectedCoordinate;
+        }
+
+        private void SaveDetailText(object state)
+        {
+            object[] stateArray = (object[]) state;
+            HexCoordinate hex = (HexCoordinate)stateArray[0];
+            string detail = (string)stateArray[1];
+
+            _db.Hexes.UpdateDetail(hex, detail);
         }
 
         private void imgHexMap_SizeChanged(object sender, System.EventArgs e)
