@@ -18,6 +18,8 @@ namespace HexAdventureMapper.DataObjects
         public List<int> Icons { get; set; }
         public List<int> PlayerIcons { get; set; }
 
+        public int FogOfWar { get; set; }
+
         public List<HexConnection> RiverSections { get; set; } 
         public Point RiverOffset { get; set; }
 

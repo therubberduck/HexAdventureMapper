@@ -72,6 +72,7 @@ namespace HexAdventureMapper.Visualizer
                 else if(viewType == MainWindow.ViewingType.Player)
                 {
                     AddPlayerIconLayer(graphics, hex);
+                    AddFogOfWar(graphics, hex);
                 }
             }
             return image;
@@ -258,7 +259,6 @@ namespace HexAdventureMapper.Visualizer
                     //now draw the image  
                     graphics.DrawImage(image, pictureLocationAndSize, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
                 }
-                
             }
         }
 
@@ -270,6 +270,46 @@ namespace HexAdventureMapper.Visualizer
             using (var image = Image.FromFile(iconImageLocation))
             {
                 graphics.DrawImage(image, pictureLocationAndSize);
+            }
+        }
+
+        private void AddFogOfWar(Graphics graphics, Hex hex)
+        {
+            int alpha = 100;
+            if (hex.FogOfWar == 1) //Draw partially transparent fog of war
+            {
+                alpha = 50;
+            }
+            else if (hex.FogOfWar == 2) //Don't draw any fog of war
+            {
+                return;
+            }
+
+            var pictureLocationAndSize = new Rectangle(0, 0, hexWidth, hexHeight);
+
+            var iconImageLocation = "Images/FogOfWar.png";
+            using (var image = Image.FromFile(iconImageLocation))
+            {
+                if (alpha == 100)
+                {
+                    graphics.DrawImage(image, pictureLocationAndSize);
+                }
+                else
+                {
+                    ColorMatrix matrix = new ColorMatrix();
+
+                    //set the opacity  
+                    matrix.Matrix33 = alpha / 100.0f;
+
+                    //create image attributes  
+                    ImageAttributes attributes = new ImageAttributes();
+
+                    //set the color(opacity) of the image  
+                    attributes.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+                    //now draw the image  
+                    graphics.DrawImage(image, pictureLocationAndSize, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
+                }
             }
         }
     }

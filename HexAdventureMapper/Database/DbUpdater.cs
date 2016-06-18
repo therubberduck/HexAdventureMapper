@@ -5,7 +5,7 @@ namespace HexAdventureMapper.Database
 {
     public static class DbUpdater
     {
-        private const long CurrentVersion = 2;
+        private const long CurrentVersion = 3;
 
         public static void CheckForDbSchemaUpdates(IDbInstance db, DbHex hexes, DbHexConnection hexConnections)
         {
@@ -18,6 +18,10 @@ namespace HexAdventureMapper.Database
             if (version <= 1)
             {
                 db.AlterAddColumn(hexes.TableName, DbHex.PlayerIcons, DbColumn.Text, true, "'0'");
+            }
+            if (version <= 2)
+            {
+                db.AlterAddColumn(hexes.TableName, DbHex.FogOfWar, DbColumn.Integer, true, "0");
             }
 
             db.SetVersion(CurrentVersion);

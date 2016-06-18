@@ -23,6 +23,7 @@ namespace HexAdventureMapper.Database.Modules
             new DbColumn(Vegetation, DbColumn.Integer),
             new DbColumn(Icons, DbColumn.Text),
             new DbColumn(PlayerIcons, DbColumn.Text),
+            new DbColumn(FogOfWar, DbColumn.Integer),
             new DbColumn(Detail, DbColumn.Text),
             new DbColumn(RiverOffsetX, DbColumn.Integer),
             new DbColumn(RiverOffsetY, DbColumn.Integer),
@@ -35,8 +36,9 @@ namespace HexAdventureMapper.Database.Modules
         public const string Terrain = "Terrain";
         public const string Vegetation = "Vegetation";
         public const string Icons = "Icons";
-        public const string Detail = "Detail";
         public const string PlayerIcons = "PlayerIcons";
+        public const string FogOfWar = "FogOfWar";
+        public const string Detail = "Detail";
         public const string RiverOffsetX = "RiverOffsetX";
         public const string RiverOffsetY = "RiverOffsetY";
         public const string RoadOffsetX = "RoadOffsetX";
@@ -50,8 +52,8 @@ namespace HexAdventureMapper.Database.Modules
         {
 
             return Db.Insert(TableName, 
-                new [] {CoordinateX, CoordinateY, Terrain, Vegetation, Icons, Detail, PlayerIcons, RiverOffsetX, RiverOffsetY, RoadOffsetX, RoadOffsetY}, 
-                new object[] { coor.X, coor.Y, terrainId, vegetationId, 0, 0, "", -10, 0, 0, 0});
+                new [] {CoordinateX, CoordinateY, Terrain, Vegetation, Icons, PlayerIcons, FogOfWar, Detail, RiverOffsetX, RiverOffsetY, RoadOffsetX, RoadOffsetY}, 
+                new object[] { coor.X, coor.Y, terrainId, vegetationId, 0, 0, 0, "", -10, 0, 0, 0});
         }
 
         public bool HexExists(HexCoordinate coordinate)
@@ -131,10 +133,11 @@ namespace HexAdventureMapper.Database.Modules
             var terrain = GetInt(dbObject[3]);
             var vegetation = GetInt(dbObject[4]);
             var icons = ((string) dbObject[5]).Split(',').Select(str => int.Parse(str)).ToList();
-            var playerdetail = ((string)dbObject[6]).Split(',').Select(s => int.Parse(s)).ToList();
-            var detail = (string) dbObject[7];
-            var riverOffset = new Point(GetInt(dbObject[8]), GetInt(dbObject[9]));
-            var roadOffset = new Point(GetInt(dbObject[10]), GetInt(dbObject[11]));
+            var playericons = ((string)dbObject[6]).Split(',').Select(s => int.Parse(s)).ToList();
+            var fogofwar = GetInt(dbObject[7]);
+            var detail = (string) dbObject[8];
+            var riverOffset = new Point(GetInt(dbObject[9]), GetInt(dbObject[10]));
+            var roadOffset = new Point(GetInt(dbObject[11]), GetInt(dbObject[12]));
 
             var hex = new Hex
             {
@@ -143,7 +146,8 @@ namespace HexAdventureMapper.Database.Modules
                 TerrainId =  terrain,
                 VegetationId = vegetation,
                 Icons = icons,
-                PlayerIcons = playerdetail,
+                PlayerIcons = playericons,
+                FogOfWar = fogofwar,
                 Detail = detail,
                 RiverOffset = riverOffset,
                 RoadOffset = roadOffset
