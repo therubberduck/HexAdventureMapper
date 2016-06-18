@@ -62,6 +62,13 @@ namespace HexAdventureMapper
             this.rbPlayerIcon = new System.Windows.Forms.RadioButton();
             this.cmbPlayerIcon = new System.Windows.Forms.ComboBox();
             this.imgHexMap = new HexAdventureMapper.Views.MapBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.chk100GmIcons = new System.Windows.Forms.CheckBox();
+            this.chk100PlayerIcons = new System.Windows.Forms.CheckBox();
+            this.chk100FogOfWar = new System.Windows.Forms.CheckBox();
+            this.chk50GmIcons = new System.Windows.Forms.CheckBox();
+            this.chk50PlayerIcons = new System.Windows.Forms.CheckBox();
+            this.chk50FogOfWar = new System.Windows.Forms.CheckBox();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgHexMap)).BeginInit();
             this.SuspendLayout();
@@ -400,11 +407,91 @@ namespace HexAdventureMapper
             this.imgHexMap.TabStop = false;
             this.imgHexMap.SizeChanged += new System.EventHandler(this.imgHexMap_SizeChanged);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 229);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 16);
+            this.label1.TabIndex = 28;
+            this.label1.Text = "Layers";
+            // 
+            // chk100GmIcons
+            // 
+            this.chk100GmIcons.AutoSize = true;
+            this.chk100GmIcons.Location = new System.Drawing.Point(33, 251);
+            this.chk100GmIcons.Name = "chk100GmIcons";
+            this.chk100GmIcons.Size = new System.Drawing.Size(72, 17);
+            this.chk100GmIcons.TabIndex = 29;
+            this.chk100GmIcons.Text = "GM Icons";
+            this.chk100GmIcons.UseVisualStyleBackColor = true;
+            this.chk100GmIcons.CheckStateChanged += new System.EventHandler(this.CheckBox_LayerChanged);
+            // 
+            // chk100PlayerIcons
+            // 
+            this.chk100PlayerIcons.AutoSize = true;
+            this.chk100PlayerIcons.Location = new System.Drawing.Point(33, 274);
+            this.chk100PlayerIcons.Name = "chk100PlayerIcons";
+            this.chk100PlayerIcons.Size = new System.Drawing.Size(84, 17);
+            this.chk100PlayerIcons.TabIndex = 30;
+            this.chk100PlayerIcons.Text = "Player Icons";
+            this.chk100PlayerIcons.UseVisualStyleBackColor = true;
+            this.chk100PlayerIcons.CheckStateChanged += new System.EventHandler(this.CheckBox_LayerChanged);
+            // 
+            // chk100FogOfWar
+            // 
+            this.chk100FogOfWar.AutoSize = true;
+            this.chk100FogOfWar.Location = new System.Drawing.Point(33, 297);
+            this.chk100FogOfWar.Name = "chk100FogOfWar";
+            this.chk100FogOfWar.Size = new System.Drawing.Size(79, 17);
+            this.chk100FogOfWar.TabIndex = 31;
+            this.chk100FogOfWar.Text = "Fog of War";
+            this.chk100FogOfWar.UseVisualStyleBackColor = true;
+            this.chk100FogOfWar.CheckStateChanged += new System.EventHandler(this.CheckBox_LayerChanged);
+            // 
+            // chk50GmIcons
+            // 
+            this.chk50GmIcons.AutoSize = true;
+            this.chk50GmIcons.Location = new System.Drawing.Point(12, 252);
+            this.chk50GmIcons.Name = "chk50GmIcons";
+            this.chk50GmIcons.Size = new System.Drawing.Size(15, 14);
+            this.chk50GmIcons.TabIndex = 32;
+            this.chk50GmIcons.UseVisualStyleBackColor = true;
+            this.chk50GmIcons.CheckStateChanged += new System.EventHandler(this.CheckBox_LayerChanged);
+            // 
+            // chk50PlayerIcons
+            // 
+            this.chk50PlayerIcons.AutoSize = true;
+            this.chk50PlayerIcons.Location = new System.Drawing.Point(12, 275);
+            this.chk50PlayerIcons.Name = "chk50PlayerIcons";
+            this.chk50PlayerIcons.Size = new System.Drawing.Size(15, 14);
+            this.chk50PlayerIcons.TabIndex = 33;
+            this.chk50PlayerIcons.UseVisualStyleBackColor = true;
+            this.chk50PlayerIcons.CheckStateChanged += new System.EventHandler(this.CheckBox_LayerChanged);
+            // 
+            // chk50FogOfWar
+            // 
+            this.chk50FogOfWar.AutoSize = true;
+            this.chk50FogOfWar.Location = new System.Drawing.Point(12, 298);
+            this.chk50FogOfWar.Name = "chk50FogOfWar";
+            this.chk50FogOfWar.Size = new System.Drawing.Size(15, 14);
+            this.chk50FogOfWar.TabIndex = 34;
+            this.chk50FogOfWar.UseVisualStyleBackColor = true;
+            this.chk50FogOfWar.CheckStateChanged += new System.EventHandler(this.CheckBox_LayerChanged);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(885, 585);
+            this.Controls.Add(this.chk50FogOfWar);
+            this.Controls.Add(this.chk50PlayerIcons);
+            this.Controls.Add(this.chk50GmIcons);
+            this.Controls.Add(this.chk100FogOfWar);
+            this.Controls.Add(this.chk100PlayerIcons);
+            this.Controls.Add(this.chk100GmIcons);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.rbPlayerIcon);
             this.Controls.Add(this.cmbPlayerIcon);
             this.Controls.Add(this.btnMoveSouth3);
@@ -476,6 +563,13 @@ namespace HexAdventureMapper
         private System.Windows.Forms.Button btnMoveSouth3;
         private System.Windows.Forms.RadioButton rbPlayerIcon;
         private System.Windows.Forms.ComboBox cmbPlayerIcon;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox chk100GmIcons;
+        private System.Windows.Forms.CheckBox chk100PlayerIcons;
+        private System.Windows.Forms.CheckBox chk100FogOfWar;
+        private System.Windows.Forms.CheckBox chk50GmIcons;
+        private System.Windows.Forms.CheckBox chk50PlayerIcons;
+        private System.Windows.Forms.CheckBox chk50FogOfWar;
     }
 }
 

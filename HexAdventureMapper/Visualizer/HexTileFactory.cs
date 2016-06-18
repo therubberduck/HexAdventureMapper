@@ -59,20 +59,17 @@ namespace HexAdventureMapper.Visualizer
                 AddRiverLayer(graphics, hex);
                 AddRoadLayer(graphics, hex);
 
-                MainWindow.ViewingType viewType = _uiInterface.GetViewingType();
-                if (viewType == MainWindow.ViewingType.Icons)
+                if (_uiInterface.GetGmIconAlpha() != 0)
                 {
-                    AddIconLayer(graphics, hex);
+                    AddIconLayer(graphics, hex, _uiInterface.GetGmIconAlpha());
                 }
-                else if (viewType == MainWindow.ViewingType.Gm)
+                if (_uiInterface.GetPlayerIconAlpha() != 0)
                 {
-                    AddIconLayer(graphics, hex, 50);
-                    AddPlayerIconLayer(graphics, hex);
+                    AddPlayerIconLayer(graphics, hex, _uiInterface.GetPlayerIconAlpha());
                 }
-                else if(viewType == MainWindow.ViewingType.Player)
+                if(_uiInterface.GetFogOfWarIconAlpha() != 0)
                 {
-                    AddPlayerIconLayer(graphics, hex);
-                    AddFogOfWar(graphics, hex);
+                    AddFogOfWar(graphics, hex, _uiInterface.GetFogOfWarIconAlpha());
                 }
             }
             return image;
@@ -232,7 +229,7 @@ namespace HexAdventureMapper.Visualizer
             return points;
         }
 
-        private void AddIconLayer(Graphics graphics, Hex hex, int alpha = 100)
+        private void AddIconLayer(Graphics graphics, Hex hex, int alpha)
         {
             var pictureLocationAndSize = new Rectangle(hexWidth/4, hexHeight/4, hexWidth/2, hexHeight/2);
 
@@ -262,32 +259,11 @@ namespace HexAdventureMapper.Visualizer
             }
         }
 
-        private void AddPlayerIconLayer(Graphics graphics, Hex hex)
+        private void AddPlayerIconLayer(Graphics graphics, Hex hex, int alpha)
         {
             var pictureLocationAndSize = new Rectangle(hexWidth / 4, hexHeight / 4, hexWidth / 2, hexHeight / 2);
 
             var iconImageLocation = _tiles.GetIcon(hex.PlayerIcons[0]).ImageLocation;
-            using (var image = Image.FromFile(iconImageLocation))
-            {
-                graphics.DrawImage(image, pictureLocationAndSize);
-            }
-        }
-
-        private void AddFogOfWar(Graphics graphics, Hex hex)
-        {
-            int alpha = 100;
-            if (hex.FogOfWar == 1) //Draw partially transparent fog of war
-            {
-                alpha = 50;
-            }
-            else if (hex.FogOfWar == 2) //Don't draw any fog of war
-            {
-                return;
-            }
-
-            var pictureLocationAndSize = new Rectangle(0, 0, hexWidth, hexHeight);
-
-            var iconImageLocation = "Images/FogOfWar.png";
             using (var image = Image.FromFile(iconImageLocation))
             {
                 if (alpha == 100)
@@ -300,6 +276,48 @@ namespace HexAdventureMapper.Visualizer
 
                     //set the opacity  
                     matrix.Matrix33 = alpha / 100.0f;
+
+                    //create image attributes  
+                    ImageAttributes attributes = new ImageAttributes();
+
+                    //set the color(opacity) of the image  
+                    attributes.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+                    //now draw the image  
+                    graphics.DrawImage(image, pictureLocationAndSize, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
+                }
+            }
+        }
+
+        private void AddFogOfWar(Graphics graphics, Hex hex, int alpha)
+        {
+            int typeAlpha = 100;
+            if (hex.FogOfWar == 1) //Draw partially transparent fog of war
+            {
+                typeAlpha = 50;
+            }
+            else if (hex.FogOfWar == 2) //Don't draw any fog of war
+            {
+                return;
+            }
+
+            float dAlpha = (typeAlpha/100.0f)*(alpha/100.0f);
+
+            var pictureLocationAndSize = new Rectangle(0, 0, hexWidth, hexHeight);
+
+            var iconImageLocation = "Images/FogOfWar.png";
+            using (var image = Image.FromFile(iconImageLocation))
+            {
+                if (typeAlpha == 100 && alpha == 100)
+                {
+                    graphics.DrawImage(image, pictureLocationAndSize);
+                }
+                else
+                {
+                    ColorMatrix matrix = new ColorMatrix();
+
+                    //set the opacity  
+                    matrix.Matrix33 = dAlpha;
 
                     //create image attributes  
                     ImageAttributes attributes = new ImageAttributes();

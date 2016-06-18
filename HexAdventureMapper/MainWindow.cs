@@ -28,22 +28,15 @@ namespace HexAdventureMapper
             Road
         };
 
-        public enum ViewingType
-        {
-            Icons,
-            Gm,
-            Player
-        };
-
         private DbInterface _db;
         private TileConfigInterface _tiles;
         private HexMapFactory _hexMapFactory;
         private Painter _painter;
         
         private DrawingTools _currentDrawingTools;
-        private ViewingType _viewingType;
 
         private HexCoordinate _lastDraggedHex;
+        private bool _drawingDisabled;
 
         private HexCoordinate _lastScheduledDetailSave;
         private Timer _saveDetailTimer;
@@ -86,7 +79,8 @@ namespace HexAdventureMapper
 
             rbSelect.Checked = true;
 
-            _viewingType = ViewingType.Icons;
+            chk100GmIcons.Checked = true;
+            chk100PlayerIcons.Checked = true;
 
             DrawMap();
 
@@ -98,9 +92,35 @@ namespace HexAdventureMapper
             return _currentDrawingTools;
         }
 
-        public ViewingType GetViewingType()
+        public int GetGmIconAlpha()
         {
-            return _viewingType;
+            return GetLayerAlphaFor(chk50GmIcons, chk100GmIcons);
+        }
+
+        public int GetPlayerIconAlpha()
+        {
+            return GetLayerAlphaFor(chk50PlayerIcons, chk100PlayerIcons);
+        }
+
+        public int GetFogOfWarIconAlpha()
+        {
+            return GetLayerAlphaFor(chk50FogOfWar, chk100FogOfWar);
+        }
+
+        private int GetLayerAlphaFor(CheckBox chk50, CheckBox chk100)
+        {
+            if (chk50.Checked)
+            {
+                return 50;
+            }
+            else if (chk100.Checked)
+            {
+                return 100;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public int GetTerrainId()
@@ -266,13 +286,24 @@ namespace HexAdventureMapper
                 else if (sender == rbIcons)
                 {
                     _currentDrawingTools = DrawingTools.GmIcons;
-                    _viewingType = ViewingType.Icons;
+
+                    _drawingDisabled = true;
+                    chk100GmIcons.Checked = true;
+                    chk50PlayerIcons.Checked = false;
+                    chk100PlayerIcons.Checked = false;
+                    _drawingDisabled = false;
+
                     DrawMap();
                 }
                 else if (sender == rbPlayerIcon)
                 {
                     _currentDrawingTools = DrawingTools.PlayerIcons;
-                    _viewingType = ViewingType.Gm;
+
+                    _drawingDisabled = true;
+                    chk50GmIcons.Checked = true;
+                    chk100PlayerIcons.Checked = true;
+                    _drawingDisabled = false;
+
                     DrawMap();
                 }
                 else if (sender == rbRiver)
@@ -463,6 +494,43 @@ namespace HexAdventureMapper
                     break;
             }
             DrawMap();
+        }
+
+        private void CheckBox_LayerChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox) sender;
+
+            if (checkBox.Checked)
+            {
+                if (checkBox == chk50GmIcons)
+                {
+                    chk100GmIcons.Checked = false;
+                }
+                else if (checkBox == chk100GmIcons)
+                {
+                    chk50GmIcons.Checked = false;
+                }
+                else if (checkBox == chk50PlayerIcons)
+                {
+                    chk100PlayerIcons.Checked = false;
+                }
+                else if (checkBox == chk100PlayerIcons)
+                {
+                    chk50PlayerIcons.Checked = false;
+                }
+                else if (checkBox == chk50FogOfWar)
+                {
+                    chk100FogOfWar.Checked = false;
+                }
+                else if (checkBox == chk100FogOfWar)
+                {
+                    chk50FogOfWar.Checked = false;
+                }
+            }
+            if (!_drawingDisabled)
+            {
+                DrawMap();
+            }
         }
     }
 }
