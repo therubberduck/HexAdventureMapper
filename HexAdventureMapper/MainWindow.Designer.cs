@@ -69,6 +69,8 @@ namespace HexAdventureMapper
             this.chk50GmIcons = new System.Windows.Forms.CheckBox();
             this.chk50PlayerIcons = new System.Windows.Forms.CheckBox();
             this.chk50FogOfWar = new System.Windows.Forms.CheckBox();
+            this.cmbFogOfWar = new System.Windows.Forms.ComboBox();
+            this.rbFogOfWar = new System.Windows.Forms.RadioButton();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgHexMap)).BeginInit();
             this.SuspendLayout();
@@ -411,7 +413,7 @@ namespace HexAdventureMapper
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 229);
+            this.label1.Location = new System.Drawing.Point(12, 263);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 16);
             this.label1.TabIndex = 28;
@@ -420,7 +422,7 @@ namespace HexAdventureMapper
             // chk100GmIcons
             // 
             this.chk100GmIcons.AutoSize = true;
-            this.chk100GmIcons.Location = new System.Drawing.Point(33, 251);
+            this.chk100GmIcons.Location = new System.Drawing.Point(33, 285);
             this.chk100GmIcons.Name = "chk100GmIcons";
             this.chk100GmIcons.Size = new System.Drawing.Size(72, 17);
             this.chk100GmIcons.TabIndex = 29;
@@ -431,7 +433,7 @@ namespace HexAdventureMapper
             // chk100PlayerIcons
             // 
             this.chk100PlayerIcons.AutoSize = true;
-            this.chk100PlayerIcons.Location = new System.Drawing.Point(33, 274);
+            this.chk100PlayerIcons.Location = new System.Drawing.Point(33, 308);
             this.chk100PlayerIcons.Name = "chk100PlayerIcons";
             this.chk100PlayerIcons.Size = new System.Drawing.Size(84, 17);
             this.chk100PlayerIcons.TabIndex = 30;
@@ -442,7 +444,7 @@ namespace HexAdventureMapper
             // chk100FogOfWar
             // 
             this.chk100FogOfWar.AutoSize = true;
-            this.chk100FogOfWar.Location = new System.Drawing.Point(33, 297);
+            this.chk100FogOfWar.Location = new System.Drawing.Point(33, 331);
             this.chk100FogOfWar.Name = "chk100FogOfWar";
             this.chk100FogOfWar.Size = new System.Drawing.Size(79, 17);
             this.chk100FogOfWar.TabIndex = 31;
@@ -453,7 +455,7 @@ namespace HexAdventureMapper
             // chk50GmIcons
             // 
             this.chk50GmIcons.AutoSize = true;
-            this.chk50GmIcons.Location = new System.Drawing.Point(12, 252);
+            this.chk50GmIcons.Location = new System.Drawing.Point(12, 286);
             this.chk50GmIcons.Name = "chk50GmIcons";
             this.chk50GmIcons.Size = new System.Drawing.Size(15, 14);
             this.chk50GmIcons.TabIndex = 32;
@@ -463,7 +465,7 @@ namespace HexAdventureMapper
             // chk50PlayerIcons
             // 
             this.chk50PlayerIcons.AutoSize = true;
-            this.chk50PlayerIcons.Location = new System.Drawing.Point(12, 275);
+            this.chk50PlayerIcons.Location = new System.Drawing.Point(12, 309);
             this.chk50PlayerIcons.Name = "chk50PlayerIcons";
             this.chk50PlayerIcons.Size = new System.Drawing.Size(15, 14);
             this.chk50PlayerIcons.TabIndex = 33;
@@ -473,18 +475,41 @@ namespace HexAdventureMapper
             // chk50FogOfWar
             // 
             this.chk50FogOfWar.AutoSize = true;
-            this.chk50FogOfWar.Location = new System.Drawing.Point(12, 298);
+            this.chk50FogOfWar.Location = new System.Drawing.Point(12, 332);
             this.chk50FogOfWar.Name = "chk50FogOfWar";
             this.chk50FogOfWar.Size = new System.Drawing.Size(15, 14);
             this.chk50FogOfWar.TabIndex = 34;
             this.chk50FogOfWar.UseVisualStyleBackColor = true;
             this.chk50FogOfWar.CheckStateChanged += new System.EventHandler(this.CheckBox_LayerChanged);
             // 
+            // cmbFogOfWar
+            // 
+            this.cmbFogOfWar.FormattingEnabled = true;
+            this.cmbFogOfWar.Location = new System.Drawing.Point(32, 212);
+            this.cmbFogOfWar.Name = "cmbFogOfWar";
+            this.cmbFogOfWar.Size = new System.Drawing.Size(101, 21);
+            this.cmbFogOfWar.TabIndex = 36;
+            this.cmbFogOfWar.SelectedIndexChanged += new System.EventHandler(this.Combobox_SelectedIndexChanged);
+            this.cmbFogOfWar.Click += new System.EventHandler(this.ComboBox_Clicked);
+            // 
+            // rbFogOfWar
+            // 
+            this.rbFogOfWar.AutoSize = true;
+            this.rbFogOfWar.Location = new System.Drawing.Point(12, 215);
+            this.rbFogOfWar.Name = "rbFogOfWar";
+            this.rbFogOfWar.Size = new System.Drawing.Size(14, 13);
+            this.rbFogOfWar.TabIndex = 35;
+            this.rbFogOfWar.TabStop = true;
+            this.rbFogOfWar.UseVisualStyleBackColor = true;
+            this.rbFogOfWar.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(885, 585);
+            this.Controls.Add(this.cmbFogOfWar);
+            this.Controls.Add(this.rbFogOfWar);
             this.Controls.Add(this.chk50FogOfWar);
             this.Controls.Add(this.chk50PlayerIcons);
             this.Controls.Add(this.chk50GmIcons);
@@ -570,6 +595,8 @@ namespace HexAdventureMapper
         private System.Windows.Forms.CheckBox chk50GmIcons;
         private System.Windows.Forms.CheckBox chk50PlayerIcons;
         private System.Windows.Forms.CheckBox chk50FogOfWar;
+        private System.Windows.Forms.ComboBox cmbFogOfWar;
+        private System.Windows.Forms.RadioButton rbFogOfWar;
     }
 }
 

@@ -111,6 +111,11 @@ namespace HexAdventureMapper.Database.Modules
             Db.Update(TableName, new[] { Detail }, new object[] { detail }, new[] { CoordinateX, CoordinateY }, new object[] { coor.X, coor.Y });
         }
 
+        public void UpdateFogOfWar(HexCoordinate coor, int fogId)
+        {
+            Db.Update(TableName, new[] { FogOfWar }, new object[] { fogId.ToString() }, new[] { CoordinateX, CoordinateY }, new object[] { coor.X, coor.Y });
+        }
+
         public void ClearTerrain(HexCoordinate worldCoordinate)
         {
             UpdateTerrain(worldCoordinate, 0, 0);

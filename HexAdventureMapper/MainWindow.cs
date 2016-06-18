@@ -25,7 +25,8 @@ namespace HexAdventureMapper
             GmIcons,
             PlayerIcons,
             River,
-            Road
+            Road,
+            FogOfWar
         };
 
         private DbInterface _db;
@@ -76,6 +77,10 @@ namespace HexAdventureMapper
             object[] roadSizes = { "Trail", "Dirt Road", "Cobbled Road", "Ancient Road" };
             cmbRoad.Items.AddRange(roadSizes);
             cmbRoad.SelectedIndex = 0;
+
+            object[] fogOfWarTypes = { "Full", "Half" };
+            cmbFogOfWar.Items.AddRange(fogOfWarTypes);
+            cmbFogOfWar.SelectedIndex = 0;
 
             rbSelect.Checked = true;
 
@@ -153,6 +158,11 @@ namespace HexAdventureMapper
             return cmbRoad.SelectedIndex + 3;
         }
 
+        public int GetFogOfWarId()
+        {
+            return cmbFogOfWar.SelectedIndex;
+        }
+
         private void DrawMap()
         {
             Image map = _hexMapFactory.MakeLocalMap();
@@ -173,7 +183,8 @@ namespace HexAdventureMapper
 
         private void imgHexMap_MapDrag(object sender, MapEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left ||
+                (e.Button == MouseButtons.Right && _currentDrawingTools == DrawingTools.FogOfWar))
             {
                 if (_lastDraggedHex == null || !_lastDraggedHex.Equals(e.HexScreenCoordinate))
                 {
@@ -264,6 +275,10 @@ namespace HexAdventureMapper
             {
                 rbRoad.Checked = true;
             }
+            else if (sender == cmbFogOfWar)
+            {
+                rbFogOfWar.Checked = true;
+            }
         }
 
         private void ComboBox_Clicked(object sender, EventArgs e)
@@ -313,6 +328,10 @@ namespace HexAdventureMapper
                 else if (sender == rbRoad)
                 {
                     _currentDrawingTools = DrawingTools.Road;
+                }
+                else if (sender == rbFogOfWar)
+                {
+                    _currentDrawingTools = DrawingTools.FogOfWar;
                 }
             }
         }

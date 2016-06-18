@@ -20,5 +20,6 @@ namespace HexAdventureMapper.Painting
         int GetPlayerIconId();
         int GetRiverId();
         int GetRoadId();
+        int GetFogOfWarId();
     }
 }
