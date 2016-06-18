@@ -59,9 +59,9 @@ namespace HexAdventureMapper
             this.btnMoveNorth3 = new System.Windows.Forms.Button();
             this.btnMoveSouth2 = new System.Windows.Forms.Button();
             this.btnMoveSouth3 = new System.Windows.Forms.Button();
-            this.imgHexMap = new HexAdventureMapper.Views.MapBox();
             this.rbPlayerIcon = new System.Windows.Forms.RadioButton();
             this.cmbPlayerIcon = new System.Windows.Forms.ComboBox();
+            this.imgHexMap = new HexAdventureMapper.Views.MapBox();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgHexMap)).BeginInit();
             this.SuspendLayout();
@@ -366,19 +366,6 @@ namespace HexAdventureMapper
             this.btnMoveSouth3.UseVisualStyleBackColor = true;
             this.btnMoveSouth3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnMoveSouth3_MouseClick);
             // 
-            // imgHexMap
-            // 
-            this.imgHexMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.imgHexMap.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.imgHexMap.Location = new System.Drawing.Point(175, 63);
-            this.imgHexMap.Name = "imgHexMap";
-            this.imgHexMap.Size = new System.Drawing.Size(446, 474);
-            this.imgHexMap.TabIndex = 4;
-            this.imgHexMap.TabStop = false;
-            this.imgHexMap.SizeChanged += new System.EventHandler(this.imgHexMap_SizeChanged);
-            // 
             // rbPlayerIcon
             // 
             this.rbPlayerIcon.AutoSize = true;
@@ -399,6 +386,19 @@ namespace HexAdventureMapper
             this.cmbPlayerIcon.TabIndex = 26;
             this.cmbPlayerIcon.SelectedIndexChanged += new System.EventHandler(this.Combobox_SelectedIndexChanged);
             this.cmbPlayerIcon.Click += new System.EventHandler(this.ComboBox_Clicked);
+            // 
+            // imgHexMap
+            // 
+            this.imgHexMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.imgHexMap.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.imgHexMap.Location = new System.Drawing.Point(175, 63);
+            this.imgHexMap.Name = "imgHexMap";
+            this.imgHexMap.Size = new System.Drawing.Size(446, 474);
+            this.imgHexMap.TabIndex = 4;
+            this.imgHexMap.TabStop = false;
+            this.imgHexMap.SizeChanged += new System.EventHandler(this.imgHexMap_SizeChanged);
             // 
             // MainWindow
             // 

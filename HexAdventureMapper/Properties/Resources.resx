@@ -46,7 +46,7 @@
     
     mimetype: application/x-microsoft.net.object.binary.base64
     value   : The object must be serialized with 
-            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
     
     mimetype: application/x-microsoft.net.object.soap.base64
@@ -60,6 +60,7 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
@@ -68,9 +69,10 @@
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="name" use="required" type="xsd:string" />
               <xsd:attribute name="type" type="xsd:string" />
               <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
@@ -85,9 +87,10 @@
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -109,9 +112,193 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Elevation0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation1000" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation1000.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation11200" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation11200.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation1200" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation1200.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation14400" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation14400.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation1600" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation1600.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation17600" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation17600.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation200" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation200.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation2000" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation2000.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation20800" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation20800.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation2400" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation2400.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation24000" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation24000.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation2800" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation2800.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation30400" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation30400.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation3200" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation3200.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation400" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation400.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation4000" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation4000.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation4800" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation4800.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation5600" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation5600.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation600" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation600.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation6400" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation6400.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation800" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation800.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation8000" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation8000.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation9600" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation9600.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation-10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Elevation_20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Elevation-20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FogOfWar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\FogOfWar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcCastle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcCastle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcCave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcCave.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcCity" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcCity.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcFlags" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcFlags.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcFort" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcFort.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcHamlet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcHamlet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcLandmarkHuge" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcLandmarkHuge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcLandmarkLarge" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcLandmarkLarge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcLandmarkSmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcLandmarkSmall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcMonument" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcMonument.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcRuinCity" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcRuinCity.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcRuinSettlement" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcRuinSettlement.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcRuinStructure" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcRuinStructure.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcRuinTower" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcRuinTower.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcStructure" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcStructure.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcTower" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcTower.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcTown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcTown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcVillage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\IcVillage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SelectBorder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\SelectBorder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="THills" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\THills.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TMountains" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\TMountains.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Transparent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Transparent.Bakpng;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Transparent1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Transparent.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TVolcano" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\TVolcano.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VCCopse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\VCCopse.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VCForest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\VCForest.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VCopse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\VCopse.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VDesert" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\VDesert.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VFarmland" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\VFarmland.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VForest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\VForest.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VGrassland" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\VGrassland.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VJungle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\VJungle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VRocky" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\VRocky.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VSwamp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\VSwamp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

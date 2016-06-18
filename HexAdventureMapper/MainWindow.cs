@@ -62,6 +62,8 @@ namespace HexAdventureMapper
             _hexMapFactory = new HexMapFactory(this, _tiles, _db, imgHexMap);
             _painter = new Painter(this, _db);
 
+            imgHexMap.BackColor = ColorTranslator.FromHtml("#333333");
+
             cmbTerrain.Items.AddRange(_tiles.GetTerrainNames());
             cmbTerrain.SelectedIndex = 1;
             
