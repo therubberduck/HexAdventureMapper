@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using HexAdventureMapper.Database.WorkingClasses;
 
-namespace HexAdventureMapper.Database.WorkingClasses
+namespace HexAdventureMapper.Database
 {
-    class SqLiteDbHandler : IDbHandler
+    class SqLiteDb : IDbInstance
     {
         private SQLiteConnection _conn;
 
-        public SqLiteDbHandler()
+        public SqLiteDb()
         {
             _conn = new SQLiteConnection("Data Source=db.sqlite;Version=3");
             //_conn.Close();
@@ -22,6 +23,25 @@ namespace HexAdventureMapper.Database.WorkingClasses
             _conn.Close();
             _conn = new SQLiteConnection("Data Source="+dbPath+";Version=3");
             _conn.Open();
+        }
+
+        public void ReloadDb()
+        {
+            _conn.Close();
+            _conn.Open();
+        }
+
+        public long GetVersion()
+        {
+            var sql = "PRAGMA user_version";
+            object[] result = ExecuteQuery(sql);
+            return (long)((object[])result[0])[0];
+        }
+
+        public void SetVersion(long version)
+        {
+            var sql = "PRAGMA user_version = " + version;
+            ExecuteCommand(sql);
         }
 
         public void CreateTables(IDbModule[] modules)
@@ -202,6 +222,20 @@ namespace HexAdventureMapper.Database.WorkingClasses
 
             string commandString = "Delete from " + table + " where " + whereString;
             ExecuteCommand(commandString);
+        }
+
+        public void AlterAddColumn(string table, string columnName, string columnType, bool notNull, string defaultValue)
+        {
+            var sql = "ALTER TABLE " + table + " ADD " + columnName + " " + columnType;
+            if (notNull)
+            {
+                sql += " NOT NULL";
+            }
+            if (defaultValue != null)
+            {
+                sql += " DEFAULT " + defaultValue;
+            }
+            ExecuteCommand(sql);
         }
 
         public void ClearTable(string table)

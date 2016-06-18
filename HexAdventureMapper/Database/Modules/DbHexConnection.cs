@@ -26,7 +26,7 @@ namespace HexAdventureMapper.Database.Modules
         public const string Type = "Type";
         public const string ToEdge = "ToEdge";
 
-        public DbHexConnection(DbInterface dbInterface, DbWrapper db) : base(dbInterface, db)
+        public DbHexConnection(DbInterface dbInterface, IDbInstance db) : base(dbInterface, db)
         {
         }
 

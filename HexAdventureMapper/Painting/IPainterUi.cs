@@ -10,9 +10,12 @@ namespace HexAdventureMapper.Painting
     public interface IPainterUi
     {
         MainWindow.DrawingTools GetDrawingTool();
+        MainWindow.ViewingType GetViewingType();
+
         int GetTerrainId();
         int GetVegetationId();
         int GetIconId();
+        int GetPlayerIconId();
         int GetRiverId();
         int GetRoadId();
     }

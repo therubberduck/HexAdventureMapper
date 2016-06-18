@@ -20,19 +20,26 @@ namespace HexAdventureMapper
         {
             Select,
             Terrain,
-            Icons,
+            GmIcons,
+            PlayerIcons,
             River,
             Road
+        };
+
+        public enum ViewingType
+        {
+            Icons,
+            Gm,
+            Player
         };
 
         private DbInterface _db;
         private TileConfigInterface _tiles;
         private HexMapFactory _hexMapFactory;
         private Painter _painter;
-
-        private System.Threading.Timer _autoSaveTimer;
-
+        
         private DrawingTools _currentDrawingTools;
+        private ViewingType _viewingType;
         private HexCoordinate _lastDraggedHex;
 
         public MainWindow()
@@ -44,52 +51,44 @@ namespace HexAdventureMapper
 
             _db = new DbInterface();
             _tiles = new TileConfigInterface();
-            _hexMapFactory = new HexMapFactory(_tiles, _db, imgHexMap);
+            _hexMapFactory = new HexMapFactory(this, _tiles, _db, imgHexMap);
             _painter = new Painter(this, _db);
 
-            foreach (TileComponent terrain in _tiles.GetTerrain())
-            {
-                cmbTerrain.Items.Add(terrain.Name);
-            }
+            cmbTerrain.Items.AddRange(_tiles.GetTerrainNames());
             cmbTerrain.SelectedIndex = 1;
-
-            foreach (TileComponent vegetation in _tiles.GetVegetation())
-            {
-                cmbVegetation.Items.Add(vegetation.Name);
-            }
+            
+            cmbVegetation.Items.AddRange(_tiles.GetVegetationNames());
             cmbVegetation.SelectedIndex = 0;
 
-            foreach (TileComponent icon in _tiles.GetIcons())
-            {
-                cmbIcon.Items.Add(icon.Name);
-            }
+            cmbIcon.Items.AddRange(_tiles.GetIconNames());
             cmbIcon.SelectedIndex = 0;
 
-            List<string> riverSizes = new List<string> {"Stream", "River, Small", "River, Large"};
-            foreach (string riverSize in riverSizes)
-            {
-                cmbRiver.Items.Add(riverSize);
-            }
+            cmbPlayerIcon.Items.AddRange(_tiles.GetIconNames());
+            cmbPlayerIcon.SelectedIndex = 0;
+
+            object[] riverSizes = {"Stream", "River, Small", "River, Large"};
+            cmbRiver.Items.AddRange(riverSizes);
             cmbRiver.SelectedIndex = 0;
 
-            List<string> roadSizes = new List<string> { "Trail", "Dirt Road", "Cobbled Road", "Ancient Road" };
-            foreach (string roadSize in roadSizes)
-            {
-                cmbRoad.Items.Add(roadSize);
-            }
+            object[] roadSizes = { "Trail", "Dirt Road", "Cobbled Road", "Ancient Road" };
+            cmbRoad.Items.AddRange(roadSizes);
             cmbRoad.SelectedIndex = 0;
-
 
             rbSelect.Checked = true;
 
-            DrawMap();
+            _viewingType = ViewingType.Icons;
 
-            _autoSaveTimer = new System.Threading.Timer(e => AutoSave(), null, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
+            DrawMap();
         }
 
         public DrawingTools GetDrawingTool()
         {
             return _currentDrawingTools;
+        }
+
+        public ViewingType GetViewingType()
+        {
+            return _viewingType;
         }
 
         public int GetTerrainId()
@@ -105,6 +104,11 @@ namespace HexAdventureMapper
         public int GetIconId()
         {
             return _tiles.GetIcons()[cmbIcon.SelectedIndex].Id;
+        }
+
+        public int GetPlayerIconId()
+        {
+            return _tiles.GetIcons()[cmbPlayerIcon.SelectedIndex].Id;
         }
 
         public int GetRiverId()
@@ -162,6 +166,7 @@ namespace HexAdventureMapper
                     }
                 }
                 DrawHex(e.HexWorldCoordinate); //Redraw the changed hex
+                txtDetail.Focus();
             }
             else if (e.Button == MouseButtons.Right)
             {
@@ -215,6 +220,10 @@ namespace HexAdventureMapper
             {
                 rbIcons.Checked = true;
             }
+            else if (sender == cmbPlayerIcon)
+            {
+                rbPlayerIcon.Checked = true;
+            }
             else if (sender == cmbRiver)
             {
                 rbRiver.Checked = true;
@@ -244,7 +253,15 @@ namespace HexAdventureMapper
                 }
                 else if (sender == rbIcons)
                 {
-                    _currentDrawingTools = DrawingTools.Icons;
+                    _currentDrawingTools = DrawingTools.GmIcons;
+                    _viewingType = ViewingType.Icons;
+                    DrawMap();
+                }
+                else if (sender == rbPlayerIcon)
+                {
+                    _currentDrawingTools = DrawingTools.PlayerIcons;
+                    _viewingType = ViewingType.Gm;
+                    DrawMap();
                 }
                 else if (sender == rbRiver)
                 {
@@ -296,6 +313,7 @@ namespace HexAdventureMapper
                     string dbPath = "db.sqlite";
                     string savePath = fileDialog.FileName;
                     File.Copy(savePath, dbPath, true);
+                    _db.UpdateDbSchema();
                     DrawMap();
                 }
             }

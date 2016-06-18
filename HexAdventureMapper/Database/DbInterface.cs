@@ -13,22 +13,27 @@ namespace HexAdventureMapper.Database
         public readonly DbHex Hexes;
         public readonly DbHexConnection HexConnections;
 
-        private DbWrapper _dbWrapper ;
+        private readonly IDbInstance _db ;
 
         public DbInterface()
         {
-            _dbWrapper = new DbWrapper();
+            _db = new SqLiteDb();
 
-            Hexes = new DbHex(this, _dbWrapper);
-            HexConnections = new DbHexConnection(this, _dbWrapper);
+            Hexes = new DbHex(this, _db);
+            HexConnections = new DbHexConnection(this, _db);
 
-            //
-            //TestData.AddTestData(this);
+            DbUpdater.CheckForDbSchemaUpdates(_db, Hexes, HexConnections);
+        }
+
+        public void UpdateDbSchema()
+        {
+            _db.ReloadDb();
+            DbUpdater.CheckForDbSchemaUpdates(_db, Hexes, HexConnections);
         }
 
         public void ClearDb()
         {
-            _dbWrapper.CreateTables(new IDbModule[] { Hexes, HexConnections });
+            _db.CreateTables(new IDbModule[] { Hexes, HexConnections });
             Hexes.ClearTable();
             HexConnections.ClearTable();
         }

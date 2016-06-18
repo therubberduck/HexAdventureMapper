@@ -62,6 +62,11 @@ namespace HexAdventureMapper.TileConfig
             return _terrain;
         }
 
+        public string[] GetTerrainNames()
+        {
+            return _terrain.ConvertAll(x => x.Name).ToArray();
+        }
+
         public TileComponent GetTerrain(int id)
         {
             return _terrain.First(T => T.Id.Equals(id));
@@ -77,6 +82,11 @@ namespace HexAdventureMapper.TileConfig
             return _vegetation;
         }
 
+        public string[] GetVegetationNames()
+        {
+            return _vegetation.ConvertAll(x => x.Name).ToArray();
+        }
+
         public TileComponent GetVegetation(int id)
         {
             return _vegetation.First(T => T.Id.Equals(id));
@@ -90,6 +100,11 @@ namespace HexAdventureMapper.TileConfig
         public List<TileComponent> GetIcons()
         {
             return _icons;
+        }
+
+        public string[] GetIconNames()
+        {
+            return _icons.ConvertAll(x => x.Name).ToArray();
         }
 
         public TileComponent GetIcon(int id)

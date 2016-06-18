@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HexAdventureMapper.DataObjects;
+using HexAdventureMapper.Painting;
 using HexAdventureMapper.TileConfig;
 
 namespace HexAdventureMapper.Visualizer
@@ -15,11 +17,13 @@ namespace HexAdventureMapper.Visualizer
         private const int hexWidth = 50;
         private const int hexHeight = 44;
 
+        private readonly IPainterUi _uiInterface;
         private TileConfigInterface _tiles;
         private readonly Dictionary<String, Bitmap> _mapTileImages;
 
-        public HexTileFactory(TileConfigInterface tiles)
+        public HexTileFactory(IPainterUi uiInterface, TileConfigInterface tiles)
         {
+            _uiInterface = uiInterface;
             _tiles = tiles;
             _mapTileImages = new Dictionary<string, Bitmap>();
         }
@@ -54,7 +58,21 @@ namespace HexAdventureMapper.Visualizer
 
                 AddRiverLayer(graphics, hex);
                 AddRoadLayer(graphics, hex);
-                AddIconLayer(graphics, hex);
+
+                MainWindow.ViewingType viewType = _uiInterface.GetViewingType();
+                if (viewType == MainWindow.ViewingType.Icons)
+                {
+                    AddIconLayer(graphics, hex);
+                }
+                else if (viewType == MainWindow.ViewingType.Gm)
+                {
+                    AddIconLayer(graphics, hex, 50);
+                    AddPlayerIconLayer(graphics, hex);
+                }
+                else if(viewType == MainWindow.ViewingType.Player)
+                {
+                    AddPlayerIconLayer(graphics, hex);
+                }
             }
             return image;
         }
@@ -213,11 +231,42 @@ namespace HexAdventureMapper.Visualizer
             return points;
         }
 
-        private void AddIconLayer(Graphics graphics, Hex hex)
+        private void AddIconLayer(Graphics graphics, Hex hex, int alpha = 100)
         {
             var pictureLocationAndSize = new Rectangle(hexWidth/4, hexHeight/4, hexWidth/2, hexHeight/2);
 
             var iconImageLocation = _tiles.GetIcon(hex.Icons[0]).ImageLocation;
+            using (var image = Image.FromFile(iconImageLocation))
+            {
+                if (alpha == 100)
+                {
+                    graphics.DrawImage(image, pictureLocationAndSize);
+                }
+                else
+                {
+                    ColorMatrix matrix = new ColorMatrix();
+
+                    //set the opacity  
+                    matrix.Matrix33 = alpha / 100.0f;
+
+                    //create image attributes  
+                    ImageAttributes attributes = new ImageAttributes();
+
+                    //set the color(opacity) of the image  
+                    attributes.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+                    //now draw the image  
+                    graphics.DrawImage(image, pictureLocationAndSize, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
+                }
+                
+            }
+        }
+
+        private void AddPlayerIconLayer(Graphics graphics, Hex hex)
+        {
+            var pictureLocationAndSize = new Rectangle(hexWidth / 4, hexHeight / 4, hexWidth / 2, hexHeight / 2);
+
+            var iconImageLocation = _tiles.GetIcon(hex.PlayerIcons[0]).ImageLocation;
             using (var image = Image.FromFile(iconImageLocation))
             {
                 graphics.DrawImage(image, pictureLocationAndSize);

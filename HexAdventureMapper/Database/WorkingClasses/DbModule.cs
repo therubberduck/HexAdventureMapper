@@ -6,14 +6,14 @@ namespace HexAdventureMapper.Database.WorkingClasses
     public abstract class DbModule<T> : IDbModule
     {
         protected DbInterface DbInterface;
-        protected DbWrapper Db;
+        protected IDbInstance Db;
         
         public abstract string TableName { get; }
         public abstract DbColumn[] AllColumns { get; }
         public string[] AllColumnNames { get; }
         public const string Id = "Id";
 
-        protected DbModule(DbInterface dbInterface, DbWrapper db)
+        protected DbModule(DbInterface dbInterface, IDbInstance db)
         {
             DbInterface = dbInterface;
             Db = db;

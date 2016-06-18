@@ -21,7 +21,8 @@ namespace HexAdventureMapper.Database.Modules
             new DbColumn(CoordinateY, DbColumn.Integer),
             new DbColumn(Terrain, DbColumn.Integer),
             new DbColumn(Vegetation, DbColumn.Integer),
-            new DbColumn(Icons, DbColumn.Text), 
+            new DbColumn(Icons, DbColumn.Text),
+            new DbColumn(PlayerIcons, DbColumn.Text),
             new DbColumn(Detail, DbColumn.Text),
             new DbColumn(RiverOffsetX, DbColumn.Integer),
             new DbColumn(RiverOffsetY, DbColumn.Integer),
@@ -35,12 +36,13 @@ namespace HexAdventureMapper.Database.Modules
         public const string Vegetation = "Vegetation";
         public const string Icons = "Icons";
         public const string Detail = "Detail";
+        public const string PlayerIcons = "PlayerIcons";
         public const string RiverOffsetX = "RiverOffsetX";
         public const string RiverOffsetY = "RiverOffsetY";
         public const string RoadOffsetX = "RoadOffsetX";
         public const string RoadOffsetY = "RoadOffsetY";
 
-        public DbHex(DbInterface dbInterface, DbWrapper db) : base(dbInterface, db)
+        public DbHex(DbInterface dbInterface, IDbInstance db) : base(dbInterface, db)
         {
         }
 
@@ -48,8 +50,8 @@ namespace HexAdventureMapper.Database.Modules
         {
 
             return Db.Insert(TableName, 
-                new [] {CoordinateX, CoordinateY, Terrain, Vegetation, Icons, Detail, RiverOffsetX, RiverOffsetY, RoadOffsetX, RoadOffsetY}, 
-                new object[] { coor.X, coor.Y, terrainId, vegetationId, 0, "", -10, 0, 0, 0});
+                new [] {CoordinateX, CoordinateY, Terrain, Vegetation, Icons, Detail, PlayerIcons, RiverOffsetX, RiverOffsetY, RoadOffsetX, RoadOffsetY}, 
+                new object[] { coor.X, coor.Y, terrainId, vegetationId, 0, 0, "", -10, 0, 0, 0});
         }
 
         public bool HexExists(HexCoordinate coordinate)
@@ -97,6 +99,11 @@ namespace HexAdventureMapper.Database.Modules
             Db.Update(TableName, new[] {Icons}, new object[] {iconId.ToString()}, new[] { CoordinateX, CoordinateY }, new object[] { coor.X, coor.Y });
         }
 
+        public void UpdatePlayerIcon(HexCoordinate coor, int iconId)
+        {
+            Db.Update(TableName, new[] { PlayerIcons }, new object[] { iconId.ToString() }, new[] { CoordinateX, CoordinateY }, new object[] { coor.X, coor.Y });
+        }
+
         public void UpdateDetail(HexCoordinate coor, string detail)
         {
             Db.Update(TableName, new[] { Detail }, new object[] { detail }, new[] { CoordinateX, CoordinateY }, new object[] { coor.X, coor.Y });
@@ -112,6 +119,11 @@ namespace HexAdventureMapper.Database.Modules
             UpdateIcon(worldCoordinate, 0);
         }
 
+        public void ClearPlayerIcons(HexCoordinate worldCoordinate)
+        {
+            UpdatePlayerIcon(worldCoordinate, 0);
+        }
+
         protected override Hex MakeObject(object[] dbObject)
         {
             var id = (long) dbObject[0];
@@ -119,9 +131,10 @@ namespace HexAdventureMapper.Database.Modules
             var terrain = GetInt(dbObject[3]);
             var vegetation = GetInt(dbObject[4]);
             var icons = ((string) dbObject[5]).Split(',').Select(str => int.Parse(str)).ToList();
-            var detail = (string) dbObject[6];
-            var riverOffset = new Point(GetInt(dbObject[7]), GetInt(dbObject[8]));
-            var roadOffset = new Point(GetInt(dbObject[9]), GetInt(dbObject[10]));
+            var playerdetail = ((string)dbObject[6]).Split(',').Select(s => int.Parse(s)).ToList();
+            var detail = (string) dbObject[7];
+            var riverOffset = new Point(GetInt(dbObject[8]), GetInt(dbObject[9]));
+            var roadOffset = new Point(GetInt(dbObject[10]), GetInt(dbObject[11]));
 
             var hex = new Hex
             {
@@ -130,6 +143,7 @@ namespace HexAdventureMapper.Database.Modules
                 TerrainId =  terrain,
                 VegetationId = vegetation,
                 Icons = icons,
+                PlayerIcons = playerdetail,
                 Detail = detail,
                 RiverOffset = riverOffset,
                 RoadOffset = roadOffset

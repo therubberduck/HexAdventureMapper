@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HexAdventureMapper.Database;
 using HexAdventureMapper.DataObjects;
+using HexAdventureMapper.Painting;
 using HexAdventureMapper.TileConfig;
 using HexAdventureMapper.Views;
 
@@ -20,9 +21,9 @@ namespace HexAdventureMapper.Visualizer
 
         public HexCoordinate SelectedCoordinate { get; set; }
 
-        public HexMapFactory(TileConfigInterface tiles, DbInterface db, MapBox mapBox)
+        public HexMapFactory(IPainterUi uiInterface, TileConfigInterface tiles, DbInterface db, MapBox mapBox)
         {
-            HexTileFactory = new HexTileFactory(tiles);
+            HexTileFactory = new HexTileFactory(uiInterface, tiles);
             _db = db;
             _mapBox = mapBox;
         }

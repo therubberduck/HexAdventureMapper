@@ -16,6 +16,7 @@ namespace HexAdventureMapper.DataObjects
         public int TerrainId { get; set; }
         public int VegetationId { get; set; }
         public List<int> Icons { get; set; }
+        public List<int> PlayerIcons { get; set; }
 
         public List<HexConnection> RiverSections { get; set; } 
         public Point RiverOffset { get; set; }

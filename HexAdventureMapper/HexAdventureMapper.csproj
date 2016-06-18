@@ -75,10 +75,11 @@
     <Compile Include="Database\WorkingClasses\DatabaseString.cs" />
     <Compile Include="Database\WorkingClasses\DbColumn.cs" />
     <Compile Include="Database\WorkingClasses\DbModule.cs" />
-    <Compile Include="Database\WorkingClasses\DbWrapper.cs" />
+    <Compile Include="Database\DbUpdater.cs" />
+    <Compile Include="Database\IDbInstance.cs" />
     <Compile Include="Database\WorkingClasses\IDbModule.cs" />
-    <Compile Include="Database\WorkingClasses\SQLiteDbHandler.cs" />
-    <Compile Include="Database\WorkingClasses\TestData.cs" />
+    <Compile Include="Database\SqLiteDb.cs" />
+    <Compile Include="Database\TestData.cs" />
     <Compile Include="DataObjects\Hex.cs" />
     <Compile Include="DataObjects\HexConnection.cs" />
     <Compile Include="DataObjects\HexCoordinate.cs" />

@@ -29,9 +29,13 @@ namespace HexAdventureMapper.Painting
             {
                 PaintTerrain(e.HexWorldCoordinate);
             }
-            else if (drawingTool == MainWindow.DrawingTools.Icons)
+            else if (drawingTool == MainWindow.DrawingTools.GmIcons)
             {
                 PaintIcon(e.HexWorldCoordinate);
+            }
+            else if (drawingTool == MainWindow.DrawingTools.PlayerIcons)
+            {
+                PaintPlayerIcon(e.HexWorldCoordinate);
             }
             else if (drawingTool == MainWindow.DrawingTools.River)
             {
@@ -55,9 +59,13 @@ namespace HexAdventureMapper.Painting
             {
                 ClearTerrain(e.HexWorldCoordinate);
             }
-            else if (drawingTool == MainWindow.DrawingTools.Icons)
+            else if (drawingTool == MainWindow.DrawingTools.GmIcons)
             {
                 ClearIcons(e.HexWorldCoordinate);
+            }
+            else if (drawingTool == MainWindow.DrawingTools.PlayerIcons)
+            {
+                ClearPlayerIcons(e.HexWorldCoordinate);
             }
             else if (drawingTool == MainWindow.DrawingTools.River)
             {
@@ -100,6 +108,17 @@ namespace HexAdventureMapper.Painting
             _db.Hexes.UpdateIcon(worldCoordinate, iconId);
         }
 
+        public void PaintPlayerIcon(HexCoordinate worldCoordinate)
+        {
+            int iconId = _uiInterface.GetPlayerIconId();
+
+            if (!_db.Hexes.HexExists(worldCoordinate))
+            {
+                _db.Hexes.Create(worldCoordinate, 0, 0);
+            }
+            _db.Hexes.UpdatePlayerIcon(worldCoordinate, iconId);
+        }
+
         public bool PaintRiver(HexCoordinate worldCoordinate, Direction direction)
         {
             return DrawConnection(worldCoordinate, direction, _uiInterface.GetRiverId());
@@ -123,6 +142,14 @@ namespace HexAdventureMapper.Painting
             if (_db.Hexes.HexExists(worldCoordinate))
             {
                 _db.Hexes.ClearIcons(worldCoordinate);
+            }
+        }
+
+        private void ClearPlayerIcons(HexCoordinate worldCoordinate)
+        {
+            if (_db.Hexes.HexExists(worldCoordinate))
+            {
+                _db.Hexes.ClearPlayerIcons(worldCoordinate);
             }
         }
 

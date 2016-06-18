@@ -60,6 +60,8 @@ namespace HexAdventureMapper
             this.btnMoveSouth2 = new System.Windows.Forms.Button();
             this.btnMoveSouth3 = new System.Windows.Forms.Button();
             this.imgHexMap = new HexAdventureMapper.Views.MapBox();
+            this.rbPlayerIcon = new System.Windows.Forms.RadioButton();
+            this.cmbPlayerIcon = new System.Windows.Forms.ComboBox();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgHexMap)).BeginInit();
             this.SuspendLayout();
@@ -189,7 +191,7 @@ namespace HexAdventureMapper
             // rbRiver
             // 
             this.rbRiver.AutoSize = true;
-            this.rbRiver.Location = new System.Drawing.Point(12, 134);
+            this.rbRiver.Location = new System.Drawing.Point(12, 161);
             this.rbRiver.Name = "rbRiver";
             this.rbRiver.Size = new System.Drawing.Size(14, 13);
             this.rbRiver.TabIndex = 8;
@@ -200,7 +202,7 @@ namespace HexAdventureMapper
             // cmbRiver
             // 
             this.cmbRiver.FormattingEnabled = true;
-            this.cmbRiver.Location = new System.Drawing.Point(32, 131);
+            this.cmbRiver.Location = new System.Drawing.Point(32, 158);
             this.cmbRiver.Name = "cmbRiver";
             this.cmbRiver.Size = new System.Drawing.Size(101, 21);
             this.cmbRiver.TabIndex = 9;
@@ -210,7 +212,7 @@ namespace HexAdventureMapper
             // rbRoad
             // 
             this.rbRoad.AutoSize = true;
-            this.rbRoad.Location = new System.Drawing.Point(12, 161);
+            this.rbRoad.Location = new System.Drawing.Point(12, 188);
             this.rbRoad.Name = "rbRoad";
             this.rbRoad.Size = new System.Drawing.Size(14, 13);
             this.rbRoad.TabIndex = 10;
@@ -221,7 +223,7 @@ namespace HexAdventureMapper
             // cmbRoad
             // 
             this.cmbRoad.FormattingEnabled = true;
-            this.cmbRoad.Location = new System.Drawing.Point(32, 158);
+            this.cmbRoad.Location = new System.Drawing.Point(32, 185);
             this.cmbRoad.Name = "cmbRoad";
             this.cmbRoad.Size = new System.Drawing.Size(101, 21);
             this.cmbRoad.TabIndex = 11;
@@ -377,11 +379,34 @@ namespace HexAdventureMapper
             this.imgHexMap.TabStop = false;
             this.imgHexMap.SizeChanged += new System.EventHandler(this.imgHexMap_SizeChanged);
             // 
+            // rbPlayerIcon
+            // 
+            this.rbPlayerIcon.AutoSize = true;
+            this.rbPlayerIcon.Location = new System.Drawing.Point(12, 134);
+            this.rbPlayerIcon.Name = "rbPlayerIcon";
+            this.rbPlayerIcon.Size = new System.Drawing.Size(14, 13);
+            this.rbPlayerIcon.TabIndex = 27;
+            this.rbPlayerIcon.TabStop = true;
+            this.rbPlayerIcon.UseVisualStyleBackColor = true;
+            this.rbPlayerIcon.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
+            // 
+            // cmbPlayerIcon
+            // 
+            this.cmbPlayerIcon.FormattingEnabled = true;
+            this.cmbPlayerIcon.Location = new System.Drawing.Point(32, 131);
+            this.cmbPlayerIcon.Name = "cmbPlayerIcon";
+            this.cmbPlayerIcon.Size = new System.Drawing.Size(101, 21);
+            this.cmbPlayerIcon.TabIndex = 26;
+            this.cmbPlayerIcon.SelectedIndexChanged += new System.EventHandler(this.Combobox_SelectedIndexChanged);
+            this.cmbPlayerIcon.Click += new System.EventHandler(this.ComboBox_Clicked);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(885, 585);
+            this.Controls.Add(this.rbPlayerIcon);
+            this.Controls.Add(this.cmbPlayerIcon);
             this.Controls.Add(this.btnMoveSouth3);
             this.Controls.Add(this.btnMoveSouth2);
             this.Controls.Add(this.btnMoveNorth3);
@@ -449,6 +474,8 @@ namespace HexAdventureMapper
         private System.Windows.Forms.Button btnMoveNorth3;
         private System.Windows.Forms.Button btnMoveSouth2;
         private System.Windows.Forms.Button btnMoveSouth3;
+        private System.Windows.Forms.RadioButton rbPlayerIcon;
+        private System.Windows.Forms.ComboBox cmbPlayerIcon;
     }
 }
 

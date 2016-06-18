@@ -32,6 +32,11 @@ namespace HexAdventureMapper.DataObjects
             return false;
         }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         public HexCoordinate Plus(HexCoordinate otherCoor)
         {
             return new HexCoordinate(X + otherCoor.X, Y + otherCoor.Y);

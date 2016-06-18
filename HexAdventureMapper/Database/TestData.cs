@@ -2,7 +2,7 @@
 using HexAdventureMapper.DataObjects;
 using HexAdventureMapper.Visualizer;
 
-namespace HexAdventureMapper.Database.WorkingClasses
+namespace HexAdventureMapper.Database
 {
     public static class TestData
     {
