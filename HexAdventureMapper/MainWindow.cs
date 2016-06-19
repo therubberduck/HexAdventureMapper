@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using HexAdventureMapper.Database;
@@ -31,6 +32,7 @@ namespace HexAdventureMapper
 
         private DbInterface _db;
         private TileConfigInterface _tiles;
+        private TileCache _tileCache;
         private HexMapFactory _hexMapFactory;
         private Painter _painter;
         
@@ -43,7 +45,7 @@ namespace HexAdventureMapper
         private HexCoordinate _lastScheduledDetailSave;
         private Timer _saveDetailTimer;
 
-        private System.Threading.Timer _autoSaveTimer;
+        private Timer _autoSaveTimer;
 
         public MainWindow()
         {
@@ -54,7 +56,8 @@ namespace HexAdventureMapper
 
             _db = new DbInterface();
             _tiles = new TileConfigInterface();
-            _hexMapFactory = new HexMapFactory(this, _tiles, _db);
+            _tileCache = new TileCache();
+            _hexMapFactory = new HexMapFactory(this, _tiles, _db, _tileCache);
             _painter = new Painter(this, _db);
 
             imgHexMap.BackColor = ColorTranslator.FromHtml("#333333");
@@ -183,6 +186,15 @@ namespace HexAdventureMapper
             }
         }
 
+        private void DrawFogOfWar()
+        {
+            Image map = _hexMapFactory.RedrawFogOfWar();
+            if (map != null)
+            {
+                imgHexMap.Image = map;
+            }
+        }
+
         private void DrawHex(HexCoordinate coordinate)
         {
             Image map = _hexMapFactory.RedrawHex(coordinate, imgHexMap.Image);
@@ -216,8 +228,10 @@ namespace HexAdventureMapper
                     {
                         //For connections, we also redraw the neighboring hex, since it also gets a connection that needs drawing
                         var neighborHex = PositionManager.NeighborTo(e.HexWorldCoordinate, e.PartOfHexClicked);
-                        DrawHex(neighborHex); 
+                        _tileCache.ClearIconTileCacheFor(neighborHex);
+                        DrawHex(neighborHex);
                     }
+                    _tileCache.ClearIconTileCacheFor(e.HexWorldCoordinate);
                 }
                 DrawHex(e.HexWorldCoordinate); //Redraw the changed hex
                 txtDetail.Focus();
@@ -230,13 +244,11 @@ namespace HexAdventureMapper
                     {
                         //For connections, we also redraw the neighboring hex, since it also has a connection removed that needs drawing
                         var neighborHex = PositionManager.NeighborTo(e.HexWorldCoordinate, e.PartOfHexClicked);
-                        DrawHex(e.HexWorldCoordinate);
+                        _tileCache.ClearIconTileCacheFor(neighborHex);
                         DrawHex(neighborHex);
                     }
-                    else
-                    {
-                        DrawHex(e.HexWorldCoordinate); //Redraw the changed hex
-                    }
+                    _tileCache.ClearIconTileCacheFor(e.HexWorldCoordinate);
+                    DrawHex(e.HexWorldCoordinate); //Redraw the changed hex
                 }
             }
         }
@@ -319,6 +331,8 @@ namespace HexAdventureMapper
                     chk100PlayerIcons.Checked = false;
                     _drawingDisabled = false;
 
+                    _tileCache.ClearIconTileCache();
+
                     DrawMap();
                 }
                 else if (sender == rbPlayerIcon)
@@ -329,6 +343,8 @@ namespace HexAdventureMapper
                     chk50GmIcons.Checked = true;
                     chk100PlayerIcons.Checked = true;
                     _drawingDisabled = false;
+
+                    _tileCache.ClearIconTileCache();
 
                     DrawMap();
                 }
@@ -535,7 +551,8 @@ namespace HexAdventureMapper
         private void CheckBox_LayerChanged(object sender, EventArgs e)
         {
             CheckBox checkBox = (CheckBox) sender;
-
+            
+            //Play radio button
             if (checkBox.Checked)
             {
                 if (checkBox == chk50GmIcons)
@@ -563,9 +580,23 @@ namespace HexAdventureMapper
                     chk50FogOfWar.Checked = false;
                 }
             }
-            if (!_drawingDisabled)
+            //Clear the appropriate cache
+            CheckBox[] iconBoxes = {chk50GmIcons, chk100GmIcons, chk50PlayerIcons, chk100PlayerIcons};
+            if(iconBoxes.Contains(checkBox))
             {
-                DrawMap();
+                _tileCache.ClearIconTileCache();
+                if (!_drawingDisabled)
+                {
+                    DrawMap();
+                }
+            }
+            else 
+            {
+                _tileCache.ClearFinishedTileCache();
+                if (!_drawingDisabled)
+                {
+                    DrawFogOfWar();
+                }
             }
         }
     }

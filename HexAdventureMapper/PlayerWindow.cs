@@ -17,12 +17,15 @@ namespace HexAdventureMapper
 {
     public partial class PlayerWindow: Form, IDrawingUi
     {
+        private TileCache _tileCache;
         private HexMapFactory _hexMapFactory;
 
         public PlayerWindow(TileConfigInterface tiles, DbInterface db)
         {
             InitializeComponent();
-            _hexMapFactory = new HexMapFactory(this, tiles, db);
+
+            _tileCache = new TileCache();
+            _hexMapFactory = new HexMapFactory(this, tiles, db, _tileCache);
 
             imgPlayerMap.BackColor = ColorTranslator.FromHtml("#333333");
 

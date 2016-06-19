@@ -18,59 +18,121 @@ namespace HexAdventureMapper.Visualizer
         private const int hexHeight = 44;
 
         private readonly IDrawingUi _uiInterface;
-        private TileConfigInterface _tiles;
+        private readonly TileConfigInterface _tiles;
+        private readonly TileCache _tileCache;
         private readonly Dictionary<String, Bitmap> _mapTileImages;
 
-        public HexTileFactory(IDrawingUi uiInterface, TileConfigInterface tiles)
+        public HexTileFactory(IDrawingUi uiInterface, TileConfigInterface tiles, TileCache tileCache)
         {
             _uiInterface = uiInterface;
             _tiles = tiles;
+            _tileCache = tileCache;
             _mapTileImages = new Dictionary<string, Bitmap>();
         }
 
-        public Bitmap GetMapTileFor(Hex hex)
+        public Bitmap GenerateMapTile(Hex hex, Layer layer)
         {
-             Bitmap mapTile = GenerateMapTile(hex);
-            //_mapTileImages[tileMarker] = mapTile;
-            return mapTile;
-        }
+            if (layer == Layer.Finished)
+            {
+                //Check if the tile is already cached
+                if (_tileCache.GetFinishedTile(hex.Coordinate) != null)
+                {
+                    return _tileCache.GetFinishedTile(hex.Coordinate);
+                }
+                else //If not cached create the tile from scratch
+                {
+                    layer = Layer.Terrain;
+                }
+            }
 
-        public Bitmap GenerateMapTile(Hex hex)
-        {
-            var image = new Bitmap(hexWidth, hexHeight);
+            Bitmap image;
+            Layer activeLayer;
+            if (layer == Layer.FogOfWar)
+            {
+                image = _tileCache.GetIconTile(hex.Coordinate);
+                if (image != null)
+                {
+                    image = image.Clone() as Bitmap;
+                    activeLayer = Layer.FogOfWar;
+                }
+                else
+                {
+                    image = _tileCache.GetConnectionTile(hex.Coordinate);
+                    if (image != null)
+                    {
+                        image = image.Clone() as Bitmap;
+                        activeLayer = Layer.GmIcon;
+                    }
+                    else
+                    {
+                        image = new Bitmap(hexWidth, hexHeight);
+                        activeLayer = Layer.Terrain;
+                    }
+                }
+            }
+            else if (layer == Layer.GmIcon || layer == Layer.PlayerIcon)
+            {
+                image = _tileCache.GetConnectionTile(hex.Coordinate);
+                if (image != null)
+                {
+                    image = image.Clone() as Bitmap;
+                    activeLayer = Layer.GmIcon;
+                }
+                else
+                {
+                    image = new Bitmap(hexWidth, hexHeight);
+                    activeLayer = Layer.Terrain;
+                }
+            }
+            else
+            {
+                image = new Bitmap(hexWidth, hexHeight);
+                activeLayer = Layer.Terrain;
+            }
+
             using (var graphics = Graphics.FromImage(image))
             {
                 graphics.SmoothingMode = SmoothingMode.AntiAlias;
                 graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
-                var tileMarker = hex.TerrainId + "|" + hex.VegetationId;
-                if (_mapTileImages.ContainsKey(tileMarker))
+                if (activeLayer == Layer.Terrain)
                 {
-                    var pictureLocationAndSize = new Rectangle(0, 0, hexWidth, hexHeight);
-                    graphics.DrawImage(_mapTileImages[tileMarker], pictureLocationAndSize);
-                }
-                else
-                {
-                    AddTerrainLayers(graphics, hex);
-                    _mapTileImages[tileMarker] = image.Clone() as Bitmap;
-                }
+                    var tileMarker = hex.TerrainId + "|" + hex.VegetationId;
+                    if (_mapTileImages.ContainsKey(tileMarker))
+                    {
+                        var pictureLocationAndSize = new Rectangle(0, 0, hexWidth, hexHeight);
+                        graphics.DrawImage(_mapTileImages[tileMarker], pictureLocationAndSize);
+                    }
+                    else
+                    {
+                        AddTerrainLayers(graphics, hex);
+                        _mapTileImages[tileMarker] = image.Clone() as Bitmap;
+                    }
 
-                AddRiverLayer(graphics, hex);
-                AddRoadLayer(graphics, hex);
+                    AddRiverLayer(graphics, hex);
+                    AddRoadLayer(graphics, hex);
 
-                if (_uiInterface.GetGmIconAlpha() != 0)
-                {
-                    AddIconLayer(graphics, hex, _uiInterface.GetGmIconAlpha());
+                    _tileCache.SetConnectionTile(hex.Coordinate, image.Clone() as Bitmap);
                 }
-                if (_uiInterface.GetPlayerIconAlpha() != 0)
+                if (activeLayer <= Layer.GmIcon)
                 {
-                    AddPlayerIconLayer(graphics, hex, _uiInterface.GetPlayerIconAlpha());
+                    if (_uiInterface.GetGmIconAlpha() != 0)
+                    {
+                        AddIconLayer(graphics, hex, _uiInterface.GetGmIconAlpha());
+                    }
+                    if (_uiInterface.GetPlayerIconAlpha() != 0)
+                    {
+                        AddPlayerIconLayer(graphics, hex, _uiInterface.GetPlayerIconAlpha());
+                    }
+
+                    _tileCache.SetIconTile(hex.Coordinate, image.Clone() as Bitmap);
                 }
-                if(_uiInterface.GetFogOfWarIconAlpha() != 0)
+                if (_uiInterface.GetFogOfWarIconAlpha() != 0)
                 {
                     AddFogOfWar(graphics, hex, _uiInterface.GetFogOfWarIconAlpha());
                 }
+                _tileCache.SetFinishedTile(hex.Coordinate, image.Clone() as Bitmap);
             }
             return image;
         }

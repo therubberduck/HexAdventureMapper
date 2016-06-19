@@ -111,7 +111,9 @@
     <Compile Include="Visualizer\HexMapFactory.cs" />
     <Compile Include="Visualizer\HexTileFactory.cs" />
     <Compile Include="Visualizer\IDrawingUi.cs" />
+    <Compile Include="Visualizer\Layer.cs" />
     <Compile Include="Visualizer\PositionManager.cs" />
+    <Compile Include="Visualizer\TileCache.cs" />
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>

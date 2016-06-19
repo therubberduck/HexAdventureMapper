@@ -18,10 +18,12 @@ namespace HexAdventureMapper.Visualizer
         public HexTileFactory HexTileFactory;
         private DbInterface _db;
         private IDrawingUi _uiInterface;
+        private readonly TileCache _tileCache;
 
-        public HexMapFactory(IDrawingUi uiInterface, TileConfigInterface tiles, DbInterface db)
+        public HexMapFactory(IDrawingUi uiInterface, TileConfigInterface tiles, DbInterface db, TileCache tileCache)
         {
-            HexTileFactory = new HexTileFactory(uiInterface, tiles);
+            _tileCache = tileCache;
+            HexTileFactory = new HexTileFactory(uiInterface, tiles, _tileCache);
             _uiInterface = uiInterface;
             _db = db;
         }
@@ -32,7 +34,13 @@ namespace HexAdventureMapper.Visualizer
             return MakeMapFromEntireArea(hexes);
         }
 
-        public Image MakeMapFromEntireArea(List<Hex> hexes)
+        public Image RedrawFogOfWar()
+        {
+            var hexes = _db.Hexes.GetArea(_uiInterface.GetMapBox().MapArea);
+            return MakeMapFromEntireArea(hexes, Layer.FogOfWar);
+        }
+
+        public Image MakeMapFromEntireArea(List<Hex> hexes, Layer layer = Layer.Finished)
         {
             MapBox mapBox = _uiInterface.GetMapBox();
             if (mapBox.Width == 0 || mapBox.Height == 0)
@@ -48,7 +56,7 @@ namespace HexAdventureMapper.Visualizer
 
                 foreach (var hex in hexes)
                 {
-                    DrawHex(graphics, hex);
+                    DrawHex(graphics, hex, layer);
                 }
 
                 TryDrawSelectedCoordinate(graphics);
@@ -71,20 +79,20 @@ namespace HexAdventureMapper.Visualizer
                     return null;
                 }
 
-                DrawHex(graphics, hex);
+                DrawHex(graphics, hex, Layer.Terrain);
 
                 TryDrawSelectedCoordinate(graphics);
             }
             return map;
         }
 
-        private void DrawHex(Graphics graphics, Hex hex)
+        private void DrawHex(Graphics graphics, Hex hex, Layer layer = Layer.Finished)
         {
             HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(_uiInterface.GetMapBox().TopLeftCoordinate);
             Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
             var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
-
-            Image image = HexTileFactory.GetMapTileFor(hex);
+            
+            Image image = HexTileFactory.GenerateMapTile(hex, layer);
             graphics.DrawImage(image, pictureLocationAndSize);
         }
 
