@@ -61,7 +61,6 @@ namespace HexAdventureMapper
             this.btnMoveSouth3 = new System.Windows.Forms.Button();
             this.rbPlayerIcon = new System.Windows.Forms.RadioButton();
             this.cmbPlayerIcon = new System.Windows.Forms.ComboBox();
-            this.imgHexMap = new HexAdventureMapper.Views.MapBox();
             this.label1 = new System.Windows.Forms.Label();
             this.chk100GmIcons = new System.Windows.Forms.CheckBox();
             this.chk100PlayerIcons = new System.Windows.Forms.CheckBox();
@@ -71,6 +70,9 @@ namespace HexAdventureMapper
             this.chk50FogOfWar = new System.Windows.Forms.CheckBox();
             this.cmbFogOfWar = new System.Windows.Forms.ComboBox();
             this.rbFogOfWar = new System.Windows.Forms.RadioButton();
+            this.imgHexMap = new HexAdventureMapper.Views.MapBox();
+            this.playerWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgHexMap)).BeginInit();
             this.SuspendLayout();
@@ -242,7 +244,8 @@ namespace HexAdventureMapper
             // menuStrip
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.playerWindowToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(885, 24);
@@ -396,19 +399,6 @@ namespace HexAdventureMapper
             this.cmbPlayerIcon.SelectedIndexChanged += new System.EventHandler(this.Combobox_SelectedIndexChanged);
             this.cmbPlayerIcon.Click += new System.EventHandler(this.ComboBox_Clicked);
             // 
-            // imgHexMap
-            // 
-            this.imgHexMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.imgHexMap.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.imgHexMap.Location = new System.Drawing.Point(175, 63);
-            this.imgHexMap.Name = "imgHexMap";
-            this.imgHexMap.Size = new System.Drawing.Size(446, 474);
-            this.imgHexMap.TabIndex = 4;
-            this.imgHexMap.TabStop = false;
-            this.imgHexMap.SizeChanged += new System.EventHandler(this.imgHexMap_SizeChanged);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -502,6 +492,34 @@ namespace HexAdventureMapper
             this.rbFogOfWar.TabStop = true;
             this.rbFogOfWar.UseVisualStyleBackColor = true;
             this.rbFogOfWar.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
+            // 
+            // imgHexMap
+            // 
+            this.imgHexMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.imgHexMap.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.imgHexMap.Location = new System.Drawing.Point(175, 63);
+            this.imgHexMap.Name = "imgHexMap";
+            this.imgHexMap.Size = new System.Drawing.Size(446, 474);
+            this.imgHexMap.TabIndex = 4;
+            this.imgHexMap.TabStop = false;
+            this.imgHexMap.SizeChanged += new System.EventHandler(this.imgHexMap_SizeChanged);
+            // 
+            // playerWindowToolStripMenuItem
+            // 
+            this.playerWindowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem});
+            this.playerWindowToolStripMenuItem.Name = "playerWindowToolStripMenuItem";
+            this.playerWindowToolStripMenuItem.Size = new System.Drawing.Size(98, 20);
+            this.playerWindowToolStripMenuItem.Text = "Player Window";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -597,6 +615,8 @@ namespace HexAdventureMapper
         private System.Windows.Forms.CheckBox chk50FogOfWar;
         private System.Windows.Forms.ComboBox cmbFogOfWar;
         private System.Windows.Forms.RadioButton rbFogOfWar;
+        private System.Windows.Forms.ToolStripMenuItem playerWindowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
     }
 }
 

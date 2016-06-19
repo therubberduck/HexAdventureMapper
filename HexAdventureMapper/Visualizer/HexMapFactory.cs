@@ -17,30 +17,29 @@ namespace HexAdventureMapper.Visualizer
     {
         public HexTileFactory HexTileFactory;
         private DbInterface _db;
-        private MapBox _mapBox;
+        private IDrawingUi _uiInterface;
 
-        public HexCoordinate SelectedCoordinate { get; set; }
-
-        public HexMapFactory(IPainterUi uiInterface, TileConfigInterface tiles, DbInterface db, MapBox mapBox)
+        public HexMapFactory(IDrawingUi uiInterface, TileConfigInterface tiles, DbInterface db)
         {
             HexTileFactory = new HexTileFactory(uiInterface, tiles);
+            _uiInterface = uiInterface;
             _db = db;
-            _mapBox = mapBox;
         }
 
         public Image MakeLocalMap()
         {
-            var hexes = _db.Hexes.GetArea(_mapBox.MapArea);
+            var hexes = _db.Hexes.GetArea(_uiInterface.GetMapBox().MapArea);
             return MakeMapFromEntireArea(hexes);
         }
 
         public Image MakeMapFromEntireArea(List<Hex> hexes)
         {
-            if (_mapBox.Width == 0 || _mapBox.Height == 0)
+            MapBox mapBox = _uiInterface.GetMapBox();
+            if (mapBox.Width == 0 || mapBox.Height == 0)
             {
                 return null;
             }
-            var map = new Bitmap(_mapBox.Width, _mapBox.Height);
+            var map = new Bitmap(mapBox.Width, mapBox.Height);
             using (Graphics graphics = Graphics.FromImage(map))
             {
                 graphics.SmoothingMode = SmoothingMode.AntiAlias;
@@ -49,26 +48,10 @@ namespace HexAdventureMapper.Visualizer
 
                 foreach (var hex in hexes)
                 {
-                    HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(_mapBox.TopLeftCoordinate);
-                    Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
-                    var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
-
-                    Image image = HexTileFactory.GetMapTileFor(hex);
-                    graphics.DrawImage(image, pictureLocationAndSize);
+                    DrawHex(graphics, hex);
                 }
 
-                if (SelectedCoordinate != null)
-                {
-                    HexCoordinate positionOnVisibleMap = SelectedCoordinate.Minus(_mapBox.TopLeftCoordinate);
-                    Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
-                    var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
-
-                    using (var image = Image.FromFile("Images/SelectBorder.png"))
-                    {
-                        graphics.DrawImage(image, pictureLocationAndSize);
-                    }
-                }
-
+                TryDrawSelectedCoordinate(graphics);
             }
             return map;
         }
@@ -88,26 +71,37 @@ namespace HexAdventureMapper.Visualizer
                     return null;
                 }
 
-                HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(_mapBox.TopLeftCoordinate);
+                DrawHex(graphics, hex);
+
+                TryDrawSelectedCoordinate(graphics);
+            }
+            return map;
+        }
+
+        private void DrawHex(Graphics graphics, Hex hex)
+        {
+            HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(_uiInterface.GetMapBox().TopLeftCoordinate);
+            Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
+            var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
+
+            Image image = HexTileFactory.GetMapTileFor(hex);
+            graphics.DrawImage(image, pictureLocationAndSize);
+        }
+
+        private void TryDrawSelectedCoordinate(Graphics graphics)
+        {
+            HexCoordinate selectedCoordinate = _uiInterface.GetSelectedCoordinate();
+            if (selectedCoordinate != null)
+            {
+                HexCoordinate positionOnVisibleMap = selectedCoordinate.Minus(_uiInterface.GetMapBox().TopLeftCoordinate);
                 Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
                 var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
 
-                Image image = HexTileFactory.GetMapTileFor(hex);
-                graphics.DrawImage(image, pictureLocationAndSize);
-
-                if (SelectedCoordinate != null)
+                using (var selectImage = Image.FromFile("Images/SelectBorder.png"))
                 {
-                    positionOnVisibleMap = SelectedCoordinate.Minus(_mapBox.TopLeftCoordinate);
-                    positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
-                    pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
-
-                    using (var selectImage = Image.FromFile("Images/SelectBorder.png"))
-                    {
-                        graphics.DrawImage(selectImage, pictureLocationAndSize);
-                    }
+                    graphics.DrawImage(selectImage, pictureLocationAndSize);
                 }
             }
-            return map;
         }
     }
 }

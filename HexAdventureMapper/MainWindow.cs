@@ -16,7 +16,7 @@ using Timer = System.Threading.Timer;
 namespace HexAdventureMapper
 {
 
-    public partial class MainWindow : Form, IPainterUi
+    public partial class MainWindow : Form, IDrawingUi, IPainterUi
     {
         public enum DrawingTools
         {
@@ -35,6 +35,7 @@ namespace HexAdventureMapper
         private Painter _painter;
         
         private DrawingTools _currentDrawingTools;
+        private HexCoordinate _selectedCoordinate;
 
         private HexCoordinate _lastDraggedHex;
         private bool _drawingDisabled;
@@ -53,7 +54,7 @@ namespace HexAdventureMapper
 
             _db = new DbInterface();
             _tiles = new TileConfigInterface();
-            _hexMapFactory = new HexMapFactory(this, _tiles, _db, imgHexMap);
+            _hexMapFactory = new HexMapFactory(this, _tiles, _db);
             _painter = new Painter(this, _db);
 
             imgHexMap.BackColor = ColorTranslator.FromHtml("#333333");
@@ -95,6 +96,16 @@ namespace HexAdventureMapper
         public DrawingTools GetDrawingTool()
         {
             return _currentDrawingTools;
+        }
+
+        public MapBox GetMapBox()
+        {
+            return imgHexMap;
+        }
+
+        public HexCoordinate GetSelectedCoordinate()
+        {
+            return _selectedCoordinate;
         }
 
         public int GetGmIconAlpha()
@@ -232,14 +243,14 @@ namespace HexAdventureMapper
 
         private void SelectHex(MapEventArgs e)
         {
-            if (_hexMapFactory.SelectedCoordinate != null) //Redraw the previously selected hex (deselect) if there was a previously selected hex
+            if (_selectedCoordinate != null) //Redraw the previously selected hex (deselect) if there was a previously selected hex
             {
-                var selectedCoordinate = _hexMapFactory.SelectedCoordinate;
-                _hexMapFactory.SelectedCoordinate = null; //We set the SelectedCoordinate to null, so that hexMapFactory knows it is not selected
-                DrawHex(selectedCoordinate);
+                var oldSelectedCoordinate = _selectedCoordinate;
+                _selectedCoordinate = null; //We set the SelectedCoordinate to null, so that hexMapFactory knows it is not selected
+                DrawHex(oldSelectedCoordinate);
             }
 
-            _hexMapFactory.SelectedCoordinate = e.HexWorldCoordinate; //Mark the new hex as selected
+            _selectedCoordinate = e.HexWorldCoordinate; //Mark the new hex as selected
 
             //Update the textfield with the hex's detail (if any)
             Hex hex = _db.Hexes.GetForCoordinate(e.HexWorldCoordinate);
@@ -339,17 +350,17 @@ namespace HexAdventureMapper
         private void txtDetail_TextChanged(object sender, System.EventArgs e)
         {
             //If the last scheduled detail update was to this hex, unschedule it, since we are making a new one (for this hex)
-            if (_saveDetailTimer != null && _lastScheduledDetailSave.Equals(_hexMapFactory.SelectedCoordinate))
+            if (_saveDetailTimer != null && _lastScheduledDetailSave.Equals(_selectedCoordinate))
             {
                 _saveDetailTimer.Dispose();
             }
             //Schedule a detail update after 1 second (so we wait to update until the user is done typing)
             TimerCallback callback = SaveDetailText;
-            object[] state = {_hexMapFactory.SelectedCoordinate, txtDetail.Text};
+            object[] state = { _selectedCoordinate, txtDetail.Text};
             _saveDetailTimer = new Timer(callback, state, TimeSpan.FromSeconds(1), TimeSpan.FromMilliseconds(-1));
 
             //Update which hex is scheduled for an update, for use next time this event gets called
-            _lastScheduledDetailSave = _hexMapFactory.SelectedCoordinate;
+            _lastScheduledDetailSave = _selectedCoordinate;
         }
 
         private void SaveDetailText(object state)
@@ -363,7 +374,7 @@ namespace HexAdventureMapper
 
         private void imgHexMap_SizeChanged(object sender, System.EventArgs e)
         {
-            _hexMapFactory.SelectedCoordinate = null;
+            _selectedCoordinate = null;
             DrawMap();
         }
 
@@ -415,6 +426,12 @@ namespace HexAdventureMapper
                 string savePath = fileDialog.FileName;
                 File.Copy(dbPath, savePath, true);
             }
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PlayerWindow playerWindow = new PlayerWindow(_tiles, _db);
+            playerWindow.Show();
         }
 
         private void AutoSave()
@@ -496,7 +513,7 @@ namespace HexAdventureMapper
 
         private void MoveWindow(Direction direction, int distance)
         {
-            _hexMapFactory.SelectedCoordinate = null;
+            _selectedCoordinate = null;
             switch (direction)
             {
                     case Direction.North:

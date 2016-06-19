@@ -17,11 +17,11 @@ namespace HexAdventureMapper.Visualizer
         private const int hexWidth = 50;
         private const int hexHeight = 44;
 
-        private readonly IPainterUi _uiInterface;
+        private readonly IDrawingUi _uiInterface;
         private TileConfigInterface _tiles;
         private readonly Dictionary<String, Bitmap> _mapTileImages;
 
-        public HexTileFactory(IPainterUi uiInterface, TileConfigInterface tiles)
+        public HexTileFactory(IDrawingUi uiInterface, TileConfigInterface tiles)
         {
             _uiInterface = uiInterface;
             _tiles = tiles;

@@ -92,6 +92,12 @@
     </Compile>
     <Compile Include="Painting\IPainterUi.cs" />
     <Compile Include="Painting\Painter.cs" />
+    <Compile Include="PlayerWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlayerWindow.Designer.cs">
+      <DependentUpon>PlayerWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TileConfig\TileConfigInterface.cs" />
@@ -104,9 +110,13 @@
     <Compile Include="Visualizer\Direction.cs" />
     <Compile Include="Visualizer\HexMapFactory.cs" />
     <Compile Include="Visualizer\HexTileFactory.cs" />
+    <Compile Include="Visualizer\IDrawingUi.cs" />
     <Compile Include="Visualizer\PositionManager.cs" />
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlayerWindow.resx">
+      <DependentUpon>PlayerWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
