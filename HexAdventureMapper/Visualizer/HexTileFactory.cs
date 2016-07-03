@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -177,33 +178,56 @@ namespace HexAdventureMapper.Visualizer
 
         private void AddRiverLayer(Graphics graphics, Hex hex)
         {
-            foreach (var riverSection in hex.RiverSections)
+            if (hex.RiverSections.Count == 0)
             {
-                var points = HexConnectionPointsFor(riverSection, hex.RiverOffset);
-                int riverWidth;
-                Color color;
-                switch (riverSection.Type)
-                {
-                    case 0:
-                        color = Color.Blue;
-                        riverWidth = 1;
-                        break;
-                    case 1:
-                        color = Color.Blue;
-                        riverWidth = 3;
-                        break;
-                    case 2:
-                        color = Color.Blue;
-                        riverWidth = 5;
-                        break;
-                    default:
-                        color = Color.DodgerBlue;
-                        riverWidth = 1;
-                        break;
-                }
-                var pen = new Pen(color, riverWidth);
+                return;
+            }
+            else if (hex.RiverSections.Count == 1)
+            {
+                var river = hex.RiverSections[0];
+                var pen = GetPenForRiver(river);
+                var points = HexConnectionPointsFor(river, hex.RiverOffset);
                 graphics.DrawLine(pen, points[0], points[1], points[2], points[3]);
             }
+            //else if (hex.RiverSections.Count == 2 && hex.RiverSections[0].Type == hex.RiverSections[1].Type)
+            //{
+            //    graphics.DrawArc();
+            //}
+            else
+            {
+                foreach (var riverSection in hex.RiverSections)
+                {
+                    var points = HexConnectionPointsFor(riverSection, hex.RiverOffset);
+                    var pen = GetPenForRiver(riverSection);
+                    graphics.DrawLine(pen, points[0], points[1], points[2], points[3]);
+                }
+            }
+        }
+
+        private Pen GetPenForRiver(HexConnection riverSection)
+        {
+            int riverWidth;
+            Color color;
+            switch (riverSection.Type)
+            {
+                case 0:
+                    color = Color.Blue;
+                    riverWidth = 1;
+                    break;
+                case 1:
+                    color = Color.Blue;
+                    riverWidth = 3;
+                    break;
+                case 2:
+                    color = Color.Blue;
+                    riverWidth = 5;
+                    break;
+                default:
+                    color = Color.DodgerBlue;
+                    riverWidth = 1;
+                    break;
+            }
+            return new Pen(color, riverWidth);
         }
 
         private void AddRoadLayer(Graphics graphics, Hex hex)
