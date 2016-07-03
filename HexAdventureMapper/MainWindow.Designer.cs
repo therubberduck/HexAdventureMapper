@@ -48,6 +48,9 @@ namespace HexAdventureMapper
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveBmpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bitmapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -256,6 +259,7 @@ namespace HexAdventureMapper
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
+            this.saveBmpToolStripMenuItem,
             this.loadToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.exitToolStripMenuItem});
@@ -266,28 +270,52 @@ namespace HexAdventureMapper
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // saveBmpToolStripMenuItem
+            // 
+            this.saveBmpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bitmapToolStripMenuItem,
+            this.pngToolStripMenuItem});
+            this.saveBmpToolStripMenuItem.Name = "saveBmpToolStripMenuItem";
+            this.saveBmpToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.saveBmpToolStripMenuItem.Text = "Save Image";
+            this.saveBmpToolStripMenuItem.Click += new System.EventHandler(this.saveImageToolStripMenuItem_Click);
+            // 
+            // bitmapToolStripMenuItem
+            // 
+            this.bitmapToolStripMenuItem.Name = "bitmapToolStripMenuItem";
+            this.bitmapToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.bitmapToolStripMenuItem.Text = "Bitmap";
+            this.bitmapToolStripMenuItem.Click += new System.EventHandler(this.bitmapToolStripMenuItem_Click);
+            // 
+            // pngToolStripMenuItem
+            // 
+            this.pngToolStripMenuItem.Name = "pngToolStripMenuItem";
+            this.pngToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.pngToolStripMenuItem.Text = "Png";
+            this.pngToolStripMenuItem.Click += new System.EventHandler(this.pngToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -617,6 +645,9 @@ namespace HexAdventureMapper
         private System.Windows.Forms.RadioButton rbFogOfWar;
         private System.Windows.Forms.ToolStripMenuItem playerWindowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveBmpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bitmapToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pngToolStripMenuItem;
     }
 }
 

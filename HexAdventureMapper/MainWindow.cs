@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -408,6 +409,44 @@ namespace HexAdventureMapper
             {
                 _db.ClearDb();
                 DrawMap();
+            }
+        }
+
+        private void saveImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveImage(ImageFormat.Bmp);
+        }
+
+        private void bitmapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveImage(ImageFormat.Bmp);
+        }
+
+        private void pngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveImage(ImageFormat.Png);
+        }
+
+        private void saveImage(ImageFormat imageFormat)
+        {
+            SaveFileDialog fileDialog = new SaveFileDialog();
+            fileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            fileDialog.AddExtension = true;
+            if (imageFormat == ImageFormat.Png)
+            {
+                fileDialog.DefaultExt = "png";
+                fileDialog.Filter = "Png File|*.png";
+            }
+            else
+            {
+                fileDialog.DefaultExt = "bmp";
+                fileDialog.Filter = "Bmp File|*.bmp";
+            }
+            DialogResult result = fileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string savePath = fileDialog.FileName;
+                imgHexMap.Image.Save(savePath, imageFormat);
             }
         }
 
