@@ -30,6 +30,8 @@ namespace HexAdventureMapper
             FogOfWar
         };
 
+        private PlayerWindow _playerWindow;
+
         private DbInterface _db;
         private TileConfigInterface _tiles;
         private TileCache _tileCache;
@@ -195,12 +197,16 @@ namespace HexAdventureMapper
             }
         }
 
-        private void DrawHex(HexCoordinate coordinate)
+        private void DrawHex(HexCoordinate coordinate, bool redrawPlayerWindow = true)
         {
             Image map = _hexMapFactory.RedrawHex(coordinate, imgHexMap.Image);
             if (map != null)
             {
                 imgHexMap.Image = map;
+            }
+            if (_playerWindow != null)
+            {
+                _playerWindow.RedrawHex(coordinate);
             }
         }
 
@@ -259,7 +265,7 @@ namespace HexAdventureMapper
             {
                 var oldSelectedCoordinate = _selectedCoordinate;
                 _selectedCoordinate = null; //We set the SelectedCoordinate to null, so that hexMapFactory knows it is not selected
-                DrawHex(oldSelectedCoordinate);
+                DrawHex(oldSelectedCoordinate, false);
             }
 
             _selectedCoordinate = e.HexWorldCoordinate; //Mark the new hex as selected
@@ -446,8 +452,8 @@ namespace HexAdventureMapper
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PlayerWindow playerWindow = new PlayerWindow(_tiles, _db);
-            playerWindow.Show();
+            _playerWindow = new PlayerWindow(_tiles, _db);
+            _playerWindow.Show();
         }
 
         private void AutoSave()

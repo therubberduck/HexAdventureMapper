@@ -66,6 +66,16 @@ namespace HexAdventureMapper
             }
         }
 
+        public void RedrawHex(HexCoordinate coordinate)
+        {
+            _tileCache.ClearIconTileCacheFor(coordinate);
+            Image map = _hexMapFactory.RedrawHex(coordinate, imgPlayerMap.Image);
+            if (map != null)
+            {
+                imgPlayerMap.Image = map;
+            }
+        }
+
         private void btnMoveNorth1_Click(object sender, EventArgs e)
         {
             MoveWindow(Direction.North, 2);
