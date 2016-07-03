@@ -117,6 +117,56 @@ namespace HexAdventureMapper.Visualizer
             return new HexCoordinate(xCoor, yCoor);
         }
 
+        public static List<HexCoordinate> GetNeighborsTo(HexCoordinate hexcoordinate)
+        {
+            var neighbors = new List<HexCoordinate>();
+            foreach (var direction in Enum.GetValues(typeof(Direction)).Cast<Direction>())
+            {
+                neighbors.Add(NeighborTo(hexcoordinate, direction));
+            }
+            return neighbors;
+        }
+
+        public static List<HexCoordinate> GetTwoStepAreaAround(HexCoordinate hexcoordinate)
+        {
+            var neighbors = new List<HexCoordinate>();
+
+            var northHex = NeighborTo(hexcoordinate, Direction.North);
+            var northeastHex = NeighborTo(hexcoordinate, Direction.NorthEast);
+            var southeastHex = NeighborTo(hexcoordinate, Direction.SouthEast);
+            var southHex = NeighborTo(hexcoordinate, Direction.South);
+            var southwestHex = NeighborTo(hexcoordinate, Direction.SouthWest);
+            var northwestHex = NeighborTo(hexcoordinate, Direction.NorthWest);
+
+            neighbors.Add(northHex);
+            neighbors.Add(NeighborTo(northHex, Direction.NorthWest));
+            neighbors.Add(NeighborTo(northHex, Direction.North));
+            neighbors.Add(NeighborTo(northHex, Direction.NorthEast));
+
+            neighbors.Add(northeastHex);
+            neighbors.Add(NeighborTo(northeastHex, Direction.NorthEast));
+
+            neighbors.Add(southeastHex);
+            neighbors.Add(NeighborTo(southeastHex, Direction.NorthEast));
+            neighbors.Add(NeighborTo(southeastHex, Direction.SouthEast));
+            neighbors.Add(NeighborTo(southeastHex, Direction.South));
+
+            neighbors.Add(southHex);
+            neighbors.Add(NeighborTo(southHex, Direction.South));
+
+            neighbors.Add(southwestHex);
+            neighbors.Add(NeighborTo(southwestHex, Direction.South));
+            neighbors.Add(NeighborTo(southwestHex, Direction.SouthWest));
+            neighbors.Add(NeighborTo(southwestHex, Direction.NorthWest));
+
+            neighbors.Add(northwestHex);
+            neighbors.Add(NeighborTo(northwestHex, Direction.NorthWest));
+            
+            neighbors.Add(hexcoordinate);
+
+            return neighbors;
+        }
+
         public static Direction OppositeDirection(Direction direction)
         {
             switch (direction)

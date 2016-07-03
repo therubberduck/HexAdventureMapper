@@ -189,6 +189,7 @@
             this.imgPlayerMap.Size = new System.Drawing.Size(732, 525);
             this.imgPlayerMap.TabIndex = 26;
             this.imgPlayerMap.TabStop = false;
+            this.imgPlayerMap.MapClick += new HexAdventureMapper.Views.MapEventHandler(this.imgPlayerMap_Click);
             // 
             // PlayerWindow
             // 

@@ -12,6 +12,7 @@ namespace HexAdventureMapper.Visualizer
     {
         MapBox GetMapBox();
         HexCoordinate GetSelectedCoordinate();
+        HexCoordinate GetPartyPosition();
 
         int GetGmIconAlpha();
         int GetPlayerIconAlpha();

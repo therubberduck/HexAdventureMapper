@@ -60,8 +60,20 @@ namespace HexAdventureMapper.Visualizer
                 }
 
                 TryDrawSelectedCoordinate(graphics);
+                TryDrawPartyPosition(graphics);
             }
             return map;
+        }
+
+        public Image RedrawArea(HexCoordinate centerCoordinate, Image image)
+        {
+            List<HexCoordinate> areaCoordinates = PositionManager.GetTwoStepAreaAround(centerCoordinate);
+            List<Hex> hexesInArea = _db.Hexes.GetForCoordinates(areaCoordinates);
+            foreach (var hex in hexesInArea)
+            {
+                image = RedrawHex(hex.Coordinate, image);
+            }
+            return image;
         }
 
         public Image RedrawHex(HexCoordinate worldCoordinate, Image map)
@@ -82,6 +94,7 @@ namespace HexAdventureMapper.Visualizer
                 DrawHex(graphics, hex, Layer.Terrain);
 
                 TryDrawSelectedCoordinate(graphics);
+                TryDrawPartyPosition(graphics);
             }
             return map;
         }
@@ -106,6 +119,21 @@ namespace HexAdventureMapper.Visualizer
                 var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
 
                 using (var selectImage = Image.FromFile("Images/SelectBorder.png"))
+                {
+                    graphics.DrawImage(selectImage, pictureLocationAndSize);
+                }
+            }
+        }
+
+        private void TryDrawPartyPosition(Graphics graphics)
+        {
+            HexCoordinate partyPosition = _uiInterface.GetPartyPosition();
+            if (partyPosition != null)
+            {
+                Point positionOnScreen = PositionManager.HexToScreen(partyPosition);
+                var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
+
+                using (var selectImage = Image.FromFile("Images/PartyIndicator.png"))
                 {
                     graphics.DrawImage(selectImage, pictureLocationAndSize);
                 }

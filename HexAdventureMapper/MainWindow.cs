@@ -114,6 +114,11 @@ namespace HexAdventureMapper
             return _selectedCoordinate;
         }
 
+        public HexCoordinate GetPartyPosition()
+        {
+            return null;
+        }
+
         public int GetGmIconAlpha()
         {
             return GetLayerAlphaFor(chk50GmIcons, chk100GmIcons);

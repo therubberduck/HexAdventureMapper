@@ -80,6 +80,27 @@ namespace HexAdventureMapper.Database.Modules
             return returnList;
         }
 
+        public List<Hex> GetForCoordinates(List<HexCoordinate> areaCoordinates)
+        {
+            string otherClauses = "";
+            foreach (var coordinate in areaCoordinates)
+            {
+                otherClauses += " OR (" + CoordinateX + " = " + coordinate.X + " AND " + CoordinateY + " = " + coordinate.Y +
+                                ")";
+            }
+            otherClauses = "WHERE " + otherClauses.Substring(4);
+            otherClauses += " ORDER BY " + CoordinateX + "," + CoordinateY;
+            var results = Db.Select(TableName, AllColumnNames, otherClauses);
+
+            var returnList = new List<Hex>();
+            foreach (object[] o in results)
+            {
+                var resultObject = MakeObject(o);
+                returnList.Add(resultObject);
+            }
+            return returnList;
+        }
+
         public Hex GetForCoordinate(HexCoordinate coor)
         {
             object[] results = Db.Select(TableName, AllColumnNames, new[] {CoordinateX, CoordinateY},

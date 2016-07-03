@@ -20,6 +20,8 @@ namespace HexAdventureMapper
         private TileCache _tileCache;
         private HexMapFactory _hexMapFactory;
 
+        private HexCoordinate _partyLocation;
+
         public PlayerWindow(TileConfigInterface tiles, DbInterface db)
         {
             InitializeComponent();
@@ -40,6 +42,11 @@ namespace HexAdventureMapper
         public HexCoordinate GetSelectedCoordinate()
         {
             return null;
+        }
+
+        public HexCoordinate GetPartyPosition()
+        {
+            return _partyLocation;
         }
 
         public int GetGmIconAlpha()
@@ -73,6 +80,31 @@ namespace HexAdventureMapper
             if (map != null)
             {
                 imgPlayerMap.Image = map;
+            }
+        }
+
+        public void RedrawArea(HexCoordinate coordinate)
+        {
+            _tileCache.ClearFinishedTileCacheForAreaAround(coordinate);
+            Image map = _hexMapFactory.RedrawArea(coordinate, imgPlayerMap.Image);
+            if (map != null)
+            {
+                imgPlayerMap.Image = map;
+            }
+        }
+
+        private void imgPlayerMap_Click(object sender, MapEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (_partyLocation != null)
+                {
+                    var oldPartyLocation = _partyLocation;
+                    _partyLocation = null;
+                    RedrawHex(oldPartyLocation);
+                }
+                _partyLocation = e.HexWorldCoordinate;
+                RedrawArea(e.HexWorldCoordinate); //Redraw the hexes around the moved-to hex
             }
         }
 

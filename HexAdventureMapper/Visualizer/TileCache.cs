@@ -82,6 +82,15 @@ namespace HexAdventureMapper.Visualizer
             _finishedTiles.Clear();
         }
 
+        public void ClearFinishedTileCacheForAreaAround(HexCoordinate centerCoordinate)
+        {
+            List<HexCoordinate> coordinates = PositionManager.GetTwoStepAreaAround(centerCoordinate);
+            foreach (var coor in coordinates)
+            {
+                RemoveTile(_finishedTiles, coor);
+            }
+        }
+
         public Bitmap GetFogLessMap()
         {
             return _foglessMap;
