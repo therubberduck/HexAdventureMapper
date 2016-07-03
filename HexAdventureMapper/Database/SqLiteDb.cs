@@ -140,6 +140,13 @@ namespace HexAdventureMapper.Database
             return id;
         }
 
+        public void Update(string table, string column, object value, string otherClauses)
+        {
+            value = FormatValueAsString(value);
+            string commandString = "Update " + table + " set " + column + "=" + value + " " + otherClauses;
+            ExecuteCommand(commandString);
+        }
+
         public void Update(string table, string column, object value, string whereColumn, object whereValue)
         {
             value = FormatValueAsString(value);

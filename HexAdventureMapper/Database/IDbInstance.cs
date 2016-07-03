@@ -15,6 +15,7 @@ namespace HexAdventureMapper.Database
         object[] Select(string table, string[] columns, string[] whereColumns, object[] whereValues);
         int Insert(string table, string column, string value);
         int Insert(string table, string[] columns, object[] values);
+        void Update(string table, string column, object value, string otherClauses);
         void Update(string table, string column, object value, string whereColumn, object whereValue);
         void Update(string table, string column, object value, string[] whereColumns, object[] whereValues);
         void Update(string table, string[] columns, object[] values, string whereColumn, object whereValue);

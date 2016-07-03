@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HexAdventureMapper.Database.WorkingClasses;
 using HexAdventureMapper.DataObjects;
+using HexAdventureMapper.TileConfig;
 
 namespace HexAdventureMapper.Database.Modules
 {
@@ -130,6 +131,46 @@ namespace HexAdventureMapper.Database.Modules
         public void UpdateDetail(HexCoordinate coor, string detail)
         {
             Db.Update(TableName, new[] { Detail }, new object[] { detail }, new[] { CoordinateX, CoordinateY }, new object[] { coor.X, coor.Y });
+        }
+
+        public void UpdateFogOfWar(List<Hex> revealArea)
+        {
+            List<HexCoordinate> fullyRevealedHexes = new List<HexCoordinate>();
+            List<HexCoordinate> partiallyRevealedHexes = new List<HexCoordinate>();
+
+            foreach (var hex in revealArea)
+            {
+                if (hex.FogOfWar == TileId.NoFogOfWar)
+                {
+                    fullyRevealedHexes.Add(hex.Coordinate);
+                }
+                else if (hex.FogOfWar == TileId.PartialFogOfWar)
+                {
+                    partiallyRevealedHexes.Add(hex.Coordinate);
+                }
+            }
+
+            //First we update the fully revealed hexes
+            string whereClause = "";
+            foreach (var coordinate in fullyRevealedHexes)
+            {
+                whereClause += " OR (" + CoordinateX + " = " + coordinate.X + " AND " + CoordinateY + " = " + coordinate.Y +
+                                ")";
+            }
+            whereClause = "WHERE " + whereClause.Substring(4);
+
+            Db.Update(TableName, FogOfWar, TileId.NoFogOfWar, whereClause);
+
+            //Then we update the partially revealed hexes
+            whereClause = "";
+            foreach (var coordinate in partiallyRevealedHexes)
+            {
+                whereClause += " OR (" + CoordinateX + " = " + coordinate.X + " AND " + CoordinateY + " = " + coordinate.Y +
+                                ")";
+            }
+            whereClause = "WHERE " + whereClause.Substring(4);
+
+            Db.Update(TableName, FogOfWar, TileId.PartialFogOfWar, whereClause);
         }
 
         public void UpdateFogOfWar(HexCoordinate coor, int fogId)

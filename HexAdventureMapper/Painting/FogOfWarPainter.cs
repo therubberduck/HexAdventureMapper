@@ -70,9 +70,6 @@ namespace HexAdventureMapper.Painting
             Hex northWestHex = DirectionManager.GetHexNeighbor(revealArea, centerHex, Direction.NorthWest);
             SetOuterHexFogOfWar(revealArea, centerHex, northWestHex, Direction.NorthWest);
 
-            //Get updated version of revealArea, so we know which outer hexes has been revealed
-            revealArea = _db.Hexes.GetForCoordinates(DirectionManager.GetTwoStepAreaAround(worldCoordinate));
-
             //Reveal inner hexes, based on the outer hexes revealed
             SetInnerHexFogOfWar(revealArea, northHex, Direction.North);
             SetInnerHexFogOfWar(revealArea, northEastHex, Direction.NorthEast);
@@ -80,6 +77,8 @@ namespace HexAdventureMapper.Painting
             SetInnerHexFogOfWar(revealArea, southHex, Direction.South);
             SetInnerHexFogOfWar(revealArea, southWestHex, Direction.SouthWest);
             SetInnerHexFogOfWar(revealArea, northWestHex, Direction.NorthWest);
+
+            _db.Hexes.UpdateFogOfWar(revealArea);
         }
 
         public void SetOuterHexFogOfWar(List<Hex> hexes, Hex startingHex, Hex innerHex, Direction innerDirection)
@@ -115,7 +114,7 @@ namespace HexAdventureMapper.Painting
                 //View from mountains see past everything, except other mountains
                 if (innerHex.TerrainId != TileId.TerrainMountains && innerHex.TerrainId != TileId.TerrainVolcano)
                 {
-                    _db.Hexes.UpdateFogOfWar(outerHex.Coordinate, TileId.PartialFogOfWar);
+                    outerHex.FogOfWar = TileId.PartialFogOfWar;
                 }
             }
             else if (startingHex.TerrainId == TileId.TerrainHills)
@@ -123,13 +122,13 @@ namespace HexAdventureMapper.Painting
                 //View from hills see past lower-lying plains and water
                 if (innerHex.TerrainId == TileId.TerrainPlains || innerHex.TerrainId == TileId.TerrainSea)
                 {
-                    _db.Hexes.UpdateFogOfWar(outerHex.Coordinate, TileId.PartialFogOfWar);
+                    outerHex.FogOfWar = TileId.PartialFogOfWar;
                 }
                 //Also, if outer hex is taller than inner hex, we also see it
                 else if (innerHex.TerrainId == TileId.TerrainHills &&
                          (outerHex.TerrainId == TileId.TerrainMountains || outerHex.TerrainId == TileId.TerrainVolcano))
                 {
-                    _db.Hexes.UpdateFogOfWar(outerHex.Coordinate, TileId.PartialFogOfWar);
+                    outerHex.FogOfWar = TileId.PartialFogOfWar;
                 }
                 //Otherwise the neighboring hills or mountains block the view
             }
@@ -141,18 +140,18 @@ namespace HexAdventureMapper.Painting
             else if (innerHex.TerrainId == TileId.TerrainHills &&
                          (outerHex.TerrainId == TileId.TerrainMountains || outerHex.TerrainId == TileId.TerrainVolcano))
             {
-                _db.Hexes.UpdateFogOfWar(outerHex.Coordinate, TileId.PartialFogOfWar);
+                outerHex.FogOfWar = TileId.PartialFogOfWar;
             }
             else if ((innerHex.TerrainId == TileId.TerrainPlains || innerHex.TerrainId == TileId.TerrainSea) &&
                          (outerHex.TerrainId != TileId.TerrainPlains || outerHex.TerrainId != TileId.TerrainSea))
             {
-                _db.Hexes.UpdateFogOfWar(outerHex.Coordinate, TileId.PartialFogOfWar);
+                outerHex.FogOfWar = TileId.PartialFogOfWar;
             }
             //We can't see past forests of same elevation, but otherwise we are golden
             else if ((innerHex.TerrainId == TileId.TerrainPlains || innerHex.TerrainId == TileId.TerrainSea) 
                 && (innerHex.VegetationId != TileId.VegForest && innerHex.VegetationId != TileId.VegConForest && innerHex.VegetationId != TileId.VegJungle))
             {
-                _db.Hexes.UpdateFogOfWar(outerHex.Coordinate, TileId.PartialFogOfWar);
+                outerHex.FogOfWar = TileId.PartialFogOfWar;
             }
         }
 
@@ -176,11 +175,11 @@ namespace HexAdventureMapper.Painting
             }
             if (allOuterHexesRevealed)
             {
-                _db.Hexes.UpdateFogOfWar(innerHex.Coordinate, TileId.NoFogOfWar);
+                innerHex.FogOfWar = TileId.NoFogOfWar;
             }
             else
             {
-                _db.Hexes.UpdateFogOfWar(innerHex.Coordinate, TileId.PartialFogOfWar);
+                innerHex.FogOfWar = TileId.PartialFogOfWar;
             }
         }
     }
