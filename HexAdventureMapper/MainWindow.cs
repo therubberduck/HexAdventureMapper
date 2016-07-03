@@ -298,6 +298,8 @@ namespace HexAdventureMapper
             {
                 txtDetail.Text = "";
             }
+
+            lblCoordinates.Text = _selectedCoordinate.ToText();
         }
 
         private void Combobox_SelectedIndexChanged(object sender, EventArgs e)
@@ -659,6 +661,14 @@ namespace HexAdventureMapper
                 {
                     DrawFogOfWar();
                 }
+            }
+        }
+
+        private void lblCoordinates_Click(object sender, EventArgs e)
+        {
+            if (_selectedCoordinate != null)
+            {
+                Clipboard.SetText(_selectedCoordinate.ToText());
             }
         }
     }

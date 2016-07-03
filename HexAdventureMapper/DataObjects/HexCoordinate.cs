@@ -46,5 +46,10 @@ namespace HexAdventureMapper.DataObjects
         {
             return new HexCoordinate(X - otherCoor.X, Y - otherCoor.Y);
         }
+
+        public string ToText()
+        {
+            return X.ToString("D4") + ", " + Y.ToString("D4");
+        }
     }
 }

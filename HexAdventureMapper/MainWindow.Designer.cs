@@ -75,6 +75,7 @@ namespace HexAdventureMapper
             this.chk50FogOfWar = new System.Windows.Forms.CheckBox();
             this.cmbFogOfWar = new System.Windows.Forms.ComboBox();
             this.rbFogOfWar = new System.Windows.Forms.RadioButton();
+            this.lblCoordinates = new System.Windows.Forms.Label();
             this.imgHexMap = new HexAdventureMapper.Views.MapBox();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgHexMap)).BeginInit();
@@ -87,7 +88,7 @@ namespace HexAdventureMapper
             this.txtDetail.Location = new System.Drawing.Point(663, 27);
             this.txtDetail.Multiline = true;
             this.txtDetail.Name = "txtDetail";
-            this.txtDetail.Size = new System.Drawing.Size(210, 546);
+            this.txtDetail.Size = new System.Drawing.Size(210, 530);
             this.txtDetail.TabIndex = 1;
             this.txtDetail.TextChanged += new System.EventHandler(this.txtDetail_TextChanged);
             // 
@@ -536,6 +537,16 @@ namespace HexAdventureMapper
             this.rbFogOfWar.UseVisualStyleBackColor = true;
             this.rbFogOfWar.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
+            // lblCoordinates
+            // 
+            this.lblCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCoordinates.AutoSize = true;
+            this.lblCoordinates.Location = new System.Drawing.Point(660, 560);
+            this.lblCoordinates.Name = "lblCoordinates";
+            this.lblCoordinates.Size = new System.Drawing.Size(0, 13);
+            this.lblCoordinates.TabIndex = 37;
+            this.lblCoordinates.Click += new System.EventHandler(this.lblCoordinates_Click);
+            // 
             // imgHexMap
             // 
             this.imgHexMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -549,13 +560,12 @@ namespace HexAdventureMapper
             this.imgHexMap.TabStop = false;
             this.imgHexMap.SizeChanged += new System.EventHandler(this.imgHexMap_SizeChanged);
             // 
-            // 
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(885, 585);
+            this.Controls.Add(this.lblCoordinates);
             this.Controls.Add(this.cmbFogOfWar);
             this.Controls.Add(this.rbFogOfWar);
             this.Controls.Add(this.chk50FogOfWar);
@@ -650,6 +660,7 @@ namespace HexAdventureMapper
         private System.Windows.Forms.ToolStripMenuItem saveBmpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bitmapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pngToolStripMenuItem;
+        private System.Windows.Forms.Label lblCoordinates;
     }
 }
 
