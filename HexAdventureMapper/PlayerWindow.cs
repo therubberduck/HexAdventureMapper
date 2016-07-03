@@ -9,18 +9,21 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HexAdventureMapper.Database;
 using HexAdventureMapper.DataObjects;
+using HexAdventureMapper.Painting;
 using HexAdventureMapper.TileConfig;
 using HexAdventureMapper.Views;
 using HexAdventureMapper.Visualizer;
 
 namespace HexAdventureMapper
 {
-    public partial class PlayerWindow: Form, IDrawingUi
+    public partial class PlayerWindow: Form, IDrawingUi, IFogOfWarUi
     {
         private TileCache _tileCache;
         private HexMapFactory _hexMapFactory;
 
         private HexCoordinate _partyLocation;
+
+        private FogOfWarPainter _fogOfWarPainter;
 
         public PlayerWindow(TileConfigInterface tiles, DbInterface db)
         {
@@ -28,6 +31,8 @@ namespace HexAdventureMapper
 
             _tileCache = new TileCache();
             _hexMapFactory = new HexMapFactory(this, tiles, db, _tileCache);
+
+            _fogOfWarPainter = new FogOfWarPainter(this, db);
 
             imgPlayerMap.BackColor = ColorTranslator.FromHtml("#333333");
 
@@ -97,6 +102,7 @@ namespace HexAdventureMapper
         {
             if (e.Button == MouseButtons.Left)
             {
+                _fogOfWarPainter.ClearFogofWarAround(e.HexWorldCoordinate);
                 if (_partyLocation != null)
                 {
                     var oldPartyLocation = _partyLocation;
@@ -186,6 +192,11 @@ namespace HexAdventureMapper
                     break;
             }
             DrawMap();
+        }
+
+        public int GetFogOfWarId()
+        {
+            return -1;
         }
     }
 }

@@ -84,7 +84,7 @@ namespace HexAdventureMapper.Visualizer
 
         public void ClearFinishedTileCacheForAreaAround(HexCoordinate centerCoordinate)
         {
-            List<HexCoordinate> coordinates = PositionManager.GetTwoStepAreaAround(centerCoordinate);
+            List<HexCoordinate> coordinates = DirectionManager.GetTwoStepAreaAround(centerCoordinate);
             foreach (var coor in coordinates)
             {
                 RemoveTile(_finishedTiles, coor);

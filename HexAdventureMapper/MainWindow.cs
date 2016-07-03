@@ -18,7 +18,7 @@ using Timer = System.Threading.Timer;
 namespace HexAdventureMapper
 {
 
-    public partial class MainWindow : Form, IDrawingUi, IPainterUi
+    public partial class MainWindow : Form, IDrawingUi, IPainterUi, IFogOfWarUi
     {
         public enum DrawingTools
         {
@@ -38,6 +38,7 @@ namespace HexAdventureMapper
         private TileCache _tileCache;
         private HexMapFactory _hexMapFactory;
         private Painter _painter;
+        private FogOfWarPainter _fogOfWarPainter;
         
         private DrawingTools _currentDrawingTools;
         private HexCoordinate _selectedCoordinate;
@@ -62,6 +63,7 @@ namespace HexAdventureMapper
             _tileCache = new TileCache();
             _hexMapFactory = new HexMapFactory(this, _tiles, _db, _tileCache);
             _painter = new Painter(this, _db);
+            _fogOfWarPainter = new FogOfWarPainter(this, _db);
 
             imgHexMap.BackColor = ColorTranslator.FromHtml("#333333");
 
@@ -234,12 +236,17 @@ namespace HexAdventureMapper
             if (e.Button == MouseButtons.Left)
             {
                 SelectHex(e);
-                if (_painter.TryPaint(e)) //Since we are not selecting, we are painting. Try to paint
+                if (GetDrawingTool() == DrawingTools.FogOfWar)
+                {
+                    _fogOfWarPainter.PaintFogOfWar(e.HexWorldCoordinate);
+                    _tileCache.ClearFinishedTileCache();
+                }
+                else if (_painter.TryPaint(e)) //Since we are not selecting, we are painting. Try to paint
                 {
                     if (_currentDrawingTools == DrawingTools.River || _currentDrawingTools == DrawingTools.Road)
                     {
                         //For connections, we also redraw the neighboring hex, since it also gets a connection that needs drawing
-                        var neighborHex = PositionManager.NeighborTo(e.HexWorldCoordinate, e.PartOfHexClicked);
+                        var neighborHex = DirectionManager.NeighborTo(e.HexWorldCoordinate, e.PartOfHexClicked);
                         _tileCache.ClearIconTileCacheFor(neighborHex);
                         DrawHex(neighborHex);
                     }
@@ -250,12 +257,17 @@ namespace HexAdventureMapper
             }
             else if (e.Button == MouseButtons.Right)
             {
-                if (_painter.TryRemove(e)) //Try to delete
+                if (GetDrawingTool() == DrawingTools.FogOfWar)
+                {
+                    _fogOfWarPainter.RemoveFogOfWar(e.HexWorldCoordinate);
+                    _tileCache.ClearFinishedTileCache();
+                }
+                else if (_painter.TryRemove(e)) //Try to delete
                 {
                     if (_currentDrawingTools == DrawingTools.River || _currentDrawingTools == DrawingTools.Road)
                     {
                         //For connections, we also redraw the neighboring hex, since it also has a connection removed that needs drawing
-                        var neighborHex = PositionManager.NeighborTo(e.HexWorldCoordinate, e.PartOfHexClicked);
+                        var neighborHex = DirectionManager.NeighborTo(e.HexWorldCoordinate, e.PartOfHexClicked);
                         _tileCache.ClearIconTileCacheFor(neighborHex);
                         DrawHex(neighborHex);
                     }

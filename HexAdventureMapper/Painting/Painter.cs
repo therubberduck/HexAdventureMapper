@@ -45,10 +45,6 @@ namespace HexAdventureMapper.Painting
             {
                 return PaintRoad(e.HexWorldCoordinate, e.PartOfHexClicked);
             }
-            else if (drawingTool == MainWindow.DrawingTools.FogOfWar)
-            {
-                PaintFogOfWar(e.HexWorldCoordinate);
-            }
             else
             {
                 return false;
@@ -78,10 +74,6 @@ namespace HexAdventureMapper.Painting
             else if (drawingTool == MainWindow.DrawingTools.Road)
             {
                 return RemoveRoad(e.HexWorldCoordinate, e.PartOfHexClicked);
-            }
-            else if (drawingTool == MainWindow.DrawingTools.FogOfWar)
-            {
-                RemoveFogOfWar(e.HexWorldCoordinate);
             }
             else
             {
@@ -137,16 +129,6 @@ namespace HexAdventureMapper.Painting
             return DrawConnection(worldCoordinate, direction, _uiInterface.GetRoadId());
         }
 
-        public void PaintFogOfWar(HexCoordinate worldCoordinate)
-        {
-            int fogId = _uiInterface.GetFogOfWarId();
-
-            if (_db.Hexes.HexExists(worldCoordinate))
-            {
-                _db.Hexes.UpdateFogOfWar(worldCoordinate, fogId);
-            }
-        }
-
         private void ClearTerrain(HexCoordinate worldCoordinate)
         {
             if (_db.Hexes.HexExists(worldCoordinate))
@@ -181,23 +163,15 @@ namespace HexAdventureMapper.Painting
             return RemoveConnection(worldCoordinate, direction, _uiInterface.GetRoadId());
         }
 
-        public void RemoveFogOfWar(HexCoordinate worldCoordinate)
-        {
-            if (_db.Hexes.HexExists(worldCoordinate))
-            {
-                _db.Hexes.UpdateFogOfWar(worldCoordinate, 2);
-            }
-        }
-
         private bool DrawConnection(HexCoordinate worldCoordinate, Direction direction, int type)
         {
             if (direction != Direction.None)
             {
                 _db.HexConnections.Create(worldCoordinate, type, direction);
-                HexCoordinate mapNeighborCoordinate = PositionManager.NeighborTo(worldCoordinate, direction);
+                HexCoordinate mapNeighborCoordinate = DirectionManager.NeighborTo(worldCoordinate, direction);
                 Debug.WriteLine("First is X: " + worldCoordinate.X + " Y: " + worldCoordinate.Y);
                 Debug.WriteLine("Neighbor is X: " + mapNeighborCoordinate.X + " Y: " + mapNeighborCoordinate.Y);
-                Direction oppositeDirection = PositionManager.OppositeDirection(direction);
+                Direction oppositeDirection = DirectionManager.OppositeDirection(direction);
                 _db.HexConnections.Create(mapNeighborCoordinate, type, oppositeDirection);
                 return true;
             }
@@ -212,8 +186,8 @@ namespace HexAdventureMapper.Painting
             if (direction != Direction.None)
             {
                 _db.HexConnections.Remove(worldCoordinate, direction, type);
-                HexCoordinate mapNeighborCoordinate = PositionManager.NeighborTo(worldCoordinate, direction);
-                Direction oppositeDirection = PositionManager.OppositeDirection(direction);
+                HexCoordinate mapNeighborCoordinate = DirectionManager.NeighborTo(worldCoordinate, direction);
+                Direction oppositeDirection = DirectionManager.OppositeDirection(direction);
                 _db.HexConnections.Remove(mapNeighborCoordinate, oppositeDirection, type);
                 return true;
             }

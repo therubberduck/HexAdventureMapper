@@ -67,7 +67,7 @@ namespace HexAdventureMapper.Visualizer
 
         public Image RedrawArea(HexCoordinate centerCoordinate, Image image)
         {
-            List<HexCoordinate> areaCoordinates = PositionManager.GetTwoStepAreaAround(centerCoordinate);
+            List<HexCoordinate> areaCoordinates = DirectionManager.GetTwoStepAreaAround(centerCoordinate);
             List<Hex> hexesInArea = _db.Hexes.GetForCoordinates(areaCoordinates);
             foreach (var hex in hexesInArea)
             {
@@ -130,7 +130,8 @@ namespace HexAdventureMapper.Visualizer
             HexCoordinate partyPosition = _uiInterface.GetPartyPosition();
             if (partyPosition != null)
             {
-                Point positionOnScreen = PositionManager.HexToScreen(partyPosition);
+                HexCoordinate positionOnVisibleMap = partyPosition.Minus(_uiInterface.GetMapBox().TopLeftCoordinate);
+                Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
                 var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
 
                 using (var selectImage = Image.FromFile("Images/PartyIndicator.png"))
