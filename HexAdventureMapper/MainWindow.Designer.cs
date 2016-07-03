@@ -54,6 +54,8 @@ namespace HexAdventureMapper
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playerWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnMoveEast1 = new System.Windows.Forms.Button();
             this.btnMoveEast3 = new System.Windows.Forms.Button();
             this.btnMoveWest2 = new System.Windows.Forms.Button();
@@ -74,8 +76,6 @@ namespace HexAdventureMapper
             this.cmbFogOfWar = new System.Windows.Forms.ComboBox();
             this.rbFogOfWar = new System.Windows.Forms.RadioButton();
             this.imgHexMap = new HexAdventureMapper.Views.MapBox();
-            this.playerWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgHexMap)).BeginInit();
             this.SuspendLayout();
@@ -319,6 +319,21 @@ namespace HexAdventureMapper
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // playerWindowToolStripMenuItem
+            // 
+            this.playerWindowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem});
+            this.playerWindowToolStripMenuItem.Name = "playerWindowToolStripMenuItem";
+            this.playerWindowToolStripMenuItem.Size = new System.Drawing.Size(98, 20);
+            this.playerWindowToolStripMenuItem.Text = "Player Window";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
             // btnMoveEast1
             // 
             this.btnMoveEast1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -534,20 +549,7 @@ namespace HexAdventureMapper
             this.imgHexMap.TabStop = false;
             this.imgHexMap.SizeChanged += new System.EventHandler(this.imgHexMap_SizeChanged);
             // 
-            // playerWindowToolStripMenuItem
             // 
-            this.playerWindowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem});
-            this.playerWindowToolStripMenuItem.Name = "playerWindowToolStripMenuItem";
-            this.playerWindowToolStripMenuItem.Size = new System.Drawing.Size(98, 20);
-            this.playerWindowToolStripMenuItem.Text = "Player Window";
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
