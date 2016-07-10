@@ -17,7 +17,7 @@ namespace HexAdventureMapper.Views
         public event MapEventHandler MapClick;
         public event MapEventHandler MapDrag;
 
-        private readonly Dictionary<Layer, PictureBox> _layers; 
+        private readonly Dictionary<Layer, TransparentControl> _layers; 
 
         public HexCoordinate TopLeftCoordinate { get; }
 
@@ -33,7 +33,7 @@ namespace HexAdventureMapper.Views
         public MapBox()
         {
             InitializeComponent();
-            _layers = new Dictionary<Layer, PictureBox>();
+            _layers = new Dictionary<Layer, TransparentControl>();
             TopLeftCoordinate = new HexCoordinate(0, 0);
             MouseClick += HandleMapClicked;
             MouseMove += HandleMapDragging;
@@ -41,9 +41,9 @@ namespace HexAdventureMapper.Views
 
         public Image GetLayer(Layer layer)
         {
-            PictureBox layerBox = _layers[layer];
-            if (layerBox != null)
+            if (_layers.ContainsKey(layer))
             {
+                TransparentControl layerBox = _layers[layer];
                 return layerBox.Image;
             }
             return null;
@@ -53,15 +53,17 @@ namespace HexAdventureMapper.Views
         {
             if (!_layers.ContainsKey(layer))
             {
-                PictureBox pictureBox = new PictureBox();
+                TransparentControl pictureBox = new TransparentControl();
                 pictureBox.Size = Size;
                 pictureBox.Anchor = AnchorStyles.Top|AnchorStyles.Left|AnchorStyles.Right|AnchorStyles.Bottom;
+                
                 pictureBox.MouseClick += HandleMapClicked;
                 pictureBox.MouseMove += HandleMapDragging;
                 Controls.Add(pictureBox);
+                Controls.SetChildIndex(pictureBox, (int)layer);
                 _layers.Add(layer, pictureBox);
             }
-            PictureBox layerBox = _layers[layer];
+            TransparentControl layerBox = _layers[layer];
             layerBox.Image = image;
         }
 

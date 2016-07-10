@@ -9,6 +9,9 @@ namespace HexAdventureMapper.TileConfig
 {
     public class TileConfigInterface
     {
+        public const int HexWidth = 50;
+        public const int HexHeight = 44;
+
         List<TileComponent> _terrain;
         List<TileComponent> _vegetation;
         List<TileComponent> _icons;

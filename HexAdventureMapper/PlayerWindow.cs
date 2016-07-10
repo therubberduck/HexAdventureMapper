@@ -18,8 +18,7 @@ namespace HexAdventureMapper
 {
     public partial class PlayerWindow: Form, IDrawingUi, IFogOfWarUi
     {
-        private TileCache _tileCache;
-        private HexMapFactory _hexMapFactory;
+        private DrawingHandler _drawingHandler;
 
         private HexCoordinate _partyLocation;
 
@@ -28,9 +27,8 @@ namespace HexAdventureMapper
         public PlayerWindow(TileConfigInterface tiles, DbInterface db)
         {
             InitializeComponent();
-
-            _tileCache = new TileCache();
-            _hexMapFactory = new HexMapFactory(this, tiles, db, _tileCache);
+            
+            _drawingHandler = new DrawingHandler(this, tiles, db);
 
             _fogOfWarPainter = new FogOfWarPainter(this, db);
 
@@ -71,31 +69,17 @@ namespace HexAdventureMapper
 
         private void DrawMap()
         {
-            Image map = _hexMapFactory.MakeLocalMap();
-            if (map != null)
-            {
-                imgPlayerMap.UpdateLayer(Layer.Finished, map);
-            }
+            _drawingHandler.DrawMap();
         }
 
-        public void RedrawHex(HexCoordinate coordinate)
+        public void RedrawHex(HexCoordinate coordinate, Layer layer)
         {
-            _tileCache.ClearIconTileCacheFor(coordinate);
-            Image map = _hexMapFactory.RedrawHex(coordinate, imgPlayerMap.GetLayer(Layer.Finished));
-            if (map != null)
-            {
-                imgPlayerMap.UpdateLayer(Layer.Finished, map);
-            }
+            _drawingHandler.RedrawHex(coordinate, layer);
         }
 
         public void RedrawArea(HexCoordinate coordinate)
         {
-            _tileCache.ClearFinishedTileCacheForAreaAround(coordinate);
-            Image map = _hexMapFactory.RedrawArea(coordinate, imgPlayerMap.GetLayer(Layer.Finished));
-            if (map != null)
-            {
-                imgPlayerMap.UpdateLayer(Layer.Finished, map);
-            }
+            _drawingHandler.RedrawFogOfWar();
         }
 
         private void imgPlayerMap_Click(object sender, MapEventArgs e)
@@ -107,7 +91,7 @@ namespace HexAdventureMapper
                 {
                     var oldPartyLocation = _partyLocation;
                     _partyLocation = null;
-                    RedrawHex(oldPartyLocation);
+                    _drawingHandler.RedrawPartyLocation(oldPartyLocation);
                 }
                 _partyLocation = e.HexWorldCoordinate;
                 RedrawArea(e.HexWorldCoordinate); //Redraw the hexes around the moved-to hex

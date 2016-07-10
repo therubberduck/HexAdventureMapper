@@ -9,12 +9,11 @@ namespace HexAdventureMapper.Visualizer
     public enum Layer
     {
         Terrain,
-        Vegetation,
         River,
         Road,
         GmIcon,
         PlayerIcon,
         FogOfWar,
-        Finished
+        Selection
     }
 }
