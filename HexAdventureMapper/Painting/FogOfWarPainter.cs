@@ -143,7 +143,7 @@ namespace HexAdventureMapper.Painting
                 outerHex.FogOfWar = TileId.PartialFogOfWar;
             }
             else if ((innerHex.TerrainId == TileId.TerrainPlains || innerHex.TerrainId == TileId.TerrainSea) &&
-                         (outerHex.TerrainId != TileId.TerrainPlains || outerHex.TerrainId != TileId.TerrainSea))
+                         (outerHex.TerrainId != TileId.TerrainPlains && outerHex.TerrainId != TileId.TerrainSea))
             {
                 outerHex.FogOfWar = TileId.PartialFogOfWar;
             }
