@@ -12,10 +12,12 @@ using HexAdventureMapper.Visualizer;
 
 namespace HexAdventureMapper.Views
 {
-    public partial class MapBox : PictureBox
+    public partial class MapBox : UserControl
     {
         public event MapEventHandler MapClick;
         public event MapEventHandler MapDrag;
+
+        private readonly Dictionary<Layer, PictureBox> _layers; 
 
         public HexCoordinate TopLeftCoordinate { get; }
 
@@ -31,9 +33,36 @@ namespace HexAdventureMapper.Views
         public MapBox()
         {
             InitializeComponent();
+            _layers = new Dictionary<Layer, PictureBox>();
             TopLeftCoordinate = new HexCoordinate(0, 0);
             MouseClick += HandleMapClicked;
             MouseMove += HandleMapDragging;
+        }
+
+        public Image GetLayer(Layer layer)
+        {
+            PictureBox layerBox = _layers[layer];
+            if (layerBox != null)
+            {
+                return layerBox.Image;
+            }
+            return null;
+        }
+
+        public void UpdateLayer(Layer layer, Image image)
+        {
+            if (!_layers.ContainsKey(layer))
+            {
+                PictureBox pictureBox = new PictureBox();
+                pictureBox.Size = Size;
+                pictureBox.Anchor = AnchorStyles.Top|AnchorStyles.Left|AnchorStyles.Right|AnchorStyles.Bottom;
+                pictureBox.MouseClick += HandleMapClicked;
+                pictureBox.MouseMove += HandleMapDragging;
+                Controls.Add(pictureBox);
+                _layers.Add(layer, pictureBox);
+            }
+            PictureBox layerBox = _layers[layer];
+            layerBox.Image = image;
         }
 
         public void UpdateVerticalOffset(long offsetY)
@@ -76,6 +105,11 @@ namespace HexAdventureMapper.Views
                 MapEventArgs args = new MapEventArgs(e.X, e.Y, e.Button, e.Clicks, hexMapCoordinate);
                 handler(this, args);
             }
+        }
+
+        private void HandleMapClicked(object sender, EventArgs e)
+        {
+
         }
     }
     public class MapEventArgs : EventArgs

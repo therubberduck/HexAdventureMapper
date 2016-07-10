@@ -78,7 +78,6 @@ namespace HexAdventureMapper
             this.lblCoordinates = new System.Windows.Forms.Label();
             this.imgHexMap = new HexAdventureMapper.Views.MapBox();
             this.menuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgHexMap)).BeginInit();
             this.SuspendLayout();
             // 
             // txtDetail
@@ -557,7 +556,8 @@ namespace HexAdventureMapper
             this.imgHexMap.Name = "imgHexMap";
             this.imgHexMap.Size = new System.Drawing.Size(446, 474);
             this.imgHexMap.TabIndex = 4;
-            this.imgHexMap.TabStop = false;
+            this.imgHexMap.MapClick += new HexAdventureMapper.Views.MapEventHandler(this.imgHexMap_MapClick);
+            this.imgHexMap.MapDrag += new HexAdventureMapper.Views.MapEventHandler(this.imgHexMap_MapDrag);
             this.imgHexMap.SizeChanged += new System.EventHandler(this.imgHexMap_SizeChanged);
             // 
             // MainWindow
@@ -607,7 +607,6 @@ namespace HexAdventureMapper
             this.Text = "Hex Adventure Mapper";
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgHexMap)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

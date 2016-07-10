@@ -54,10 +54,7 @@ namespace HexAdventureMapper
         public MainWindow()
         {
             InitializeComponent();
-
-            imgHexMap.MapClick += imgHexMap_MapClick;
-            imgHexMap.MapDrag += imgHexMap_MapDrag;
-
+            
             _db = new DbInterface();
             _tiles = new TileConfigInterface();
             _tileCache = new TileCache();
@@ -192,7 +189,7 @@ namespace HexAdventureMapper
             Image map = _hexMapFactory.MakeLocalMap();
             if (map != null)
             {
-                imgHexMap.Image = map;
+                imgHexMap.UpdateLayer(Layer.Finished, map);
             }
         }
 
@@ -201,16 +198,16 @@ namespace HexAdventureMapper
             Image map = _hexMapFactory.RedrawFogOfWar();
             if (map != null)
             {
-                imgHexMap.Image = map;
+                imgHexMap.UpdateLayer(Layer.Finished, map);
             }
         }
 
         private void DrawHex(HexCoordinate coordinate, bool redrawPlayerWindow = true)
         {
-            Image map = _hexMapFactory.RedrawHex(coordinate, imgHexMap.Image);
+            Image map = _hexMapFactory.RedrawHex(coordinate, imgHexMap.GetLayer(Layer.Finished));
             if (map != null)
             {
-                imgHexMap.Image = map;
+                imgHexMap.UpdateLayer(Layer.Finished, map);
             }
             if (_playerWindow != null)
             {
@@ -465,7 +462,8 @@ namespace HexAdventureMapper
             if (result == DialogResult.OK)
             {
                 string savePath = fileDialog.FileName;
-                imgHexMap.Image.Save(savePath, imageFormat);
+                //TODO
+                //imgHexMap.Image.Save(savePath, imageFormat);
             }
         }
 

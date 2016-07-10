@@ -74,27 +74,27 @@ namespace HexAdventureMapper
             Image map = _hexMapFactory.MakeLocalMap();
             if (map != null)
             {
-                imgPlayerMap.Image = map;
+                imgPlayerMap.UpdateLayer(Layer.Finished, map);
             }
         }
 
         public void RedrawHex(HexCoordinate coordinate)
         {
             _tileCache.ClearIconTileCacheFor(coordinate);
-            Image map = _hexMapFactory.RedrawHex(coordinate, imgPlayerMap.Image);
+            Image map = _hexMapFactory.RedrawHex(coordinate, imgPlayerMap.GetLayer(Layer.Finished));
             if (map != null)
             {
-                imgPlayerMap.Image = map;
+                imgPlayerMap.UpdateLayer(Layer.Finished, map);
             }
         }
 
         public void RedrawArea(HexCoordinate coordinate)
         {
             _tileCache.ClearFinishedTileCacheForAreaAround(coordinate);
-            Image map = _hexMapFactory.RedrawArea(coordinate, imgPlayerMap.Image);
+            Image map = _hexMapFactory.RedrawArea(coordinate, imgPlayerMap.GetLayer(Layer.Finished));
             if (map != null)
             {
-                imgPlayerMap.Image = map;
+                imgPlayerMap.UpdateLayer(Layer.Finished, map);
             }
         }
 

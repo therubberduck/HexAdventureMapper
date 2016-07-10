@@ -105,7 +105,7 @@
     <Compile Include="TileConfig\TileConfigInterface.cs" />
     <Compile Include="TileConfig\TileIds.cs" />
     <Compile Include="Views\MapBox.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\MapBox.Designer.cs">
       <DependentUpon>MapBox.cs</DependentUpon>
@@ -134,6 +134,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\MapBox.resx">
+      <DependentUpon>MapBox.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Images\Transparent.Bakpng">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
