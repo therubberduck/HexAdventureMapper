@@ -12,12 +12,12 @@ using HexAdventureMapper.Visualizer;
 
 namespace HexAdventureMapper.Views
 {
-    public partial class MapBox : UserControl
+    public partial class MapBox : PictureBox
     {
         public event MapEventHandler MapClick;
         public event MapEventHandler MapDrag;
-
-        private readonly Dictionary<Layer, TransparentControl> _layers; 
+        
+        private readonly Dictionary<Layer, Image> _images;
 
         public HexCoordinate TopLeftCoordinate { get; }
 
@@ -33,7 +33,8 @@ namespace HexAdventureMapper.Views
         public MapBox()
         {
             InitializeComponent();
-            _layers = new Dictionary<Layer, TransparentControl>();
+            _images = new Dictionary<Layer, Image>();
+
             TopLeftCoordinate = new HexCoordinate(0, 0);
             MouseClick += HandleMapClicked;
             MouseMove += HandleMapDragging;
@@ -44,9 +45,9 @@ namespace HexAdventureMapper.Views
             Image image = new Bitmap(Size.Width, Size.Height);
             using (var graphics = Graphics.FromImage(image))
             {
-                foreach (var layer in _layers)
+                foreach (var im in _images.Values)
                 {
-                    graphics.DrawImage(layer.Value.Image, new Point(0,0));
+                    graphics.DrawImage(im, new Point(0,0));
                 }
             }
             return image;
@@ -54,30 +55,24 @@ namespace HexAdventureMapper.Views
 
         public Image GetLayer(Layer layer)
         {
-            if (_layers.ContainsKey(layer))
+            if (_images.ContainsKey(layer))
             {
-                TransparentControl layerBox = _layers[layer];
-                return layerBox.Image;
+                return _images[layer];
             }
             return null;
         }
 
         public void UpdateLayer(Layer layer, Image image)
         {
-            if (!_layers.ContainsKey(layer))
+            if (_images.ContainsKey(layer))
             {
-                TransparentControl pictureBox = new TransparentControl();
-                pictureBox.Size = Size;
-                pictureBox.Anchor = AnchorStyles.Top|AnchorStyles.Left|AnchorStyles.Right|AnchorStyles.Bottom;
-                
-                pictureBox.MouseClick += HandleMapClicked;
-                pictureBox.MouseMove += HandleMapDragging;
-                Controls.Add(pictureBox);
-                Controls.SetChildIndex(pictureBox, (int)layer);
-                _layers.Add(layer, pictureBox);
+                _images[layer] = image;
             }
-            TransparentControl layerBox = _layers[layer];
-            layerBox.Image = image;
+            else
+            {
+                _images.Add(layer, image);
+            }
+            Image = GetMapImage();
         }
 
         public void UpdateVerticalOffset(long offsetY)
