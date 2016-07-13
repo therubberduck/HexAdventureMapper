@@ -27,6 +27,13 @@ namespace HexAdventureMapper.Visualizer
             MapBox mapBox = _drawingUi.GetMapBox();
 
             Bitmap image = new Bitmap(mapBox.Width, mapBox.Height);
+
+            //If there should be no grid, we return an empty image
+            if (_drawingUi.GetOverlayGridAlpha() == 0)
+            {
+                return image;
+            }
+
             Image overlayImage = Image.FromFile("Images/drawingguide.png");
 
             using (var graphics = Graphics.FromImage(image))

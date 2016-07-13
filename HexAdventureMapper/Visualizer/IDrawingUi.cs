@@ -17,5 +17,6 @@ namespace HexAdventureMapper.Visualizer
         int GetGmIconAlpha();
         int GetPlayerIconAlpha();
         int GetFogOfWarIconAlpha();
+        int GetOverlayGridAlpha();
     }
 }

@@ -67,6 +67,11 @@ namespace HexAdventureMapper
             return 100;
         }
 
+        public int GetOverlayGridAlpha()
+        {
+            return 0;
+        }
+
         private void DrawMap()
         {
             _drawingHandler.DrawMap();

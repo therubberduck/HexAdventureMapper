@@ -126,7 +126,7 @@ namespace HexAdventureMapper.Visualizer
 
         private List<int> GetAllAlphaValues()
         {
-            return new List<int> {0, 0, 0, _drawingUi.GetGmIconAlpha(), _drawingUi.GetPlayerIconAlpha(), _drawingUi.GetFogOfWarIconAlpha(), 0, 0};
+            return new List<int> {0, 0, 0, _drawingUi.GetGmIconAlpha(), _drawingUi.GetPlayerIconAlpha(), _drawingUi.GetFogOfWarIconAlpha(), _drawingUi.GetOverlayGridAlpha(), 0};
         }
     }
 }

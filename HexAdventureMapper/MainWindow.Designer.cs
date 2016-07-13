@@ -77,7 +77,9 @@ namespace HexAdventureMapper
             this.rbFogOfWar = new System.Windows.Forms.RadioButton();
             this.lblCoordinates = new System.Windows.Forms.Label();
             this.imgHexMap = new HexAdventureMapper.Views.MapBox();
+            this.chkOverlayGrid = new System.Windows.Forms.CheckBox();
             this.menuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgHexMap)).BeginInit();
             this.SuspendLayout();
             // 
             // txtDetail
@@ -556,15 +558,28 @@ namespace HexAdventureMapper
             this.imgHexMap.Name = "imgHexMap";
             this.imgHexMap.Size = new System.Drawing.Size(446, 474);
             this.imgHexMap.TabIndex = 4;
+            this.imgHexMap.TabStop = false;
             this.imgHexMap.MapClick += new HexAdventureMapper.Views.MapEventHandler(this.imgHexMap_MapClick);
             this.imgHexMap.MapDrag += new HexAdventureMapper.Views.MapEventHandler(this.imgHexMap_MapDrag);
             this.imgHexMap.SizeChanged += new System.EventHandler(this.imgHexMap_SizeChanged);
+            // 
+            // chkOverlayGrid
+            // 
+            this.chkOverlayGrid.AutoSize = true;
+            this.chkOverlayGrid.Location = new System.Drawing.Point(32, 354);
+            this.chkOverlayGrid.Name = "chkOverlayGrid";
+            this.chkOverlayGrid.Size = new System.Drawing.Size(84, 17);
+            this.chkOverlayGrid.TabIndex = 38;
+            this.chkOverlayGrid.Text = "Overlay Grid";
+            this.chkOverlayGrid.UseVisualStyleBackColor = true;
+            this.chkOverlayGrid.CheckedChanged += new System.EventHandler(this.CheckBox_LayerChanged);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(885, 585);
+            this.Controls.Add(this.chkOverlayGrid);
             this.Controls.Add(this.lblCoordinates);
             this.Controls.Add(this.cmbFogOfWar);
             this.Controls.Add(this.rbFogOfWar);
@@ -607,6 +622,7 @@ namespace HexAdventureMapper
             this.Text = "Hex Adventure Mapper";
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgHexMap)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -660,6 +676,7 @@ namespace HexAdventureMapper
         private System.Windows.Forms.ToolStripMenuItem bitmapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pngToolStripMenuItem;
         private System.Windows.Forms.Label lblCoordinates;
+        private System.Windows.Forms.CheckBox chkOverlayGrid;
     }
 }
 

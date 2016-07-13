@@ -71,7 +71,7 @@ namespace HexAdventureMapper.Visualizer
 
                 if (hex == null)
                 {
-                    return null;
+                    return map;
                 }
 
                 DrawHex(graphics, hex, alpha);

@@ -131,6 +131,18 @@ namespace HexAdventureMapper
             return GetLayerAlphaFor(chk50FogOfWar, chk100FogOfWar);
         }
 
+        public int GetOverlayGridAlpha()
+        {
+            if (chkOverlayGrid.Checked)
+            {
+                return 100;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         private int GetLayerAlphaFor(CheckBox chk50, CheckBox chk100)
         {
             if (chk50.Checked)
@@ -644,7 +656,6 @@ namespace HexAdventureMapper
                     chk50FogOfWar.Checked = false;
                 }
             }
-            //Clear the appropriate cache
             CheckBox[] iconBoxes = {chk50GmIcons, chk100GmIcons, chk50PlayerIcons, chk100PlayerIcons};
             if (iconBoxes.Contains(checkBox))
             {
@@ -653,12 +664,16 @@ namespace HexAdventureMapper
                     DrawMap();
                 }
             }
-            else
+            else if(checkBox == chk50FogOfWar || checkBox == chk100FogOfWar)
             {
                 if (!_drawingDisabled)
                 {
                     DrawFogOfWar();
                 }
+            }
+            else if (checkBox == chkOverlayGrid)
+            {
+                DrawMap();
             }
         }
 
