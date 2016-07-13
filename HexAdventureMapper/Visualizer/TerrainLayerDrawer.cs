@@ -28,7 +28,7 @@ namespace HexAdventureMapper.Visualizer
 
         protected override void DrawHex(Graphics graphics, Hex hex, int alpha = 100)
         {
-            HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(_uiInterface.GetMapBox().TopLeftCoordinate);
+            HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(UiInterface.GetMapBox().TopLeftCoordinate);
             Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
             var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(TileConfigInterface.HexWidth, TileConfigInterface.HexHeight));
 
@@ -77,12 +77,12 @@ namespace HexAdventureMapper.Visualizer
                 {
                     graphics.DrawImage(image, pictureLocationAndSize);
                 }
-                var terrainImageLocation = _tiles.GetTerrain(hex.TerrainId).ImageLocation;
+                var terrainImageLocation = Tiles.GetTerrain(hex.TerrainId).ImageLocation;
                 using (var image = Image.FromFile(terrainImageLocation))
                 {
                     graphics.DrawImage(image, pictureLocationAndSize);
                 }
-                var vegetationImageLocation = _tiles.GetVegetation(hex.VegetationId).ImageLocation;
+                var vegetationImageLocation = Tiles.GetVegetation(hex.VegetationId).ImageLocation;
                 using (var image = Image.FromFile(vegetationImageLocation))
                 {
                     graphics.DrawImage(image, pictureLocationAndSize);

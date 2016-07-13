@@ -17,6 +17,12 @@ namespace HexAdventureMapper.DataObjects
             Y = y;
         }
 
+        public HexCoordinate(HexCoordinate oldCoordinate)
+        {
+            X = oldCoordinate.X;
+            Y = oldCoordinate.Y;
+        }
+
         public override string ToString()
         {
             return "X = " + X + " Y = " + Y;

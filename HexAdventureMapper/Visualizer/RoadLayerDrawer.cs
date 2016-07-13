@@ -23,7 +23,7 @@ namespace HexAdventureMapper.Visualizer
 
         protected override void DrawHex(Graphics graphics, Hex hex, int alpha = 0)
         {
-            HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(_uiInterface.GetMapBox().TopLeftCoordinate);
+            HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(UiInterface.GetMapBox().TopLeftCoordinate);
             Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
             var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
 

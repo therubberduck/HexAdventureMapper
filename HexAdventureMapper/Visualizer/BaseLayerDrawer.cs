@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HexAdventureMapper.Database;
 using HexAdventureMapper.DataObjects;
 using HexAdventureMapper.TileConfig;
@@ -14,28 +10,28 @@ namespace HexAdventureMapper.Visualizer
 {
     public abstract class BaseLayerDrawer
     {
-        protected readonly DbInterface _db;
-        protected readonly IDrawingUi _uiInterface;
-        protected readonly TileConfigInterface _tiles;
+        protected readonly DbInterface Db;
+        protected readonly IDrawingUi UiInterface;
+        protected readonly TileConfigInterface Tiles;
 
-        public BaseLayerDrawer(IDrawingUi uiInterface, TileConfigInterface tiles, DbInterface db)
+        protected BaseLayerDrawer(IDrawingUi uiInterface, TileConfigInterface tiles, DbInterface db)
         {
-            _uiInterface = uiInterface;
-            _tiles = tiles;
-            _db = db;
+            UiInterface = uiInterface;
+            Tiles = tiles;
+            Db = db;
         }
 
         public abstract Layer GetLayerType();
 
         public Image MakeLocalMap(int alpha)
         {
-            var hexes = _db.Hexes.GetArea(_uiInterface.GetMapBox().MapArea);
+            var hexes = Db.Hexes.GetArea(UiInterface.GetMapBox().MapArea);
             return MakeMapFromEntireArea(hexes, alpha);
         }
 
         public Image MakeMapFromEntireArea(List<Hex> hexes, int alpha)
         {
-            MapBox mapBox = _uiInterface.GetMapBox();
+            MapBox mapBox = UiInterface.GetMapBox();
             if (mapBox.Width == 0 || mapBox.Height == 0)
             {
                 return null;
@@ -58,7 +54,7 @@ namespace HexAdventureMapper.Visualizer
         public Image RedrawArea(HexCoordinate centerCoordinate, Image image, int alpha)
         {
             List<HexCoordinate> areaCoordinates = DirectionManager.GetTwoStepAreaAround(centerCoordinate);
-            List<Hex> hexesInArea = _db.Hexes.GetForCoordinates(areaCoordinates);
+            List<Hex> hexesInArea = Db.Hexes.GetForCoordinates(areaCoordinates);
             hexesInArea.ForEach(h => RedrawHex(h.Coordinate, image, alpha));
             return image;
         }
@@ -71,7 +67,7 @@ namespace HexAdventureMapper.Visualizer
                 graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
-                var hex = _db.Hexes.GetForCoordinate(worldCoordinate);
+                var hex = Db.Hexes.GetForCoordinate(worldCoordinate);
 
                 if (hex == null)
                 {

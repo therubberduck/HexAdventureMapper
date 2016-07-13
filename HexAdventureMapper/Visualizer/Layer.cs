@@ -14,6 +14,7 @@ namespace HexAdventureMapper.Visualizer
         GmIcon,
         PlayerIcon,
         FogOfWar,
+        OverlayGrid,
         Selection
     }
 }

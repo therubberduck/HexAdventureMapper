@@ -24,7 +24,7 @@ namespace HexAdventureMapper.Visualizer
 
         protected override void DrawHex(Graphics graphics, Hex hex, int alpha = 100)
         {
-            HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(_uiInterface.GetMapBox().TopLeftCoordinate);
+            HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(UiInterface.GetMapBox().TopLeftCoordinate);
             Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
             positionOnScreen.Offset(-1, -1);
             var size = new Size(TileConfigInterface.HexWidth + 2, TileConfigInterface.HexHeight + 2);

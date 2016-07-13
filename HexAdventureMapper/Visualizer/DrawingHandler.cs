@@ -22,6 +22,7 @@ namespace HexAdventureMapper.Visualizer
         private readonly PlayerIconLayerDrawer _playerIconLayerDrawer;
         private readonly FogOfWarLayerDrawer _fogOfWarLayerDrawer;
         private readonly SelectLayerDrawer _selectLayerDrawer;
+        private readonly OverlayGridLayerDrawer _overlayGridLayerDrawer;
 
         private readonly List<BaseLayerDrawer> _layerDrawers;
         
@@ -36,6 +37,7 @@ namespace HexAdventureMapper.Visualizer
             _playerIconLayerDrawer = new PlayerIconLayerDrawer(drawingUi, tiles, db);
             _fogOfWarLayerDrawer = new FogOfWarLayerDrawer(drawingUi, tiles, db);
             _selectLayerDrawer = new SelectLayerDrawer(drawingUi, tiles, db);
+            _overlayGridLayerDrawer = new OverlayGridLayerDrawer(drawingUi);
 
             _layerDrawers = new List<BaseLayerDrawer>
             {
@@ -55,6 +57,7 @@ namespace HexAdventureMapper.Visualizer
                 var layerDrawer = _layerDrawers[i];
                 mapBox.UpdateLayer(layerDrawer.GetLayerType(), layerDrawer.MakeLocalMap(alphaList[i]));
             }
+            mapBox.UpdateLayer(Layer.OverlayGrid, _overlayGridLayerDrawer.DrawOverlay());
         }
 
         public void RedrawArea(HexCoordinate centerCoordinate)
@@ -123,7 +126,7 @@ namespace HexAdventureMapper.Visualizer
 
         private List<int> GetAllAlphaValues()
         {
-            return new List<int> {0, 0, 0, _drawingUi.GetGmIconAlpha(), _drawingUi.GetPlayerIconAlpha(), _drawingUi.GetFogOfWarIconAlpha(), 0};
+            return new List<int> {0, 0, 0, _drawingUi.GetGmIconAlpha(), _drawingUi.GetPlayerIconAlpha(), _drawingUi.GetFogOfWarIconAlpha(), 0, 0};
         }
     }
 }

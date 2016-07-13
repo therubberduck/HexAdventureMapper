@@ -22,6 +22,12 @@ namespace HexAdventureMapper.Visualizer
             return new Point((int)x * 37, (int)y * 44 + (int)Math.Abs(x % 2) * 22);
         }
 
+        public static Point HexToScreen(HexCoordinate hexCoordinate, HexCoordinate topLeftCoordinate)
+        {
+            HexCoordinate positionOnVisibleMap = hexCoordinate.Minus(topLeftCoordinate);
+            return HexToScreen(positionOnVisibleMap);
+        }
+
         public static HexCoordinate ScreenToHex(long x, long y)
         {
             long xCoor = x/37;

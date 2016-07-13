@@ -24,14 +24,14 @@ namespace HexAdventureMapper.Visualizer
 
         protected override void DrawHex(Graphics graphics, Hex hex, int alpha = 100)
         {
-            HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(_uiInterface.GetMapBox().TopLeftCoordinate);
+            HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(UiInterface.GetMapBox().TopLeftCoordinate);
             Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
             positionOnScreen.Offset(TileConfigInterface.HexWidth/4, TileConfigInterface.HexHeight/4);
             var size = new Size(TileConfigInterface.HexWidth/2, TileConfigInterface.HexHeight/2);
 
             var pictureLocationAndSize = new Rectangle(positionOnScreen, size);
 
-            var iconImageLocation = _tiles.GetIcon(hex.Icons[0]).ImageLocation;
+            var iconImageLocation = Tiles.GetIcon(hex.Icons[0]).ImageLocation;
             using (var image = Image.FromFile(iconImageLocation))
             {
                 if (alpha == 100)

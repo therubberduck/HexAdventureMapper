@@ -121,6 +121,7 @@
     <Compile Include="Visualizer\GmIconLayerDrawer.cs" />
     <Compile Include="Visualizer\IDrawingUi.cs" />
     <Compile Include="Visualizer\Layer.cs" />
+    <Compile Include="Visualizer\OverlayGridLayerDrawer.cs" />
     <Compile Include="Visualizer\PlayerIconLayerDrawer.cs" />
     <Compile Include="Visualizer\PositionManager.cs" />
     <Compile Include="Visualizer\RoadLayerDrawer.cs" />

@@ -26,7 +26,7 @@ namespace HexAdventureMapper.Visualizer
             HexCoordinate selectedCoordinate = hex.Coordinate;
             if (selectedCoordinate != null)
             {
-                HexCoordinate positionOnVisibleMap = selectedCoordinate.Minus(_uiInterface.GetMapBox().TopLeftCoordinate);
+                HexCoordinate positionOnVisibleMap = selectedCoordinate.Minus(UiInterface.GetMapBox().TopLeftCoordinate);
                 Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
                 var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
 
