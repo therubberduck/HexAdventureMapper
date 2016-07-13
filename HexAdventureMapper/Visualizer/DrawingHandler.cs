@@ -68,7 +68,10 @@ namespace HexAdventureMapper.Visualizer
                 var layerDrawer = _layerDrawers[i];
                 Layer layerType = layerDrawer.GetLayerType();
                 Image oldMap = mapBox.GetLayer(layerType);
-                mapBox.UpdateLayer(layerType, _terrainLayerDrawer.RedrawArea(centerCoordinate, oldMap, alphaList[i]));
+                if (oldMap != null)
+                {
+                    mapBox.UpdateLayer(layerType, _terrainLayerDrawer.RedrawArea(centerCoordinate, oldMap, alphaList[i]));
+                }
             }
         }
 
@@ -111,8 +114,11 @@ namespace HexAdventureMapper.Visualizer
             var alphaList = GetAllAlphaValues();
 
             Image mapLayer = mapBox.GetLayer(layer);
-            int alpha = alphaList[(int) layer];
-            mapBox.UpdateLayer(layer, _layerDrawers[(int)layer].RedrawHex(worldCoordinate, mapLayer, alpha));
+            if (mapLayer != null)
+            {
+                int alpha = alphaList[(int)layer];
+                mapBox.UpdateLayer(layer, _layerDrawers[(int)layer].RedrawHex(worldCoordinate, mapLayer, alpha));
+            }
         }
 
         private List<int> GetAllAlphaValues()

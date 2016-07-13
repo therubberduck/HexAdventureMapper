@@ -467,9 +467,7 @@ namespace HexAdventureMapper
             if (result == DialogResult.OK)
             {
                 string savePath = fileDialog.FileName;
-                imgHexMap.GetLayer(Layer.River).Save(savePath, imageFormat);
-                //TODO
-                //imgHexMap.Image.Save(savePath, imageFormat);
+                imgHexMap.GetMapImage().Save(savePath, imageFormat);
             }
         }
 

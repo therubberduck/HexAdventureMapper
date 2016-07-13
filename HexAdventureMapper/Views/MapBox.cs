@@ -39,6 +39,19 @@ namespace HexAdventureMapper.Views
             MouseMove += HandleMapDragging;
         }
 
+        public Image GetMapImage()
+        {
+            Image image = new Bitmap(Size.Width, Size.Height);
+            using (var graphics = Graphics.FromImage(image))
+            {
+                foreach (var layer in _layers)
+                {
+                    graphics.DrawImage(layer.Value.Image, new Point(0,0));
+                }
+            }
+            return image;
+        }
+
         public Image GetLayer(Layer layer)
         {
             if (_layers.ContainsKey(layer))
