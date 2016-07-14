@@ -1,4 +1,4 @@
-﻿using HexAdventureMapper.Visualizer;
+﻿using HexAdventureMapper.Helper;
 
 namespace HexAdventureMapper.DataObjects
 {

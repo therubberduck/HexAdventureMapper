@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HexAdventureMapper.Database;
 using HexAdventureMapper.DataObjects;
+using HexAdventureMapper.Helper;
 using HexAdventureMapper.Painting;
 using HexAdventureMapper.TileConfig;
 using HexAdventureMapper.Views;
@@ -19,8 +14,6 @@ namespace HexAdventureMapper
     public partial class PlayerWindow: Form, IDrawingUi, IFogOfWarUi
     {
         private DrawingHandler _drawingHandler;
-
-        private HexCoordinate _partyLocation;
 
         private FogOfWarPainter _fogOfWarPainter;
 
@@ -45,11 +38,6 @@ namespace HexAdventureMapper
         public HexCoordinate GetSelectedCoordinate()
         {
             return null;
-        }
-
-        public HexCoordinate GetPartyPosition()
-        {
-            return _partyLocation;
         }
 
         public int GetGmIconAlpha()
@@ -92,14 +80,8 @@ namespace HexAdventureMapper
             if (e.Button == MouseButtons.Left)
             {
                 _fogOfWarPainter.ClearFogofWarAround(e.HexWorldCoordinate);
-                if (_partyLocation != null)
-                {
-                    var oldPartyLocation = _partyLocation;
-                    _partyLocation = null;
-                    _drawingHandler.RedrawPartyLocation(oldPartyLocation);
-                }
-                _partyLocation = e.HexWorldCoordinate;
-                RedrawArea(e.HexWorldCoordinate); //Redraw the hexes around the moved-to hex
+                _drawingHandler.RedrawFogOfWar();
+                _drawingHandler.RedrawPartyLocation(e.HexWorldCoordinate);
             }
         }
 

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using HexAdventureMapper.Database.WorkingClasses;
 using HexAdventureMapper.DataObjects;
-using HexAdventureMapper.Visualizer;
+using HexAdventureMapper.Helper;
 
 namespace HexAdventureMapper.Database.Modules
 {

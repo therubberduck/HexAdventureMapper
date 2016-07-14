@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using HexAdventureMapper.Database;
 using HexAdventureMapper.DataObjects;
+using HexAdventureMapper.Helper;
 using HexAdventureMapper.TileConfig;
 using HexAdventureMapper.Views;
 

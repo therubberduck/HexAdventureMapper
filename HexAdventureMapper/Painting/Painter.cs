@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using HexAdventureMapper.Database;
 using HexAdventureMapper.DataObjects;
+using HexAdventureMapper.Helper;
 using HexAdventureMapper.Views;
-using HexAdventureMapper.Visualizer;
 
 namespace HexAdventureMapper.Painting
 {

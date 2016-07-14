@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HexAdventureMapper.DataObjects;
 
-namespace HexAdventureMapper.Visualizer
+namespace HexAdventureMapper.Helper
 {
     public static class DirectionManager
     {

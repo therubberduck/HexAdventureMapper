@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HexAdventureMapper.Visualizer
+﻿namespace HexAdventureMapper.Helper
 {
     public enum Layer
     {
@@ -15,6 +9,7 @@ namespace HexAdventureMapper.Visualizer
         PlayerIcon,
         FogOfWar,
         OverlayGrid,
+        PartyLocation,
         Selection
     }
 }

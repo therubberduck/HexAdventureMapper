@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -9,6 +7,7 @@ using System.Threading;
 using System.Windows.Forms;
 using HexAdventureMapper.Database;
 using HexAdventureMapper.DataObjects;
+using HexAdventureMapper.Helper;
 using HexAdventureMapper.Painting;
 using HexAdventureMapper.TileConfig;
 using HexAdventureMapper.Views;
@@ -109,11 +108,6 @@ namespace HexAdventureMapper
         public HexCoordinate GetSelectedCoordinate()
         {
             return _selectedCoordinate;
-        }
-
-        public HexCoordinate GetPartyPosition()
-        {
-            return null;
         }
 
         public int GetGmIconAlpha()

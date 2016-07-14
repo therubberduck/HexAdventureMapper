@@ -6,8 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using HexAdventureMapper.Database;
 using HexAdventureMapper.DataObjects;
+using HexAdventureMapper.Helper;
 using HexAdventureMapper.TileConfig;
 using HexAdventureMapper.Views;
+using HexAdventureMapper.Visualizer.LayerDrawers;
 
 namespace HexAdventureMapper.Visualizer
 {
@@ -22,6 +24,7 @@ namespace HexAdventureMapper.Visualizer
         private readonly PlayerIconLayerDrawer _playerIconLayerDrawer;
         private readonly FogOfWarLayerDrawer _fogOfWarLayerDrawer;
         private readonly SelectLayerDrawer _selectLayerDrawer;
+        private readonly PartyLayerDrawer _partyLayerDrawer;
         private readonly OverlayGridLayerDrawer _overlayGridLayerDrawer;
 
         private readonly List<BaseLayerDrawer> _layerDrawers;
@@ -37,6 +40,7 @@ namespace HexAdventureMapper.Visualizer
             _playerIconLayerDrawer = new PlayerIconLayerDrawer(drawingUi, tiles, db);
             _fogOfWarLayerDrawer = new FogOfWarLayerDrawer(drawingUi, tiles, db);
             _selectLayerDrawer = new SelectLayerDrawer(drawingUi, tiles, db);
+            _partyLayerDrawer = new PartyLayerDrawer(drawingUi);
             _overlayGridLayerDrawer = new OverlayGridLayerDrawer(drawingUi);
 
             _layerDrawers = new List<BaseLayerDrawer>
@@ -92,22 +96,9 @@ namespace HexAdventureMapper.Visualizer
             mapBox.UpdateLayer(Layer.Selection, newSelectedMap);
         }
 
-        public void RedrawPartyLocation(HexCoordinate oldPartyLocation)
+        public void RedrawPartyLocation(HexCoordinate partyLocation)
         {
-            throw new NotImplementedException();
-
-            //HexCoordinate partyPosition = _uiInterface.GetPartyPosition();
-            //if (partyPosition != null)
-            //{
-            //    HexCoordinate positionOnVisibleMap = partyPosition.Minus(_uiInterface.GetMapBox().TopLeftCoordinate);
-            //    Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
-            //    var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
-
-            //    using (var selectImage = Image.FromFile("Images/PartyIndicator.png"))
-            //    {
-            //        graphics.DrawImage(selectImage, pictureLocationAndSize);
-            //    }
-            //}
+            _partyLayerDrawer.UpdatePartyLocation(partyLocation);
         }
 
         public void RedrawHex(HexCoordinate worldCoordinate, Layer layer)
@@ -126,7 +117,7 @@ namespace HexAdventureMapper.Visualizer
 
         private List<int> GetAllAlphaValues()
         {
-            return new List<int> {0, 0, 0, _drawingUi.GetGmIconAlpha(), _drawingUi.GetPlayerIconAlpha(), _drawingUi.GetFogOfWarIconAlpha(), _drawingUi.GetOverlayGridAlpha(), 0};
+            return new List<int> {0, 0, 0, _drawingUi.GetGmIconAlpha(), _drawingUi.GetPlayerIconAlpha(), _drawingUi.GetFogOfWarIconAlpha(), _drawingUi.GetOverlayGridAlpha(), _drawingUi.GetPlayerIconAlpha(), 0};
         }
     }
 }

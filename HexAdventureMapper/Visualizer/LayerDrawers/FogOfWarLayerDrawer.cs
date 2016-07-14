@@ -1,40 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HexAdventureMapper.Database;
 using HexAdventureMapper.DataObjects;
+using HexAdventureMapper.Helper;
 using HexAdventureMapper.TileConfig;
 
-namespace HexAdventureMapper.Visualizer
+namespace HexAdventureMapper.Visualizer.LayerDrawers
 {
-    public class GmIconLayerDrawer : BaseLayerDrawer
+    public class FogOfWarLayerDrawer : BaseLayerDrawer
     {
-        public GmIconLayerDrawer(IDrawingUi uiInterface, TileConfigInterface tiles, DbInterface db) : base(uiInterface, tiles, db)
+        public FogOfWarLayerDrawer(IDrawingUi uiInterface, TileConfigInterface tiles, DbInterface db) : base(uiInterface, tiles, db)
         {
         }
 
         public override Layer GetLayerType()
         {
-            return Layer.GmIcon;
+            return Layer.FogOfWar;
         }
 
         protected override void DrawHex(Graphics graphics, Hex hex, int alpha = 100)
         {
             HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(UiInterface.GetMapBox().TopLeftCoordinate);
             Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
-            positionOnScreen.Offset(TileConfigInterface.HexWidth/4, TileConfigInterface.HexHeight/4);
-            var size = new Size(TileConfigInterface.HexWidth/2, TileConfigInterface.HexHeight/2);
+            positionOnScreen.Offset(-1, -1);
+            var size = new Size(TileConfigInterface.HexWidth + 2, TileConfigInterface.HexHeight + 2);
 
             var pictureLocationAndSize = new Rectangle(positionOnScreen, size);
 
-            var iconImageLocation = Tiles.GetIcon(hex.Icons[0]).ImageLocation;
+            int typeAlpha = 100;
+            if (hex.FogOfWar == 1) //Draw partially transparent fog of war
+            {
+                typeAlpha = 50;
+            }
+            else if (hex.FogOfWar == 2) //Don't draw any fog of war
+            {
+                return;
+            }
+
+            float dAlpha = (typeAlpha / 100.0f) * (alpha / 100.0f);
+
+            var iconImageLocation = "Images/FogOfWar.png";
             using (var image = Image.FromFile(iconImageLocation))
             {
-                if (alpha == 100)
+                if (typeAlpha == 100 && alpha == 100)
                 {
                     graphics.DrawImage(image, pictureLocationAndSize);
                 }
@@ -43,7 +51,7 @@ namespace HexAdventureMapper.Visualizer
                     ColorMatrix matrix = new ColorMatrix();
 
                     //set the opacity  
-                    matrix.Matrix33 = alpha / 100.0f;
+                    matrix.Matrix33 = dAlpha;
 
                     //create image attributes  
                     ImageAttributes attributes = new ImageAttributes();

@@ -1,37 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HexAdventureMapper.Database;
 using HexAdventureMapper.DataObjects;
+using HexAdventureMapper.Helper;
 using HexAdventureMapper.TileConfig;
 
-namespace HexAdventureMapper.Visualizer
+namespace HexAdventureMapper.Visualizer.LayerDrawers
 {
-    public class PlayerIconLayerDrawer : BaseLayerDrawer
+    public class GmIconLayerDrawer : BaseLayerDrawer
     {
-        public PlayerIconLayerDrawer(IDrawingUi uiInterface, TileConfigInterface tiles, DbInterface db) : base(uiInterface, tiles, db)
+        public GmIconLayerDrawer(IDrawingUi uiInterface, TileConfigInterface tiles, DbInterface db) : base(uiInterface, tiles, db)
         {
         }
 
         public override Layer GetLayerType()
         {
-            return Layer.PlayerIcon;
+            return Layer.GmIcon;
         }
 
         protected override void DrawHex(Graphics graphics, Hex hex, int alpha = 100)
         {
             HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(UiInterface.GetMapBox().TopLeftCoordinate);
             Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
-            positionOnScreen.Offset(TileConfigInterface.HexWidth / 4, TileConfigInterface.HexHeight / 4);
-            var size = new Size(TileConfigInterface.HexWidth / 2, TileConfigInterface.HexHeight / 2);
+            positionOnScreen.Offset(TileConfigInterface.HexWidth/4, TileConfigInterface.HexHeight/4);
+            var size = new Size(TileConfigInterface.HexWidth/2, TileConfigInterface.HexHeight/2);
 
             var pictureLocationAndSize = new Rectangle(positionOnScreen, size);
 
-            var iconImageLocation = Tiles.GetIcon(hex.PlayerIcons[0]).ImageLocation;
+            var iconImageLocation = Tiles.GetIcon(hex.Icons[0]).ImageLocation;
             using (var image = Image.FromFile(iconImageLocation))
             {
                 if (alpha == 100)
