@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using HexAdventureMapper.Database;
 using HexAdventureMapper.DataObjects;
@@ -20,13 +21,16 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
 
         protected override void DrawHex(Graphics graphics, Hex hex, int alpha = 100)
         {
+            //Change composite mode so that previous image in that hex gets overwritten, ignoring transparency
+            graphics.CompositingMode = CompositingMode.SourceCopy;
+
             HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(UiInterface.GetMapBox().TopLeftCoordinate);
             Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
             positionOnScreen.Offset(TileConfigInterface.HexWidth/4, TileConfigInterface.HexHeight/4);
             var size = new Size(TileConfigInterface.HexWidth/2, TileConfigInterface.HexHeight/2);
 
             var pictureLocationAndSize = new Rectangle(positionOnScreen, size);
-
+            
             var iconImageLocation = Tiles.GetIcon(hex.Icons[0]).ImageLocation;
             using (var image = Image.FromFile(iconImageLocation))
             {
