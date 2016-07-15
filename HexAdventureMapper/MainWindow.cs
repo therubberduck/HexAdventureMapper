@@ -244,6 +244,7 @@ namespace HexAdventureMapper
                         }
                     }
                     DrawHex(e.HexWorldCoordinate, DrawingToolToLayer(_currentDrawingTool)); //Redraw the changed hex
+                    SelectHex(e);
                     txtDetail.Focus();
                 }
             }
@@ -400,6 +401,12 @@ namespace HexAdventureMapper
 
         private void txtDetail_TextChanged(object sender, System.EventArgs e)
         {
+            if (_selectedCoordinate == null)
+            {
+                txtDetail.Text = "No hex selected";
+                return;
+            }
+
             //If the last scheduled detail update was to this hex, unschedule it, since we are making a new one (for this hex)
             if (_saveDetailTimer != null && _lastScheduledDetailSave.Equals(_selectedCoordinate))
             {
