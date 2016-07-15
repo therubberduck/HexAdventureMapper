@@ -227,6 +227,11 @@ namespace HexAdventureMapper.Database
             }
             whereString = whereString.Remove(whereString.Length - 5);
 
+            Delete(table, whereString);
+        }
+
+        public void Delete(string table, string whereString)
+        {
             string commandString = "Delete from " + table + " where " + whereString;
             ExecuteCommand(commandString);
         }

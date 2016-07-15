@@ -22,6 +22,7 @@ namespace HexAdventureMapper.Database
         void Update(string table, string[] columns, object[] values, string[] whereColumns, object[] whereValues);
         void Delete(string table, string whereColumn, object whereValue);
         void Delete(string table, string[] whereColumns, object[] whereValues);
+        void Delete(string table, string whereString);
 
         void AlterAddColumn(string table, string columnName, string columnType, bool notNull, string defaultValue);
         void ClearTable(string table);

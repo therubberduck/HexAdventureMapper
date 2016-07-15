@@ -162,11 +162,15 @@ namespace HexAdventureMapper.Painting
         {
             if (direction != Direction.None)
             {
-                _db.HexConnections.Create(worldCoordinate, type, direction);
+                //Find the counterpart in the neighbor hex
                 HexCoordinate mapNeighborCoordinate = DirectionManager.NeighborTo(worldCoordinate, direction);
-                Debug.WriteLine("First is X: " + worldCoordinate.X + " Y: " + worldCoordinate.Y);
-                Debug.WriteLine("Neighbor is X: " + mapNeighborCoordinate.X + " Y: " + mapNeighborCoordinate.Y);
                 Direction oppositeDirection = DirectionManager.OppositeDirection(direction);
+
+                //Remove any previous connection of that type
+                RemoveConnection(worldCoordinate, direction, type);
+
+                //Draw the new connection
+                _db.HexConnections.Create(worldCoordinate, type, direction);
                 _db.HexConnections.Create(mapNeighborCoordinate, type, oppositeDirection);
                 return true;
             }

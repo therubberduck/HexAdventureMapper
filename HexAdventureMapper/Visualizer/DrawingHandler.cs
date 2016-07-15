@@ -64,6 +64,16 @@ namespace HexAdventureMapper.Visualizer
             mapBox.UpdateLayer(Layer.OverlayGrid, _overlayGridLayerDrawer.DrawOverlay());
         }
 
+        public void RedrawLayer(Layer layer)
+        {
+            MapBox mapBox = _drawingUi.GetMapBox();
+
+            var alphaList = GetAllAlphaValues();
+
+            var layerDrawer = _layerDrawers[(int)layer];
+            mapBox.UpdateLayer(layerDrawer.GetLayerType(), layerDrawer.MakeLocalMap(alphaList[(int)layer]));
+        }
+
         public void RedrawArea(HexCoordinate centerCoordinate)
         {
             MapBox mapBox = _drawingUi.GetMapBox();

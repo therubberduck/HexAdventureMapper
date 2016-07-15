@@ -256,13 +256,19 @@ namespace HexAdventureMapper
                 }
                 else if (_painter.TryRemove(e)) //Try to delete
                 {
-                    if (_currentDrawingTool == DrawingTools.River || _currentDrawingTool == DrawingTools.Road)
+                    if (_currentDrawingTool == DrawingTools.River)
                     {
-                        //For connections, we also redraw the neighboring hex, since it also has a connection removed that needs drawing
-                        var neighborHex = DirectionManager.NeighborTo(e.HexWorldCoordinate, e.PartOfHexClicked);
-                        DrawHex(neighborHex, DrawingToolToLayer(_currentDrawingTool));
+                        //For rivers and roads we need to redraw the entire map, to remove the removed road
+                        _drawingHandler.RedrawLayer(Layer.River);
                     }
-                    DrawHex(e.HexWorldCoordinate, DrawingToolToLayer(_currentDrawingTool)); //Redraw the changed hex
+                    else if (_currentDrawingTool == DrawingTools.Road)
+                    {
+                        _drawingHandler.RedrawLayer(Layer.Road);
+                    }
+                    else
+                    {
+                        DrawHex(e.HexWorldCoordinate, DrawingToolToLayer(_currentDrawingTool)); //Redraw the changed hex
+                    }
                 }
             }
         }

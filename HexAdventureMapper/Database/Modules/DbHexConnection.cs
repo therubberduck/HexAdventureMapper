@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HexAdventureMapper.Database.WorkingClasses;
 using HexAdventureMapper.DataObjects;
@@ -36,7 +37,24 @@ namespace HexAdventureMapper.Database.Modules
 
         public void Remove(HexCoordinate coor, Direction toEdge, int type)
         {
-            Db.Delete(TableName, new[] { HexCoorX, HexCoorY, ToEdge, Type }, new object[] { coor.X, coor.Y, (int)toEdge, type });
+            string whereString = HexCoorX + "=" + coor.X + " AND " + HexCoorY + "=" + coor.Y;
+            whereString += " AND " + ToEdge + "=" + (int)toEdge;
+
+            //If type is river, remove any kind of river from hex
+            if (type == 0 || type == 1 || type == 2)
+            {
+                whereString += " AND (" + Type + "=0 OR " + Type + "=1 OR " + Type + "=2)";
+            }
+            //If type is road, remove any kind of road from hex
+            else if (type == 3 || type == 4 || type == 5 || type == 6)
+            {
+                whereString += " AND (" + Type + "=3 OR " + Type + "=4 OR " + Type + "=5 OR " + Type + "=6)";
+            }
+            else
+            {
+                throw new IndexOutOfRangeException("Connection type index given does not match any known connection type");
+            }
+            Db.Delete(TableName, whereString);
         }
 
         public List<HexConnection> GetConnectionsForHex(HexCoordinate coor)
