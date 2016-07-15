@@ -50,6 +50,7 @@ namespace HexAdventureMapper.TileConfig
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 10, Name = "Landmark, Huge", ImageLocation = "Images/IcLandmarkHuge.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 7, Name = "Flags", ImageLocation = "Images/IcFlags.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 12, Name = "Monument", ImageLocation = "Images/IcMonument.png" });
+            _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 19, Name = "Lake", ImageLocation = "Images/IcLake.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 5, Name = "Cave", ImageLocation = "Images/IcCave.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 2, Name = "Ruin", ImageLocation = "Images/IcRuinStructure.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 15, Name = "Ruined Tower", ImageLocation = "Images/IcRuinTower.png" });

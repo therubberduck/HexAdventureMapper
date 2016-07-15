@@ -45,6 +45,7 @@ namespace HexAdventureMapper.TileConfig
         public static int StrTower = 16;
         public static int StrTown = 17;
         public static int StrVillage = 18;
+        public static int StrLake = 19;
 
         public static int FullFogOfWar = 0;
         public static int PartialFogOfWar = 1;
