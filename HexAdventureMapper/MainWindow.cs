@@ -628,6 +628,11 @@ namespace HexAdventureMapper
                     imgHexMap.UpdateHorizontalOffset(-distance);
                     break;
             }
+            //Save the coordinate, so we will be here next time we open the program
+            Properties.Settings.Default.MapCoordinate = new Point((int) imgHexMap.TopLeftCoordinate.X, (int) imgHexMap.TopLeftCoordinate.Y);
+            Properties.Settings.Default.Save();
+
+            //Draw the new map
             DrawMap();
         }
 

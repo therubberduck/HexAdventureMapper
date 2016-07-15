@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,12 @@ namespace HexAdventureMapper.DataObjects
         {
             X = oldCoordinate.X;
             Y = oldCoordinate.Y;
+        }
+
+        public HexCoordinate(Point point)
+        {
+            X = point.X;
+            Y = point.Y;
         }
 
         public override string ToString()

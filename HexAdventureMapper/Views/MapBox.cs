@@ -31,7 +31,7 @@ namespace HexAdventureMapper.Views
             InitializeComponent();
             _images = new Dictionary<Layer, Image>();
 
-            TopLeftCoordinate = new HexCoordinate(0, 0);
+            TopLeftCoordinate = new HexCoordinate(Properties.Settings.Default.MapCoordinate);
             MouseClick += HandleMapClicked;
             MouseMove += HandleMapDragging;
         }
