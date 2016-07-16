@@ -253,6 +253,16 @@ namespace HexAdventureMapper.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LoadingIndicator {
+            get {
+                object obj = ResourceManager.GetObject("LoadingIndicator", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap SelectBorder {
             get {
                 object obj = ResourceManager.GetObject("SelectBorder", resourceCulture);

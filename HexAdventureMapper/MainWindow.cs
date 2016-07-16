@@ -42,7 +42,9 @@ namespace HexAdventureMapper
         private HexCoordinate _selectedCoordinate;
 
         private HexCoordinate _lastDraggedHex;
+        private bool _formConstructed;
         private bool _drawingDisabled;
+        private bool _lockControls;
 
         private HexCoordinate _lastScheduledDetailSave;
         private Timer _saveDetailTimer;
@@ -51,8 +53,10 @@ namespace HexAdventureMapper
 
         public MainWindow()
         {
+            _formConstructed = false;
+
             InitializeComponent();
-            
+
             _db = new DbInterface();
             _tiles = new TileConfigInterface();
             _drawingHandler = new DrawingHandler(this, _tiles, _db);
@@ -89,6 +93,8 @@ namespace HexAdventureMapper
 
             chk100GmIcons.Checked = true;
             chk100PlayerIcons.Checked = true;
+
+            _formConstructed = true;
 
             DrawMap();
 
@@ -135,6 +141,23 @@ namespace HexAdventureMapper
             {
                 return 0;
             }
+        }
+
+        public void StartBusyIndicator()
+        {
+            _lockControls = true;
+            imgLoadingIndicator.Show();
+            //Controls.SetChildIndex(imgLoadingIndicator, 2);
+            //Controls.SetChildIndex(pnlLoadingHider, 1);
+            
+        }
+
+        public void StopBusyIndicator()
+        {
+            imgLoadingIndicator.Hide();
+            //Controls.SetChildIndex(imgLoadingIndicator, 1);
+            //Controls.SetChildIndex(pnlLoadingHider, 2);
+            _lockControls = false;
         }
 
         private int GetLayerAlphaFor(CheckBox chk50, CheckBox chk100)
@@ -190,7 +213,10 @@ namespace HexAdventureMapper
 
         private void DrawMap()
         {
-            _drawingHandler.DrawMap();
+            if (_formConstructed)
+            {
+                _drawingHandler.DrawMap();
+            }
         }
 
         private void DrawFogOfWar()
@@ -612,6 +638,11 @@ namespace HexAdventureMapper
 
         private void MoveWindow(Direction direction, int distance)
         {
+            if (_lockControls)
+            {
+                return;
+            }
+
             _selectedCoordinate = null;
             switch (direction)
             {

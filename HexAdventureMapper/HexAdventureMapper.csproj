@@ -105,7 +105,7 @@
     <Compile Include="TileConfig\TileConfigInterface.cs" />
     <Compile Include="TileConfig\TileIds.cs" />
     <Compile Include="Views\MapBox.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Views\MapBox.Designer.cs">
       <DependentUpon>MapBox.cs</DependentUpon>
@@ -362,6 +362,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Images\BSea.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\LoadingIndicator.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

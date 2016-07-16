@@ -62,6 +62,12 @@ namespace HexAdventureMapper.Views
             return null;
         }
 
+        public void UpdateLayerAndMap(Layer layer, Image image)
+        {
+            UpdateLayer(layer, image);
+            RedrawMap();
+        }
+
         public void UpdateLayer(Layer layer, Image image)
         {
             if (_images.ContainsKey(layer))
@@ -83,6 +89,10 @@ namespace HexAdventureMapper.Views
                 }
                 
             }
+        }
+
+        public void RedrawMap()
+        {
             Image = GetMapImage();
         }
 

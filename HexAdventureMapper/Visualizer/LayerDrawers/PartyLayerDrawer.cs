@@ -59,7 +59,7 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
                     }
                 }
 
-                mapBox.UpdateLayer(Layer.PartyLocation, map);
+                mapBox.UpdateLayerAndMap(Layer.PartyLocation, map);
             }
         }
     }

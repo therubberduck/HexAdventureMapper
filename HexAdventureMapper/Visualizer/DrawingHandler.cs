@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,8 @@ namespace HexAdventureMapper.Visualizer
 {
     public class DrawingHandler
     {
+        private BackgroundWorker _backgroundWorker;
+
         private readonly IDrawingUi _drawingUi;
 
         private readonly TerrainLayerDrawer _terrainLayerDrawer;
@@ -52,6 +55,16 @@ namespace HexAdventureMapper.Visualizer
 
         public void DrawMap()
         {
+            _drawingUi.StartBusyIndicator();
+            
+            _backgroundWorker = new BackgroundWorker();
+            _backgroundWorker.DoWork += DrawMapAsynchronously;
+            _backgroundWorker.RunWorkerCompleted += DrawMapAsynchronouslyFinished;
+            _backgroundWorker.RunWorkerAsync();
+        }
+
+        private void DrawMapAsynchronously(object sender, DoWorkEventArgs doWorkEventArgs)
+        {
             MapBox mapBox = _drawingUi.GetMapBox();
 
             var alphaList = GetAllAlphaValues();
@@ -67,6 +80,13 @@ namespace HexAdventureMapper.Visualizer
             }
             _partyLayerDrawer.RedrawPartyLocation();
             mapBox.UpdateLayer(Layer.OverlayGrid, _overlayGridLayerDrawer.DrawOverlay());
+
+            mapBox.RedrawMap();
+        }
+
+        public void DrawMapAsynchronouslyFinished(object sender, RunWorkerCompletedEventArgs runWorkerCompletedEventArgs)
+        {
+            _drawingUi.StopBusyIndicator();
         }
 
         public void RedrawLayer(Layer layer)
@@ -76,7 +96,7 @@ namespace HexAdventureMapper.Visualizer
             var alphaList = GetAllAlphaValues();
 
             var layerDrawer = _layerDrawers[(int)layer];
-            mapBox.UpdateLayer(layerDrawer.GetLayerType(), layerDrawer.MakeLocalMap(alphaList[(int)layer]));
+            mapBox.UpdateLayerAndMap(layerDrawer.GetLayerType(), layerDrawer.MakeLocalMap(alphaList[(int)layer]));
         }
 
         public void RedrawArea(HexCoordinate centerCoordinate)
@@ -95,12 +115,13 @@ namespace HexAdventureMapper.Visualizer
                     mapBox.UpdateLayer(layerType, _terrainLayerDrawer.RedrawArea(centerCoordinate, oldMap, alphaList[i]));
                 }
             }
+            mapBox.RedrawMap();
         }
 
         public void RedrawFogOfWar()
         {
             Image newFogOfWarMap = _fogOfWarLayerDrawer.MakeLocalMap(_drawingUi.GetFogOfWarIconAlpha());
-            _drawingUi.GetMapBox().UpdateLayer(Layer.FogOfWar, newFogOfWarMap);
+            _drawingUi.GetMapBox().UpdateLayerAndMap(Layer.FogOfWar, newFogOfWarMap);
         }
 
         public void RedrawSelectedHex(HexCoordinate selectedCoordinate)
@@ -108,7 +129,7 @@ namespace HexAdventureMapper.Visualizer
             MapBox mapBox = _drawingUi.GetMapBox();
             Bitmap map = new Bitmap(mapBox.Width, mapBox.Height);
             Image newSelectedMap = _selectLayerDrawer.RedrawHex(selectedCoordinate, map, 0);
-            mapBox.UpdateLayer(Layer.Selection, newSelectedMap);
+            mapBox.UpdateLayerAndMap(Layer.Selection, newSelectedMap);
         }
 
         public void RedrawPartyLocation(HexCoordinate partyLocation)
@@ -126,7 +147,7 @@ namespace HexAdventureMapper.Visualizer
             if (mapLayer != null)
             {
                 int alpha = alphaList[(int)layer];
-                mapBox.UpdateLayer(layer, _layerDrawers[(int)layer].RedrawHex(worldCoordinate, mapLayer, alpha));
+                mapBox.UpdateLayerAndMap(layer, _layerDrawers[(int)layer].RedrawHex(worldCoordinate, mapLayer, alpha));
             }
         }
 

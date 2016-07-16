@@ -76,9 +76,23 @@ namespace HexAdventureMapper
             this.cmbFogOfWar = new System.Windows.Forms.ComboBox();
             this.rbFogOfWar = new System.Windows.Forms.RadioButton();
             this.lblCoordinates = new System.Windows.Forms.Label();
-            this.imgHexMap = new HexAdventureMapper.Views.MapBox();
             this.chkOverlayGrid = new System.Windows.Forms.CheckBox();
+            this.imgLoadingIndicator = new System.Windows.Forms.PictureBox();
+            this.imgLoading = new System.Windows.Forms.PictureBox();
+            this.imgHexMap = new HexAdventureMapper.Views.MapBox();
+            this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bmpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pngToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.playerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgLoadingIndicator)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgLoading)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgHexMap)).BeginInit();
             this.SuspendLayout();
             // 
@@ -248,12 +262,15 @@ namespace HexAdventureMapper
             // 
             // menuStrip
             // 
+            this.menuStrip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.menuStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.playerWindowToolStripMenuItem});
+            this.fileToolStripMenuItem1,
+            this.playerToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(885, 24);
+            this.menuStrip.Size = new System.Drawing.Size(96, 24);
             this.menuStrip.TabIndex = 17;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -548,6 +565,43 @@ namespace HexAdventureMapper
             this.lblCoordinates.TabIndex = 37;
             this.lblCoordinates.Click += new System.EventHandler(this.lblCoordinates_Click);
             // 
+            // chkOverlayGrid
+            // 
+            this.chkOverlayGrid.AutoSize = true;
+            this.chkOverlayGrid.Location = new System.Drawing.Point(32, 354);
+            this.chkOverlayGrid.Name = "chkOverlayGrid";
+            this.chkOverlayGrid.Size = new System.Drawing.Size(84, 17);
+            this.chkOverlayGrid.TabIndex = 38;
+            this.chkOverlayGrid.Text = "Overlay Grid";
+            this.chkOverlayGrid.UseVisualStyleBackColor = true;
+            this.chkOverlayGrid.CheckedChanged += new System.EventHandler(this.CheckBox_LayerChanged);
+            // 
+            // imgLoadingIndicator
+            // 
+            this.imgLoadingIndicator.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.imgLoadingIndicator.BackColor = System.Drawing.SystemColors.Control;
+            this.imgLoadingIndicator.Image = global::HexAdventureMapper.Properties.Resources.LoadingIndicator;
+            this.imgLoadingIndicator.Location = new System.Drawing.Point(627, 27);
+            this.imgLoadingIndicator.Name = "imgLoadingIndicator";
+            this.imgLoadingIndicator.Size = new System.Drawing.Size(30, 30);
+            this.imgLoadingIndicator.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.imgLoadingIndicator.TabIndex = 39;
+            this.imgLoadingIndicator.TabStop = false;
+            this.imgLoadingIndicator.UseWaitCursor = true;
+            this.imgLoadingIndicator.Visible = false;
+            // 
+            // imgLoading
+            // 
+            this.imgLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.imgLoading.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.imgLoading.Image = global::HexAdventureMapper.Properties.Resources.LoadingIndicator;
+            this.imgLoading.Location = new System.Drawing.Point(627, 27);
+            this.imgLoading.Name = "imgLoading";
+            this.imgLoading.Size = new System.Drawing.Size(30, 30);
+            this.imgLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.imgLoading.TabIndex = 39;
+            this.imgLoading.TabStop = false;
+            // 
             // imgHexMap
             // 
             this.imgHexMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -563,22 +617,91 @@ namespace HexAdventureMapper
             this.imgHexMap.MapDrag += new HexAdventureMapper.Views.MapEventHandler(this.imgHexMap_MapDrag);
             this.imgHexMap.SizeChanged += new System.EventHandler(this.imgHexMap_SizeChanged);
             // 
-            // chkOverlayGrid
+            // fileToolStripMenuItem1
             // 
-            this.chkOverlayGrid.AutoSize = true;
-            this.chkOverlayGrid.Location = new System.Drawing.Point(32, 354);
-            this.chkOverlayGrid.Name = "chkOverlayGrid";
-            this.chkOverlayGrid.Size = new System.Drawing.Size(84, 17);
-            this.chkOverlayGrid.TabIndex = 38;
-            this.chkOverlayGrid.Text = "Overlay Grid";
-            this.chkOverlayGrid.UseVisualStyleBackColor = true;
-            this.chkOverlayGrid.CheckedChanged += new System.EventHandler(this.CheckBox_LayerChanged);
+            this.fileToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem1,
+            this.loadToolStripMenuItem1,
+            this.saveToolStripMenuItem1,
+            this.saveImageToolStripMenuItem,
+            this.exitToolStripMenuItem1});
+            this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
+            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem1.Text = "File";
+            // 
+            // newToolStripMenuItem1
+            // 
+            this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
+            this.newToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem1.Text = "New";
+            this.newToolStripMenuItem1.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // loadToolStripMenuItem1
+            // 
+            this.loadToolStripMenuItem1.Name = "loadToolStripMenuItem1";
+            this.loadToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.loadToolStripMenuItem1.Text = "Load";
+            this.loadToolStripMenuItem1.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem1
+            // 
+            this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem1.Text = "Save";
+            this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // saveImageToolStripMenuItem
+            // 
+            this.saveImageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bmpToolStripMenuItem,
+            this.pngToolStripMenuItem1});
+            this.saveImageToolStripMenuItem.Name = "saveImageToolStripMenuItem";
+            this.saveImageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveImageToolStripMenuItem.Text = "Save Image";
+            this.saveImageToolStripMenuItem.Click += new System.EventHandler(this.saveImageToolStripMenuItem_Click);
+            // 
+            // bmpToolStripMenuItem
+            // 
+            this.bmpToolStripMenuItem.Name = "bmpToolStripMenuItem";
+            this.bmpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.bmpToolStripMenuItem.Text = "Bmp";
+            this.bmpToolStripMenuItem.Click += new System.EventHandler(this.bitmapToolStripMenuItem_Click);
+            // 
+            // pngToolStripMenuItem1
+            // 
+            this.pngToolStripMenuItem1.Name = "pngToolStripMenuItem1";
+            this.pngToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.pngToolStripMenuItem1.Text = "Png";
+            this.pngToolStripMenuItem1.Click += new System.EventHandler(this.pngToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem1
+            // 
+            this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem1.Text = "Exit";
+            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // playerToolStripMenuItem
+            // 
+            this.playerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openWindowToolStripMenuItem});
+            this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
+            this.playerToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.playerToolStripMenuItem.Text = "Player";
+            // 
+            // openWindowToolStripMenuItem
+            // 
+            this.openWindowToolStripMenuItem.Name = "openWindowToolStripMenuItem";
+            this.openWindowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openWindowToolStripMenuItem.Text = "Open Window";
+            this.openWindowToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(885, 585);
+            this.Controls.Add(this.imgLoadingIndicator);
             this.Controls.Add(this.chkOverlayGrid);
             this.Controls.Add(this.lblCoordinates);
             this.Controls.Add(this.cmbFogOfWar);
@@ -622,6 +745,8 @@ namespace HexAdventureMapper
             this.Text = "Hex Adventure Mapper";
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgLoadingIndicator)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgLoading)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgHexMap)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -677,6 +802,18 @@ namespace HexAdventureMapper
         private System.Windows.Forms.ToolStripMenuItem pngToolStripMenuItem;
         private System.Windows.Forms.Label lblCoordinates;
         private System.Windows.Forms.CheckBox chkOverlayGrid;
+        private System.Windows.Forms.PictureBox imgLoadingIndicator;
+        private System.Windows.Forms.PictureBox imgLoading;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem saveImageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bmpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pngToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem playerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openWindowToolStripMenuItem;
     }
 }
 

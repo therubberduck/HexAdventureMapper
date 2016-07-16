@@ -60,6 +60,16 @@ namespace HexAdventureMapper
             return 0;
         }
 
+        public void StartBusyIndicator()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StopBusyIndicator()
+        {
+            throw new NotImplementedException();
+        }
+
         private void DrawMap()
         {
             _drawingHandler.DrawMap();
