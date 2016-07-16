@@ -54,21 +54,25 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
                 graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
                 string elevationImageString;
-                if (hex.TerrainId == 1)
+                if (hex.TerrainId == TileId.TerrainSea)
                 {
-                    elevationImageString = "Images/Elevation0.png";
+                    elevationImageString = "Images/BSea.png";
                 }
-                else if (hex.TerrainId == 2)
+                else if (hex.VegetationId == TileId.VegDesert)
                 {
-                    elevationImageString = "Images/Elevation1000.png";
+                    elevationImageString = "Images/BDesert.png";
                 }
-                else if (hex.TerrainId == 3)
+                else if (hex.TerrainId == TileId.TerrainHills)
                 {
-                    elevationImageString = "Images/Elevation17600.png";
+                    elevationImageString = "Images/BHills.png";
+                }
+                else if (hex.TerrainId == TileId.TerrainMountains)
+                {
+                    elevationImageString = "Images/BMountains.png";
                 }
                 else
                 {
-                    elevationImageString = "Images/Elevation200.png";
+                    elevationImageString = "Images/BPlains.png";
                 }
                 using (var image = Image.FromFile(elevationImageString))
                 {
