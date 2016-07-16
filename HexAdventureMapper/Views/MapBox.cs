@@ -38,12 +38,16 @@ namespace HexAdventureMapper.Views
 
         public Image GetMapImage()
         {
-            Image image = new Bitmap(Size.Width, Size.Height);
-            using (var graphics = Graphics.FromImage(image))
+            Image image = null;
+            if (Size.Width > 0 && Size.Height > 0)
             {
-                foreach (var im in _images.Values)
+                image = new Bitmap(Size.Width, Size.Height);
+                using (var graphics = Graphics.FromImage(image))
                 {
-                    graphics.DrawImage(im, new Point(0,0));
+                    foreach (var im in _images.Values)
+                    {
+                        graphics.DrawImage(im, new Point(0,0));
+                    }
                 }
             }
             return image;
@@ -62,11 +66,22 @@ namespace HexAdventureMapper.Views
         {
             if (_images.ContainsKey(layer))
             {
-                _images[layer] = image;
+                if (image != null)
+                {
+                    _images[layer] = image;
+                }
+                else
+                {
+                    _images.Remove(layer);
+                }
             }
             else
             {
-                _images.Add(layer, image);
+                if (image != null)
+                {
+                    _images.Add(layer, image);
+                }
+                
             }
             Image = GetMapImage();
         }

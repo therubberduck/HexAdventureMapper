@@ -36,29 +36,31 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
         public void RedrawPartyLocation()
         {
             MapBox mapBox = _drawingUi.GetMapBox();
-
-            Bitmap map = new Bitmap(mapBox.Width, mapBox.Height);
-
-            using (Graphics graphics = Graphics.FromImage(map))
+            
+            if (mapBox.Width > 0 && mapBox.Height > 0)
             {
-                graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                Bitmap map = new Bitmap(mapBox.Width, mapBox.Height);
 
-                if (_partyLocation != null)
+                using (Graphics graphics = Graphics.FromImage(map))
                 {
-                    Point positionOnScreen = PositionManager.HexToScreen(_partyLocation, mapBox.TopLeftCoordinate);
-                    var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
+                    graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                    graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
-                    using (var selectImage = Image.FromFile("Images/PartyIndicator.png"))
+                    if (_partyLocation != null)
                     {
-                        graphics.DrawImage(selectImage, pictureLocationAndSize);
+                        Point positionOnScreen = PositionManager.HexToScreen(_partyLocation, mapBox.TopLeftCoordinate);
+                        var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(50, 44));
+
+                        using (var selectImage = Image.FromFile("Images/PartyIndicator.png"))
+                        {
+                            graphics.DrawImage(selectImage, pictureLocationAndSize);
+                        }
                     }
                 }
+
+                mapBox.UpdateLayer(Layer.PartyLocation, map);
             }
-
-            mapBox.UpdateLayer(Layer.PartyLocation, map);
-
         }
     }
 }
