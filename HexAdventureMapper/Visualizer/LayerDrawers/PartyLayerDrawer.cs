@@ -22,12 +22,20 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
         public PartyLayerDrawer(IDrawingUi drawingUi)
         {
             _drawingUi = drawingUi;
+            _partyLocation = new HexCoordinate(Properties.Settings.Default.PartyLocation);
         }
 
         public void UpdatePartyLocation(HexCoordinate partyLocation)
         {
-            MapBox mapBox = _drawingUi.GetMapBox();
             _partyLocation = partyLocation;
+            Properties.Settings.Default.PartyLocation = new Point((int) _partyLocation.X, (int) _partyLocation.Y);
+
+            RedrawPartyLocation();
+        }
+
+        public void RedrawPartyLocation()
+        {
+            MapBox mapBox = _drawingUi.GetMapBox();
 
             Bitmap map = new Bitmap(mapBox.Width, mapBox.Height);
 
@@ -50,6 +58,7 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
             }
 
             mapBox.UpdateLayer(Layer.PartyLocation, map);
+
         }
     }
 }

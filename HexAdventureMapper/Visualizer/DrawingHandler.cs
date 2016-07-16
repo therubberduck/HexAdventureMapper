@@ -61,6 +61,7 @@ namespace HexAdventureMapper.Visualizer
                 var layerDrawer = _layerDrawers[i];
                 mapBox.UpdateLayer(layerDrawer.GetLayerType(), layerDrawer.MakeLocalMap(alphaList[i]));
             }
+            _partyLayerDrawer.RedrawPartyLocation();
             mapBox.UpdateLayer(Layer.OverlayGrid, _overlayGridLayerDrawer.DrawOverlay());
         }
 

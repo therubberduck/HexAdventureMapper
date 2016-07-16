@@ -34,5 +34,17 @@ namespace HexAdventureMapper.Properties {
                 this["MapCoordinate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point PartyLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["PartyLocation"]));
+            }
+            set {
+                this["PartyLocation"] = value;
+            }
+        }
     }
 }
