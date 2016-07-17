@@ -25,6 +25,7 @@ namespace HexAdventureMapper.TileConfig
         public static int VegSwamp = 8;
         public static int VegDesert = 9;
         public static int VegRocky = 10;
+        public static int VegSnow = 11;
 
         public static int StrNone = 0;
         public static int StrStructure = 1;

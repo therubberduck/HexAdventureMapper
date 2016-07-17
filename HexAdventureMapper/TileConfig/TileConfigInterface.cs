@@ -26,17 +26,18 @@ namespace HexAdventureMapper.TileConfig
             _terrain.Add(new TileComponent { TileType = TileComponent.Type.Terrain, Id = 4, Name = "Volcano", ImageLocation = "Images/TVolcano.png" });
 
             _vegetation = new List<TileComponent>();
-            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegatation, Id = 1, Name = "Grassland", ImageLocation = "Images/VGrassland.png" });
-            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegatation, Id = 4, Name = "Farmland", ImageLocation = "Images/VFarmland.png" });
-            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegatation, Id = 2, Name = "Copse", ImageLocation = "Images/VCopse.png" });
-            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegatation, Id = 3, Name = "Forest", ImageLocation = "Images/VForest.png" });
-            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegatation, Id = 5, Name = "Coniferous Copse", ImageLocation = "Images/VCCopse.png" });
-            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegatation, Id = 6, Name = "Coniferous Forest", ImageLocation = "Images/VCForest.png" });
-            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegatation, Id = 7, Name = "Jungle", ImageLocation = "Images/VJungle.png" });
-            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegatation, Id = 8, Name = "Swamp", ImageLocation = "Images/VSwamp.png" });
-            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegatation, Id = 9, Name = "Desert", ImageLocation = "Images/VDesert.png" });
-            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegatation, Id = 10, Name = "Rocky", ImageLocation = "Images/VRocky.png" });
-            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegatation, Id = 0, Name = "None", ImageLocation = "Images/Transparent.png" });
+            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = 1, Name = "Grassland", ImageLocation = "Images/VGrassland.png" });
+            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = 4, Name = "Farmland", ImageLocation = "Images/VFarmland.png" });
+            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = 2, Name = "Copse", ImageLocation = "Images/VCopse.png" });
+            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = 3, Name = "Forest", ImageLocation = "Images/VForest.png" });
+            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = 5, Name = "Coniferous Copse", ImageLocation = "Images/VCCopse.png" });
+            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = 6, Name = "Coniferous Forest", ImageLocation = "Images/VCForest.png" });
+            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = 7, Name = "Jungle", ImageLocation = "Images/VJungle.png" });
+            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = 8, Name = "Swamp", ImageLocation = "Images/VSwamp.png" });
+            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = 9, Name = "Desert", ImageLocation = "Images/VDesert.png" });
+            _vegetation.Add(new TileComponent {TileType = TileComponent.Type.Vegetation, Id = TileId.VegSnow, Name = "Snow", ImageLocation = "Images/VSnow.png"});
+            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = 10, Name = "Rocky", ImageLocation = "Images/VRocky.png" });
+            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = 0, Name = "None", ImageLocation = "Images/Transparent.png" });
 
             _icons = new List<TileComponent>();
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 0, Name = "None", ImageLocation = "Images/Transparent.png" });

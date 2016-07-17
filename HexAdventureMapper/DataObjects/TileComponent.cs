@@ -11,7 +11,7 @@ namespace HexAdventureMapper.DataObjects
         public enum Type
         {
             Terrain,
-            Vegatation,
+            Vegetation,
             Icon
         };
 
