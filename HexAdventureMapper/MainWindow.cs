@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using HexAdventureMapper.Database;
@@ -48,6 +49,9 @@ namespace HexAdventureMapper
 
         private HexCoordinate _lastScheduledDetailSave;
         private Timer _saveDetailTimer;
+
+        private Size _previousMapSize;
+        private Timer _changeSizeTimer;
 
         private Timer _autoSaveTimer;
 
@@ -464,8 +468,30 @@ namespace HexAdventureMapper
 
         private void imgHexMap_SizeChanged(object sender, System.EventArgs e)
         {
+            //If new map is smaller than old map, we don't need to update the image, as the image is larger than the mapbox
+            if (_previousMapSize != null && imgHexMap.Size.Height <= _previousMapSize.Height && imgHexMap.Size.Width <= _previousMapSize.Width)
+            {
+                return;
+            }
+
+            //Dispose of the timer, as we'll be making a new one
+            if (_changeSizeTimer != null)
+            {
+                _changeSizeTimer.Dispose();
+            }
+
+            //Schedule a detail update after 1 second (so we wait to update until the user is done typing)
+            TimerCallback callback = ChangeMapSize;
+            _changeSizeTimer = new Timer(callback, null, TimeSpan.FromSeconds(1), TimeSpan.FromMilliseconds(-1));
+
+            //Update the previousMapSize value, so we can check if the map was increased or decreased in size on future calls
+            _previousMapSize = imgHexMap.Size;
+        }
+
+        private void ChangeMapSize(object state)
+        {
             _selectedCoordinate = null;
-            DrawMap();
+            Invoke(new Action(() => DrawMap()));
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
