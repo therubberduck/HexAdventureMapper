@@ -14,8 +14,9 @@ namespace HexAdventureMapper
     public partial class PlayerWindow: Form, IDrawingUi, IFogOfWarUi
     {
         private DrawingHandler _drawingHandler;
-
         private FogOfWarPainter _fogOfWarPainter;
+
+        private bool _lockControls;
 
         public PlayerWindow(TileConfigInterface tiles, DbInterface db)
         {
@@ -62,12 +63,14 @@ namespace HexAdventureMapper
 
         public void StartBusyIndicator()
         {
-            throw new NotImplementedException();
+            _lockControls = true;
+            imgLoadingIndicator.Show();
         }
 
         public void StopBusyIndicator()
         {
-            throw new NotImplementedException();
+            imgLoadingIndicator.Hide();
+            _lockControls = false;
         }
 
         private void DrawMap()
@@ -87,6 +90,11 @@ namespace HexAdventureMapper
 
         private void imgPlayerMap_Click(object sender, MapEventArgs e)
         {
+            if (_lockControls)
+            {
+                return;
+            }
+
             if (e.Button == MouseButtons.Left)
             {
                 _fogOfWarPainter.ClearFogofWarAround(e.HexWorldCoordinate);
@@ -157,6 +165,11 @@ namespace HexAdventureMapper
 
         private void MoveWindow(Direction direction, int distance)
         {
+            if (_lockControls)
+            {
+                return;
+            }
+
             switch (direction)
             {
                 case Direction.North:

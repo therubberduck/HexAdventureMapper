@@ -151,16 +151,12 @@ namespace HexAdventureMapper
         {
             _lockControls = true;
             imgLoadingIndicator.Show();
-            //Controls.SetChildIndex(imgLoadingIndicator, 2);
-            //Controls.SetChildIndex(pnlLoadingHider, 1);
             
         }
 
         public void StopBusyIndicator()
         {
             imgLoadingIndicator.Hide();
-            //Controls.SetChildIndex(imgLoadingIndicator, 1);
-            //Controls.SetChildIndex(pnlLoadingHider, 2);
             _lockControls = false;
         }
 
@@ -239,6 +235,11 @@ namespace HexAdventureMapper
 
         private void imgHexMap_MapDrag(object sender, MapEventArgs e)
         {
+            if (_lockControls)
+            {
+                return;
+            }
+
             if (e.Button == MouseButtons.Left ||
                 (e.Button == MouseButtons.Right && _currentDrawingTool == DrawingTools.FogOfWar))
             {
@@ -252,6 +253,11 @@ namespace HexAdventureMapper
 
         private void imgHexMap_MapClick(object sender, MapEventArgs e)
         {
+            if (_lockControls)
+            {
+                return;
+            }
+
             if (e.Button == MouseButtons.Left)
             {
                 if (_currentDrawingTool == DrawingTools.Select)

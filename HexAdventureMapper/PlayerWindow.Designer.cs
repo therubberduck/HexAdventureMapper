@@ -41,7 +41,9 @@
             this.btnMoveEast2 = new System.Windows.Forms.Button();
             this.btnMoveWest1 = new System.Windows.Forms.Button();
             this.imgPlayerMap = new HexAdventureMapper.Views.MapBox();
+            this.imgLoadingIndicator = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgPlayerMap)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgLoadingIndicator)).BeginInit();
             this.SuspendLayout();
             // 
             // btnMoveSouth3
@@ -191,11 +193,26 @@
             this.imgPlayerMap.TabStop = false;
             this.imgPlayerMap.MapClick += new HexAdventureMapper.Views.MapEventHandler(this.imgPlayerMap_Click);
             // 
+            // imgLoadingIndicator
+            // 
+            this.imgLoadingIndicator.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.imgLoadingIndicator.BackColor = System.Drawing.SystemColors.Control;
+            this.imgLoadingIndicator.Image = global::HexAdventureMapper.Properties.Resources.LoadingIndicator;
+            this.imgLoadingIndicator.Location = new System.Drawing.Point(786, 10);
+            this.imgLoadingIndicator.Name = "imgLoadingIndicator";
+            this.imgLoadingIndicator.Size = new System.Drawing.Size(30, 30);
+            this.imgLoadingIndicator.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.imgLoadingIndicator.TabIndex = 40;
+            this.imgLoadingIndicator.TabStop = false;
+            this.imgLoadingIndicator.UseWaitCursor = true;
+            this.imgLoadingIndicator.Visible = false;
+            // 
             // PlayerWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(828, 619);
+            this.Controls.Add(this.imgLoadingIndicator);
             this.Controls.Add(this.btnMoveSouth3);
             this.Controls.Add(this.btnMoveSouth2);
             this.Controls.Add(this.btnMoveNorth3);
@@ -212,6 +229,7 @@
             this.Name = "PlayerWindow";
             this.Text = "PlayerWindow";
             ((System.ComponentModel.ISupportInitialize)(this.imgPlayerMap)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgLoadingIndicator)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -231,5 +249,6 @@
         private System.Windows.Forms.Button btnMoveNorth1;
         private System.Windows.Forms.Button btnMoveEast2;
         private System.Windows.Forms.Button btnMoveWest1;
+        private System.Windows.Forms.PictureBox imgLoadingIndicator;
     }
 }
