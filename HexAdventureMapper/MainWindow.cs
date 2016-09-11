@@ -393,48 +393,57 @@ namespace HexAdventureMapper
 
         private void RadioButton_CheckedChanged(object sender, System.EventArgs e)
         {
-            if (sender == rbSelect)
+            var radioButton = (RadioButton) sender;
+            if (sender == rbSelect && radioButton.Checked)
             {
                 _currentDrawingTool = DrawingTools.Select;
             }
             else
             {
-                if (sender == rbTerrain)
+                if (sender == rbTerrain && radioButton.Checked)
                 {
                     _currentDrawingTool = DrawingTools.Terrain;
                 }
-                else if (sender == rbIcons)
+                else if (sender == rbIcons && radioButton.Checked)
                 {
                     _currentDrawingTool = DrawingTools.GmIcons;
 
-                    _drawingDisabled = true;
-                    chk100GmIcons.Checked = true;
-                    chk50PlayerIcons.Checked = false;
-                    chk100PlayerIcons.Checked = false;
-                    _drawingDisabled = false;
+                    //If any of the layers aren't set as we want them for GM icons, set them as we want them for GM icons
+                    if (!chk100GmIcons.Checked || chk50PlayerIcons.Checked || chk100PlayerIcons.Checked)
+                    {
+                        _drawingDisabled = true;
+                        chk100GmIcons.Checked = true;
+                        chk50PlayerIcons.Checked = false;
+                        chk100PlayerIcons.Checked = false;
+                        _drawingDisabled = false;
 
-                    DrawMap();
+                        DrawMap();
+                    }
                 }
-                else if (sender == rbPlayerIcon)
+                else if (sender == rbPlayerIcon && radioButton.Checked)
                 {
                     _currentDrawingTool = DrawingTools.PlayerIcons;
 
-                    _drawingDisabled = true;
-                    chk50GmIcons.Checked = true;
-                    chk100PlayerIcons.Checked = true;
-                    _drawingDisabled = false;
+                    //If any of the layers aren't set as we want them for Player icons, set them as we want them for Player icons
+                    if (!chk50GmIcons.Checked || !chk100PlayerIcons.Checked)
+                    {
+                        _drawingDisabled = true;
+                        chk50GmIcons.Checked = true;
+                        chk100PlayerIcons.Checked = true;
+                        _drawingDisabled = false;
 
-                    DrawMap();
+                        DrawMap();
+                    }
                 }
-                else if (sender == rbRiver)
+                else if (sender == rbRiver && radioButton.Checked)
                 {
                     _currentDrawingTool = DrawingTools.River;
                 }
-                else if (sender == rbRoad)
+                else if (sender == rbRoad && radioButton.Checked)
                 {
                     _currentDrawingTool = DrawingTools.Road;
                 }
-                else if (sender == rbFogOfWar)
+                else if (sender == rbFogOfWar && radioButton.Checked)
                 {
                     _currentDrawingTool = DrawingTools.FogOfWar;
                 }
