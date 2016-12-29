@@ -22,7 +22,7 @@ namespace HexAdventureMapper
         {
             InitializeComponent();
             
-            _drawingHandler = new DrawingHandler(this, tiles, db);
+            _drawingHandler = new DrawingHandler("Player", this, tiles, db);
 
             _fogOfWarPainter = new FogOfWarPainter(this, db);
 

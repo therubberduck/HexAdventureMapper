@@ -63,7 +63,7 @@ namespace HexAdventureMapper
 
             _db = new DbInterface();
             _tiles = new TileConfigInterface();
-            _drawingHandler = new DrawingHandler(this, _tiles, _db);
+            _drawingHandler = new DrawingHandler("Main", this, _tiles, _db);
             _painter = new Painter(this, _db);
             _fogOfWarPainter = new FogOfWarPainter(this, _db);
 

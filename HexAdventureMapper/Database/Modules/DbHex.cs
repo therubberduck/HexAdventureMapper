@@ -45,13 +45,15 @@ namespace HexAdventureMapper.Database.Modules
         public const string RoadOffsetX = "RoadOffsetX";
         public const string RoadOffsetY = "RoadOffsetY";
 
+        private readonly Dictionary<string, KeyValuePair<Rectangle, List<Hex>>> _oneItemCache;
+
         public DbHex(DbInterface dbInterface, IDbInstance db) : base(dbInterface, db)
         {
+            _oneItemCache = new Dictionary<string, KeyValuePair<Rectangle, List<Hex>>>();
         }
 
         public int Create(HexCoordinate coor, int terrainId, int vegetationId)
         {
-
             return Db.Insert(TableName, 
                 new [] {CoordinateX, CoordinateY, Terrain, Vegetation, Icons, PlayerIcons, FogOfWar, Detail, RiverOffsetX, RiverOffsetY, RoadOffsetX, RoadOffsetY}, 
                 new object[] { coor.X, coor.Y, terrainId, vegetationId, 0, 0, 0, "", -10, 0, 0, 0});
@@ -63,8 +65,13 @@ namespace HexAdventureMapper.Database.Modules
             return hex != null;
         }
 
-        public List<Hex> GetArea(Rectangle hexArea)
+        public List<Hex> GetArea(string handlerTag, Rectangle hexArea)
         {
+            if (_oneItemCache.ContainsKey(handlerTag) && _oneItemCache[handlerTag].Key.Equals(hexArea))
+            {
+                return _oneItemCache[handlerTag].Value;
+            }
+
             string otherClauses = "WHERE " + CoordinateX + " >= " + hexArea.Left + " AND " + CoordinateX + " <= " +
                                   hexArea.Right +
                                   " AND " + CoordinateY + " >= " + hexArea.Top + " AND " + CoordinateY + " <= " +
@@ -78,6 +85,7 @@ namespace HexAdventureMapper.Database.Modules
                 var resultObject = MakeObject(o);
                 returnList.Add(resultObject);
             }
+            _oneItemCache[handlerTag] = new KeyValuePair<Rectangle, List<Hex>>(hexArea, returnList);
             return returnList;
         }
 

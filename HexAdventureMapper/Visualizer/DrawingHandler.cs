@@ -31,9 +31,13 @@ namespace HexAdventureMapper.Visualizer
         private readonly OverlayGridLayerDrawer _overlayGridLayerDrawer;
 
         private readonly List<BaseLayerDrawer> _layerDrawers;
+
+        private readonly string _handlerTag;
         
-        public DrawingHandler(IDrawingUi drawingUi, TileConfigInterface tiles, DbInterface db)
+        public DrawingHandler(string tag, IDrawingUi drawingUi, TileConfigInterface tiles, DbInterface db)
         {
+            _handlerTag = tag;
+
             _drawingUi = drawingUi;
 
             _terrainLayerDrawer = new TerrainLayerDrawer(drawingUi, tiles, db);
@@ -68,11 +72,11 @@ namespace HexAdventureMapper.Visualizer
             MapBox mapBox = _drawingUi.GetMapBox();
 
             var alphaList = GetAllAlphaValues();
-
+            
             for (int i = 0; i < _layerDrawers.Count; i++)
             {
                 var layerDrawer = _layerDrawers[i];
-                var layerImage = layerDrawer.MakeLocalMap(alphaList[i]);
+                var layerImage = layerDrawer.MakeLocalMap(_handlerTag, alphaList[i]);
                 if (layerImage != null)
                 {
                     mapBox.UpdateLayer(layerDrawer.GetLayerType(), layerImage);
@@ -80,7 +84,7 @@ namespace HexAdventureMapper.Visualizer
             }
             _partyLayerDrawer.RedrawPartyLocation();
             mapBox.UpdateLayer(Layer.OverlayGrid, _overlayGridLayerDrawer.DrawOverlay());
-
+            
             mapBox.RedrawMap();
         }
 
@@ -96,7 +100,7 @@ namespace HexAdventureMapper.Visualizer
             var alphaList = GetAllAlphaValues();
 
             var layerDrawer = _layerDrawers[(int)layer];
-            mapBox.UpdateLayerAndMap(layerDrawer.GetLayerType(), layerDrawer.MakeLocalMap(alphaList[(int)layer]));
+            mapBox.UpdateLayerAndMap(layerDrawer.GetLayerType(), layerDrawer.MakeLocalMap(_handlerTag, alphaList[(int)layer]));
         }
 
         public void RedrawArea(HexCoordinate centerCoordinate)
@@ -120,7 +124,7 @@ namespace HexAdventureMapper.Visualizer
 
         public void RedrawFogOfWar()
         {
-            Image newFogOfWarMap = _fogOfWarLayerDrawer.MakeLocalMap(_drawingUi.GetFogOfWarIconAlpha());
+            Image newFogOfWarMap = _fogOfWarLayerDrawer.MakeLocalMap(_handlerTag, _drawingUi.GetFogOfWarIconAlpha());
             _drawingUi.GetMapBox().UpdateLayerAndMap(Layer.FogOfWar, newFogOfWarMap);
         }
 

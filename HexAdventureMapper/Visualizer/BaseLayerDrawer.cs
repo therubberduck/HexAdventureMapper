@@ -24,9 +24,9 @@ namespace HexAdventureMapper.Visualizer
 
         public abstract Layer GetLayerType();
 
-        public Image MakeLocalMap(int alpha)
+        public Image MakeLocalMap(string handlerTag, int alpha)
         {
-            var hexes = Db.Hexes.GetArea(UiInterface.GetMapBox().MapArea);
+            var hexes = Db.Hexes.GetArea(handlerTag, UiInterface.GetMapBox().MapArea);
             return MakeMapFromEntireArea(hexes, alpha);
         }
 
