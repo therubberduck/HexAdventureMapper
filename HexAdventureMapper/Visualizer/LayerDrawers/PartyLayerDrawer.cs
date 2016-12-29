@@ -29,6 +29,7 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
         {
             _partyLocation = partyLocation;
             Properties.Settings.Default.PartyLocation = new Point((int) _partyLocation.X, (int) _partyLocation.Y);
+            Properties.Settings.Default.Save();
 
             RedrawPartyLocation();
         }
