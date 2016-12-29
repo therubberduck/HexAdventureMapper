@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HexAdventureMapper.Database;
 using HexAdventureMapper.DataObjects;
 using HexAdventureMapper.Helper;
@@ -76,7 +73,6 @@ namespace HexAdventureMapper.Visualizer
             for (int i = 0; i < _layerDrawers.Count; i++)
             {
                 var layerDrawer = _layerDrawers[i];
-                TestWatch.Start(layerDrawer.ToString());
                 if (alphaList[i] == 0)
                 {
                     mapBox.UpdateLayer(layerDrawer.GetLayerType(), null);
@@ -89,7 +85,6 @@ namespace HexAdventureMapper.Visualizer
                         mapBox.UpdateLayer(layerDrawer.GetLayerType(), layerImage);
                     }
                 }
-                TestWatch.Stop();
             }
             _partyLayerDrawer.RedrawPartyLocation();
             mapBox.UpdateLayer(Layer.OverlayGrid, _overlayGridLayerDrawer.DrawOverlay());
