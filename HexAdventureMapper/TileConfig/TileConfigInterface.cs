@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace HexAdventureMapper.TileConfig
 
         public TileConfigInterface()
         {
+            _imageCache = new Dictionary<string, Image>();
+
             _terrain = new List<TileComponent>();
             _terrain.Add(new TileComponent { TileType = TileComponent.Type.Terrain, Id = 1, Name = "Sea", ImageLocation = "Images/Transparent.png" });
             _terrain.Add(new TileComponent { TileType = TileComponent.Type.Terrain, Id = 0, Name = "Plains", ImageLocation = "Images/Transparent.png" });
@@ -120,6 +123,18 @@ namespace HexAdventureMapper.TileConfig
         public TileComponent GetIcon(string name)
         {
             return _icons.First(T => T.Name.Equals(name));
+        }
+
+        private Dictionary<string, Image> _imageCache;
+
+        public Image GetImage(string imageLocation)
+        {
+            if (!_imageCache.ContainsKey(imageLocation))
+            {
+                _imageCache[imageLocation] = Image.FromFile(imageLocation);
+            }
+            var image = _imageCache[imageLocation];
+            return image.Clone() as Bitmap;
         }
     }
 }

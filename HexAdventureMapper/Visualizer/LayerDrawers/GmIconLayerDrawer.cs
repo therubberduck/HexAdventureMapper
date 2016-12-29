@@ -32,7 +32,7 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
             var pictureLocationAndSize = new Rectangle(positionOnScreen, size);
             
             var iconImageLocation = Tiles.GetIcon(hex.Icons[0]).ImageLocation;
-            using (var image = Image.FromFile(iconImageLocation))
+            using (var image = Tiles.GetImage(iconImageLocation))
             {
                 if (alpha == 100)
                 {

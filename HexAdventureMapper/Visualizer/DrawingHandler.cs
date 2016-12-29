@@ -76,11 +76,20 @@ namespace HexAdventureMapper.Visualizer
             for (int i = 0; i < _layerDrawers.Count; i++)
             {
                 var layerDrawer = _layerDrawers[i];
-                var layerImage = layerDrawer.MakeLocalMap(_handlerTag, alphaList[i]);
-                if (layerImage != null)
+                TestWatch.Start(layerDrawer.ToString());
+                if (alphaList[i] == 0)
                 {
-                    mapBox.UpdateLayer(layerDrawer.GetLayerType(), layerImage);
+                    mapBox.UpdateLayer(layerDrawer.GetLayerType(), null);
                 }
+                else
+                {
+                    var layerImage = layerDrawer.MakeLocalMap(_handlerTag, alphaList[i]);
+                    if (layerImage != null)
+                    {
+                        mapBox.UpdateLayer(layerDrawer.GetLayerType(), layerImage);
+                    }
+                }
+                TestWatch.Stop();
             }
             _partyLayerDrawer.RedrawPartyLocation();
             mapBox.UpdateLayer(Layer.OverlayGrid, _overlayGridLayerDrawer.DrawOverlay());
@@ -157,7 +166,7 @@ namespace HexAdventureMapper.Visualizer
 
         private List<int> GetAllAlphaValues()
         {
-            return new List<int> {0, 0, 0, _drawingUi.GetGmIconAlpha(), _drawingUi.GetPlayerIconAlpha(), _drawingUi.GetFogOfWarIconAlpha(), _drawingUi.GetOverlayGridAlpha(), _drawingUi.GetPlayerIconAlpha(), 0};
+            return new List<int> {100, 100, 100, _drawingUi.GetGmIconAlpha(), _drawingUi.GetPlayerIconAlpha(), _drawingUi.GetFogOfWarIconAlpha(), _drawingUi.GetOverlayGridAlpha(), _drawingUi.GetPlayerIconAlpha(), 100};
         }
     }
 }

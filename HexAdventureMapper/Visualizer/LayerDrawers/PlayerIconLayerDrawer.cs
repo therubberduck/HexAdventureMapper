@@ -4,12 +4,15 @@ using System.Drawing.Imaging;
 using HexAdventureMapper.Database;
 using HexAdventureMapper.DataObjects;
 using HexAdventureMapper.Helper;
+using HexAdventureMapper.Testing;
 using HexAdventureMapper.TileConfig;
 
 namespace HexAdventureMapper.Visualizer.LayerDrawers
 {
     public class PlayerIconLayerDrawer : BaseLayerDrawer
     {
+        private Size _hexSize = new Size(TileConfigInterface.HexWidth / 2, TileConfigInterface.HexHeight / 2);
+
         public PlayerIconLayerDrawer(IDrawingUi uiInterface, TileConfigInterface tiles, DbInterface db) : base(uiInterface, tiles, db)
         {
         }
@@ -27,12 +30,11 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
             HexCoordinate positionOnVisibleMap = hex.Coordinate.Minus(UiInterface.GetMapBox().TopLeftCoordinate);
             Point positionOnScreen = PositionManager.HexToScreen(positionOnVisibleMap);
             positionOnScreen.Offset(TileConfigInterface.HexWidth / 4, TileConfigInterface.HexHeight / 4);
-            var size = new Size(TileConfigInterface.HexWidth / 2, TileConfigInterface.HexHeight / 2);
-
-            var pictureLocationAndSize = new Rectangle(positionOnScreen, size);
+            
+            var pictureLocationAndSize = new Rectangle(positionOnScreen, _hexSize);
 
             var iconImageLocation = Tiles.GetIcon(hex.PlayerIcons[0]).ImageLocation;
-            using (var image = Image.FromFile(iconImageLocation))
+            using (var image = Tiles.GetImage(iconImageLocation))
             {
                 if (alpha == 100)
                 {

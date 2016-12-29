@@ -30,16 +30,12 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
             var pictureLocationAndSize = new Rectangle(positionOnScreen, new Size(TileConfigInterface.HexWidth, TileConfigInterface.HexHeight));
 
             var tileMarker = hex.TerrainId + "|" + hex.VegetationId;
-            if (_mapTileImages.ContainsKey(tileMarker))
-            {
-                graphics.DrawImage(_mapTileImages[tileMarker], pictureLocationAndSize);
-            }
-            else
+            if (!_mapTileImages.ContainsKey(tileMarker))
             {
                 Image terrainTile = CreateTerrainImage(hex);
                 _mapTileImages[tileMarker] = terrainTile as Bitmap;
-                graphics.DrawImage(terrainTile, pictureLocationAndSize);
             }
+            graphics.DrawImage((Bitmap)_mapTileImages[tileMarker].Clone(), pictureLocationAndSize);
         }
 
         private Image CreateTerrainImage(Hex hex)
@@ -74,17 +70,17 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
                 {
                     elevationImageString = "Images/BPlains.png";
                 }
-                using (var image = Image.FromFile(elevationImageString))
+                using (var image = Tiles.GetImage(elevationImageString))
                 {
                     graphics.DrawImage(image, pictureLocationAndSize);
                 }
                 var terrainImageLocation = Tiles.GetTerrain(hex.TerrainId).ImageLocation;
-                using (var image = Image.FromFile(terrainImageLocation))
+                using (var image = Tiles.GetImage(terrainImageLocation))
                 {
                     graphics.DrawImage(image, pictureLocationAndSize);
                 }
                 var vegetationImageLocation = Tiles.GetVegetation(hex.VegetationId).ImageLocation;
-                using (var image = Image.FromFile(vegetationImageLocation))
+                using (var image = Tiles.GetImage(vegetationImageLocation))
                 {
                     graphics.DrawImage(image, pictureLocationAndSize);
                 }
