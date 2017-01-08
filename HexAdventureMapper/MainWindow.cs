@@ -782,5 +782,15 @@ namespace HexAdventureMapper
                 Clipboard.SetText(_selectedCoordinate.ToText());
             }
         }
+
+        private void weatherImagesDesignedByToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.freepik.com/free-photos-vectors/icon");
+        }
+
+        private void sunAndMoonImageDesignedByFreepikToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.freepik.com/free-photos-vectors/icon");
+        }
     }
 }
