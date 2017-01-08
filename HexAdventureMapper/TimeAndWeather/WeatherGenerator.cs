@@ -16,24 +16,72 @@ namespace HexAdventureMapper.TimeAndWeather
             string weatherString;
 
             int temperature = GetTemperature(session.Year, session.Day, session.Time.Hours);
-            int rainAmount = GetTemperature(session.Year, session.Day, session.Time.Hours);
+            int rainAmount = GetRainAmount(session.Year, session.Day, session.Time.Hours);
 
             if (temperature <= 0)
             {
-                weatherString
+                weatherString = "Freezing weather";
+            }
+            else if (temperature <= 5)
+            {
+                weatherString = "Cold weather";
             }
             else if (temperature <= 15)
             {
-                
+                weatherString = "Cool weather";
             }
             else if (temperature <= 25)
             {
-                
+                weatherString = "Temperate weather";
             }
             else
             {
-                
+                weatherString = "Warm weather";
             }
+
+            if (rainAmount == -1)
+            {
+                weatherString += " with cloudy skies";
+            }
+            else if (rainAmount == 0)
+            {
+                weatherString += " with cloud-free skies";
+            }
+            else if (rainAmount == 1)
+            {
+                if (temperature <= 0)
+                {
+                    weatherString += " with sleet";
+                }
+                else
+                {
+                    weatherString += " with light rain";
+                }
+            }
+            else if (rainAmount == 2)
+            {
+                if (temperature <= 0)
+                {
+                    weatherString += " with snow";
+                }
+                else
+                {
+                    weatherString += " with rain";
+                }
+            }
+            else if (rainAmount == 3)
+            {
+                if (temperature <= 0)
+                {
+                    weatherString += " with heavy snow";
+                }
+                else
+                {
+                    weatherString += " with heavy rain";
+                }
+            }
+
+            return weatherString;
         }
 
 

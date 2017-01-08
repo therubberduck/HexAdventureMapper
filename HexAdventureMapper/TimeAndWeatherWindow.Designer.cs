@@ -44,6 +44,8 @@
             this.lblCurrentYear = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.btnClearTimes = new System.Windows.Forms.Button();
+            this.lblSunriseSunset = new System.Windows.Forms.Label();
+            this.lblWeather = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -67,7 +69,7 @@
             // 
             // btnAddTime
             // 
-            this.btnAddTime.Location = new System.Drawing.Point(17, 278);
+            this.btnAddTime.Location = new System.Drawing.Point(18, 319);
             this.btnAddTime.Name = "btnAddTime";
             this.btnAddTime.Size = new System.Drawing.Size(32, 30);
             this.btnAddTime.TabIndex = 2;
@@ -77,7 +79,7 @@
             // 
             // btnSubtractTime
             // 
-            this.btnSubtractTime.Location = new System.Drawing.Point(55, 278);
+            this.btnSubtractTime.Location = new System.Drawing.Point(56, 319);
             this.btnSubtractTime.Name = "btnSubtractTime";
             this.btnSubtractTime.Size = new System.Drawing.Size(32, 30);
             this.btnSubtractTime.TabIndex = 3;
@@ -87,7 +89,7 @@
             // 
             // txtTimeValueHours
             // 
-            this.txtTimeValueHours.Location = new System.Drawing.Point(18, 195);
+            this.txtTimeValueHours.Location = new System.Drawing.Point(19, 236);
             this.txtTimeValueHours.Name = "txtTimeValueHours";
             this.txtTimeValueHours.Size = new System.Drawing.Size(61, 26);
             this.txtTimeValueHours.TabIndex = 4;
@@ -96,7 +98,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(85, 197);
+            this.label2.Location = new System.Drawing.Point(86, 238);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 20);
             this.label2.TabIndex = 5;
@@ -106,7 +108,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(85, 234);
+            this.label3.Location = new System.Drawing.Point(86, 275);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 20);
             this.label3.TabIndex = 7;
@@ -115,7 +117,7 @@
             // 
             // txtTimeValueMinutes
             // 
-            this.txtTimeValueMinutes.Location = new System.Drawing.Point(18, 232);
+            this.txtTimeValueMinutes.Location = new System.Drawing.Point(19, 273);
             this.txtTimeValueMinutes.Name = "txtTimeValueMinutes";
             this.txtTimeValueMinutes.Size = new System.Drawing.Size(61, 26);
             this.txtTimeValueMinutes.TabIndex = 6;
@@ -124,7 +126,7 @@
             // chkAutoUpdateTime
             // 
             this.chkAutoUpdateTime.AutoSize = true;
-            this.chkAutoUpdateTime.Location = new System.Drawing.Point(174, 284);
+            this.chkAutoUpdateTime.Location = new System.Drawing.Point(187, 323);
             this.chkAutoUpdateTime.Name = "chkAutoUpdateTime";
             this.chkAutoUpdateTime.Size = new System.Drawing.Size(161, 24);
             this.chkAutoUpdateTime.TabIndex = 8;
@@ -152,7 +154,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(84, 162);
+            this.label5.Location = new System.Drawing.Point(85, 203);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(42, 20);
             this.label5.TabIndex = 12;
@@ -161,7 +163,7 @@
             // 
             // txtTimeValueDays
             // 
-            this.txtTimeValueDays.Location = new System.Drawing.Point(17, 160);
+            this.txtTimeValueDays.Location = new System.Drawing.Point(18, 201);
             this.txtTimeValueDays.Name = "txtTimeValueDays";
             this.txtTimeValueDays.Size = new System.Drawing.Size(61, 26);
             this.txtTimeValueDays.TabIndex = 11;
@@ -187,19 +189,39 @@
             // 
             // btnClearTimes
             // 
-            this.btnClearTimes.Location = new System.Drawing.Point(95, 278);
+            this.btnClearTimes.Location = new System.Drawing.Point(96, 319);
             this.btnClearTimes.Name = "btnClearTimes";
-            this.btnClearTimes.Size = new System.Drawing.Size(55, 30);
+            this.btnClearTimes.Size = new System.Drawing.Size(79, 30);
             this.btnClearTimes.TabIndex = 15;
             this.btnClearTimes.Text = "Clear";
             this.btnClearTimes.UseVisualStyleBackColor = true;
             this.btnClearTimes.Click += new System.EventHandler(this.btnClearTimes_Click);
+            // 
+            // lblSunriseSunset
+            // 
+            this.lblSunriseSunset.AutoSize = true;
+            this.lblSunriseSunset.Location = new System.Drawing.Point(14, 114);
+            this.lblSunriseSunset.Name = "lblSunriseSunset";
+            this.lblSunriseSunset.Size = new System.Drawing.Size(51, 20);
+            this.lblSunriseSunset.TabIndex = 16;
+            this.lblSunriseSunset.Text = "label6";
+            // 
+            // lblWeather
+            // 
+            this.lblWeather.AutoSize = true;
+            this.lblWeather.Location = new System.Drawing.Point(15, 146);
+            this.lblWeather.Name = "lblWeather";
+            this.lblWeather.Size = new System.Drawing.Size(51, 20);
+            this.lblWeather.TabIndex = 17;
+            this.lblWeather.Text = "label6";
             // 
             // TimeAndWeatherWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(359, 406);
+            this.Controls.Add(this.lblWeather);
+            this.Controls.Add(this.lblSunriseSunset);
             this.Controls.Add(this.btnClearTimes);
             this.Controls.Add(this.lblCurrentYear);
             this.Controls.Add(this.label7);
@@ -241,5 +263,7 @@
         private System.Windows.Forms.Label lblCurrentYear;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnClearTimes;
+        private System.Windows.Forms.Label lblSunriseSunset;
+        private System.Windows.Forms.Label lblWeather;
     }
 }

@@ -35,6 +35,10 @@ namespace HexAdventureMapper
             lblCurrentYear.Text = _timeAndWeatherHandler.GetActualYear();
             lblCurrentDate.Text = _timeAndWeatherHandler.GetActualDate();
             lblCurrentTime.Text = _timeAndWeatherHandler.GetActualTime();
+
+            lblSunriseSunset.Text = "Sunrise: " + _timeAndWeatherHandler.GetSunrise() + " / Sunset: " +
+                                    _timeAndWeatherHandler.GetSunset();
+            lblWeather.Text = _timeAndWeatherHandler.GetWeather();
         }
 
         private void btnAddTime_Click(object sender, EventArgs e)

@@ -45,8 +45,6 @@ namespace HexAdventureMapper.TimeAndWeather
             }
         }
 
-
-
         public string GetTime()
         {
             return DateTimePresenter.GetOrdinal(_session.Day % 30 + 1) + " of " + DateTimePresenter.GetMonth(_session.Day) + ", " + DateTimePresenter.GetTimeOfDay(_session.Day, (int) _session.Time.TotalMinutes);
@@ -69,8 +67,22 @@ namespace HexAdventureMapper.TimeAndWeather
 
         public string GetWeather()
         {
-            return "Raining with clouds";
+            return WeatherGenerator.GetWeather(_session);
         }
+
+        public string GetSunrise()
+        {
+            return DateTimePresenter.GetSunrise(_session.Day);
+        }
+
+        public string GetSunset()
+        {
+            return DateTimePresenter.GetSunset(_session.Day);
+        }
+
+        //
+        // Editing Methods
+        //
 
         public void AddTimes(int days, int hours, int minutes)
         {

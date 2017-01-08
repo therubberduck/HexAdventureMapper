@@ -13,20 +13,9 @@ namespace HexAdventureMapper.TimeAndWeather
 
         public static string GetTimeOfDay(int day, int totalMin)
         {
-            //Start calculation for Dawn and Dusk
-            var cyklusNum = day;
-            if (cyklusNum > 365 / 2) //Adjust the cyckle so it reverses after Winter solstice
-            {
-                cyklusNum = 365 - cyklusNum;
-            }
-
             //Check whether it is dawn
-
-            //(6am - half the swing in a year (one quarter the year, since the two halves of the year mirror))
-            //The other half of the swing will occur after 6am, as we enter the winter months
-            var earliestDawn = (6 * 60 - DaySwingValue * 365 / 4);
-            // + today's swing, the farther into the cyklus, the later the dawn
-            var dawnTime = earliestDawn + (cyklusNum * DaySwingValue);
+            var dawnTime = GetSunriseMinute(day);
+            
             if (totalMin >= dawnTime - 30 && totalMin < dawnTime - 20)
             {
                 return "First Light";
@@ -41,12 +30,8 @@ namespace HexAdventureMapper.TimeAndWeather
             }
 
             //Check whether it is dusk
-
-            //(6pm + half the swing in a year (one quarter the year, since the two halves of the year mirror))
-            //The other half of the swing will occur before 6pm, as we enter the winter months
-            var latestDusk = (18 * 60 + DaySwingValue * 365 / 4);
-            // - today's swing, the farther into the cyklus, the earlier the dusk
-            var duskTime = latestDusk - (cyklusNum * DaySwingValue);
+            var duskTime = GetSunsetMinute(day);
+            
             if (totalMin >= duskTime + 20 && totalMin < duskTime + 30)
             {
                 return "Last Light";
@@ -133,6 +118,50 @@ namespace HexAdventureMapper.TimeAndWeather
             return timeOfDay;
         }
 
+        public static int GetSunriseMinute(int day)
+        {
+            var cyklusNum = day;
+            if (cyklusNum > 365 / 2) //Adjust the cyckle so it reverses after Winter solstice
+            {
+                cyklusNum = 365 - cyklusNum;
+            }
+
+            //(6am - half the swing in a year (one quarter the year, since the two halves of the year mirror))
+            //The other half of the swing will occur after 6am, as we enter the winter months
+            var earliestDawn = (6 * 60 - DaySwingValue * 365 / 4);
+            // + today's swing, the farther into the cyklus, the later the dawn
+            var dawnTime = earliestDawn + (cyklusNum * DaySwingValue);
+
+            return (int) dawnTime;
+        }
+
+        public static string GetSunrise(int day)
+        {
+            return MinuteToTimeString(GetSunriseMinute(day));
+        }
+
+        public static int GetSunsetMinute(int day)
+        {
+            var cyklusNum = day;
+            if (cyklusNum > 365 / 2) //Adjust the cyckle so it reverses after Winter solstice
+            {
+                cyklusNum = 365 - cyklusNum;
+            }
+
+            //(6pm + half the swing in a year (one quarter the year, since the two halves of the year mirror))
+            //The other half of the swing will occur before 6pm, as we enter the winter months
+            var latestDusk = (18 * 60 + DaySwingValue * 365 / 4);
+            // - today's swing, the farther into the cyklus, the earlier the dusk
+            var duskTime = latestDusk - (cyklusNum * DaySwingValue);
+
+            return (int) duskTime;
+        }
+
+        public static string GetSunset(int day)
+        {
+            return MinuteToTimeString(GetSunsetMinute(day));
+        }
+
         public static string GetOrdinal(int num)
         {
             switch (num % 100)
@@ -188,6 +217,11 @@ namespace HexAdventureMapper.TimeAndWeather
                 default:
                     return "the Festival";
             }
+        }
+
+        public static string MinuteToTimeString(int minutes)
+        {
+            return $"{minutes/60:00}:{minutes%60:00}";
         }
     }
 }
