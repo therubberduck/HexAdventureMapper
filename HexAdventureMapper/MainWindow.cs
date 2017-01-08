@@ -11,6 +11,7 @@ using HexAdventureMapper.DataObjects;
 using HexAdventureMapper.Helper;
 using HexAdventureMapper.Painting;
 using HexAdventureMapper.TileConfig;
+using HexAdventureMapper.TimeAndWeather;
 using HexAdventureMapper.Views;
 using HexAdventureMapper.Visualizer;
 using Timer = System.Threading.Timer;
@@ -38,7 +39,9 @@ namespace HexAdventureMapper
         private DrawingHandler _drawingHandler;
         private Painter _painter;
         private FogOfWarPainter _fogOfWarPainter;
-        
+
+        private TimeAndWeatherHandler _timeAndWeatherHandler;
+
         private DrawingTools _currentDrawingTool;
         private HexCoordinate _selectedCoordinate;
 
@@ -66,6 +69,8 @@ namespace HexAdventureMapper
             _drawingHandler = new DrawingHandler("Main", this, _tiles, _db);
             _painter = new Painter(this, _db);
             _fogOfWarPainter = new FogOfWarPainter(this, _db);
+
+            _timeAndWeatherHandler = new TimeAndWeatherHandler(_db);
 
             imgHexMap.BackColor = ColorTranslator.FromHtml("#333333");
 
@@ -601,8 +606,14 @@ namespace HexAdventureMapper
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _playerWindow = new PlayerWindow(_tiles, _db);
+            _playerWindow = new PlayerWindow(_tiles, _db, _timeAndWeatherHandler);
             _playerWindow.Show();
+        }
+
+        private void timeAndWeatherToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TimeAndWeatherWindow window = new TimeAndWeatherWindow(_timeAndWeatherHandler);
+            window.Show();
         }
 
         private void AutoSave()

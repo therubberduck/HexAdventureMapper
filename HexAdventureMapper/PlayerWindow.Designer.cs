@@ -41,15 +41,19 @@
             this.btnMoveEast2 = new System.Windows.Forms.Button();
             this.btnMoveWest1 = new System.Windows.Forms.Button();
             this.imgLoadingIndicator = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblDate = new System.Windows.Forms.Label();
+            this.lblWeather = new System.Windows.Forms.Label();
             this.imgPlayerMap = new HexAdventureMapper.Views.MapBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgLoadingIndicator)).BeginInit();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgPlayerMap)).BeginInit();
             this.SuspendLayout();
             // 
             // btnMoveSouth3
             // 
             this.btnMoveSouth3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMoveSouth3.Location = new System.Drawing.Point(1020, 888);
+            this.btnMoveSouth3.Location = new System.Drawing.Point(895, 888);
             this.btnMoveSouth3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveSouth3.Name = "btnMoveSouth3";
             this.btnMoveSouth3.Size = new System.Drawing.Size(150, 46);
@@ -73,7 +77,7 @@
             // btnMoveNorth3
             // 
             this.btnMoveNorth3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMoveNorth3.Location = new System.Drawing.Point(1020, 15);
+            this.btnMoveNorth3.Location = new System.Drawing.Point(895, 14);
             this.btnMoveNorth3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveNorth3.Name = "btnMoveNorth3";
             this.btnMoveNorth3.Size = new System.Drawing.Size(150, 46);
@@ -119,7 +123,7 @@
             // btnMoveEast3
             // 
             this.btnMoveEast3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMoveEast3.Location = new System.Drawing.Point(1179, 725);
+            this.btnMoveEast3.Location = new System.Drawing.Point(1053, 725);
             this.btnMoveEast3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveEast3.Name = "btnMoveEast3";
             this.btnMoveEast3.Size = new System.Drawing.Size(45, 154);
@@ -132,7 +136,7 @@
             // 
             this.btnMoveEast1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMoveEast1.Location = new System.Drawing.Point(1179, 234);
+            this.btnMoveEast1.Location = new System.Drawing.Point(1053, 234);
             this.btnMoveEast1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveEast1.Name = "btnMoveEast1";
             this.btnMoveEast1.Size = new System.Drawing.Size(45, 482);
@@ -148,7 +152,7 @@
             this.btnMoveSouth1.Location = new System.Drawing.Point(231, 888);
             this.btnMoveSouth1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveSouth1.Name = "btnMoveSouth1";
-            this.btnMoveSouth1.Size = new System.Drawing.Size(780, 46);
+            this.btnMoveSouth1.Size = new System.Drawing.Size(656, 46);
             this.btnMoveSouth1.TabIndex = 30;
             this.btnMoveSouth1.Text = "V";
             this.btnMoveSouth1.UseVisualStyleBackColor = true;
@@ -161,7 +165,7 @@
             this.btnMoveNorth1.Location = new System.Drawing.Point(231, 15);
             this.btnMoveNorth1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveNorth1.Name = "btnMoveNorth1";
-            this.btnMoveNorth1.Size = new System.Drawing.Size(780, 46);
+            this.btnMoveNorth1.Size = new System.Drawing.Size(656, 46);
             this.btnMoveNorth1.TabIndex = 29;
             this.btnMoveNorth1.Text = "^";
             this.btnMoveNorth1.UseVisualStyleBackColor = true;
@@ -170,7 +174,7 @@
             // btnMoveEast2
             // 
             this.btnMoveEast2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMoveEast2.Location = new System.Drawing.Point(1179, 71);
+            this.btnMoveEast2.Location = new System.Drawing.Point(1053, 71);
             this.btnMoveEast2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveEast2.Name = "btnMoveEast2";
             this.btnMoveEast2.Size = new System.Drawing.Size(45, 154);
@@ -197,7 +201,7 @@
             this.imgLoadingIndicator.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.imgLoadingIndicator.BackColor = System.Drawing.SystemColors.Control;
             this.imgLoadingIndicator.Image = global::HexAdventureMapper.Properties.Resources.LoadingIndicator;
-            this.imgLoadingIndicator.Location = new System.Drawing.Point(1179, 15);
+            this.imgLoadingIndicator.Location = new System.Drawing.Point(1053, 15);
             this.imgLoadingIndicator.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.imgLoadingIndicator.Name = "imgLoadingIndicator";
             this.imgLoadingIndicator.Size = new System.Drawing.Size(45, 46);
@@ -206,6 +210,37 @@
             this.imgLoadingIndicator.TabStop = false;
             this.imgLoadingIndicator.UseWaitCursor = true;
             this.imgLoadingIndicator.Visible = false;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.lblWeather);
+            this.panel1.Controls.Add(this.lblDate);
+            this.panel1.Location = new System.Drawing.Point(1105, 15);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(243, 925);
+            this.panel1.TabIndex = 41;
+            // 
+            // lblDate
+            // 
+            this.lblDate.AutoSize = true;
+            this.lblDate.Location = new System.Drawing.Point(12, 12);
+            this.lblDate.MaximumSize = new System.Drawing.Size(219, 0);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(51, 20);
+            this.lblDate.TabIndex = 0;
+            this.lblDate.Text = "label1";
+            // 
+            // lblWeather
+            // 
+            this.lblWeather.AutoSize = true;
+            this.lblWeather.Location = new System.Drawing.Point(12, 89);
+            this.lblWeather.MaximumSize = new System.Drawing.Size(219, 0);
+            this.lblWeather.Name = "lblWeather";
+            this.lblWeather.Size = new System.Drawing.Size(51, 20);
+            this.lblWeather.TabIndex = 1;
+            this.lblWeather.Text = "label1";
             // 
             // imgPlayerMap
             // 
@@ -216,7 +251,7 @@
             this.imgPlayerMap.Location = new System.Drawing.Point(72, 71);
             this.imgPlayerMap.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.imgPlayerMap.Name = "imgPlayerMap";
-            this.imgPlayerMap.Size = new System.Drawing.Size(1098, 808);
+            this.imgPlayerMap.Size = new System.Drawing.Size(973, 808);
             this.imgPlayerMap.TabIndex = 26;
             this.imgPlayerMap.TabStop = false;
             this.imgPlayerMap.MapClick += new HexAdventureMapper.Views.MapEventHandler(this.imgPlayerMap_Click);
@@ -225,7 +260,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1242, 952);
+            this.ClientSize = new System.Drawing.Size(1360, 952);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.imgLoadingIndicator);
             this.Controls.Add(this.btnMoveSouth3);
             this.Controls.Add(this.btnMoveSouth2);
@@ -244,6 +280,8 @@
             this.Name = "PlayerWindow";
             this.Text = "PlayerWindow";
             ((System.ComponentModel.ISupportInitialize)(this.imgLoadingIndicator)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgPlayerMap)).EndInit();
             this.ResumeLayout(false);
 
@@ -265,5 +303,8 @@
         private System.Windows.Forms.Button btnMoveEast2;
         private System.Windows.Forms.Button btnMoveWest1;
         private System.Windows.Forms.PictureBox imgLoadingIndicator;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblWeather;
+        private System.Windows.Forms.Label lblDate;
     }
 }

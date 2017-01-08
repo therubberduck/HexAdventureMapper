@@ -115,6 +115,8 @@
     <Compile Include="TimeAndWeatherWindow.Designer.cs">
       <DependentUpon>TimeAndWeatherWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="TimeAndWeather\DateTimePresenter.cs" />
+    <Compile Include="TimeAndWeather\ITimeAndWeatherListener.cs" />
     <Compile Include="TimeAndWeather\TimeAndWeatherHandler.cs" />
     <Compile Include="Views\MapBox.cs">
       <SubType>Component</SubType>
