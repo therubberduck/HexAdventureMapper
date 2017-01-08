@@ -100,6 +100,8 @@ namespace HexAdventureMapper
 
             _formConstructed = true;
 
+            imgHexMap.SetPosition(_db.Session.Get().CurrentMapCorner);
+
             DrawMap();
 
             _autoSaveTimer = new Timer(e => AutoSave(), null, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
@@ -571,7 +573,8 @@ namespace HexAdventureMapper
                 DialogResult result2 = MessageBox.Show("Do you really want to load the map? You will lose all unsaved work.", "Load Map", MessageBoxButtons.OKCancel, MessageBoxIcon.Stop);
                 if (result2 == DialogResult.OK)
                 {
-                    string dbPath = "db.sqlite";
+
+                    string dbPath = Properties.Settings.Default.MapDatabaseName;
                     string savePath = fileDialog.FileName;
                     File.Copy(savePath, dbPath, true);
                     _db.UpdateDbSchema();
@@ -590,7 +593,7 @@ namespace HexAdventureMapper
             DialogResult result = fileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                string dbPath = "db.sqlite";
+                string dbPath = Properties.Settings.Default.MapDatabaseName;
                 string savePath = fileDialog.FileName;
                 File.Copy(dbPath, savePath, true);
             }
@@ -604,7 +607,7 @@ namespace HexAdventureMapper
 
         private void AutoSave()
         {
-            string dbPath = "db.sqlite";
+            string dbPath = Properties.Settings.Default.MapDatabaseName;
             string savePath = "autosave.ham";
             File.Copy(dbPath, savePath, true);
         }
@@ -702,8 +705,7 @@ namespace HexAdventureMapper
                     break;
             }
             //Save the coordinate, so we will be here next time we open the program
-            Properties.Settings.Default.MapCoordinate = new Point((int) imgHexMap.TopLeftCoordinate.X, (int) imgHexMap.TopLeftCoordinate.Y);
-            Properties.Settings.Default.Save();
+            _db.Session.UpdateLocation(imgHexMap.TopLeftCoordinate);
 
             //Draw the new map
             DrawMap();

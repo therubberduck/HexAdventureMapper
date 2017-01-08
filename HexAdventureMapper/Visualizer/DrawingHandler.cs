@@ -44,7 +44,7 @@ namespace HexAdventureMapper.Visualizer
             _playerIconLayerDrawer = new PlayerIconLayerDrawer(drawingUi, tiles, db);
             _fogOfWarLayerDrawer = new FogOfWarLayerDrawer(drawingUi, tiles, db);
             _selectLayerDrawer = new SelectLayerDrawer(drawingUi, tiles, db);
-            _partyLayerDrawer = new PartyLayerDrawer(drawingUi);
+            _partyLayerDrawer = new PartyLayerDrawer(drawingUi, db);
             _overlayGridLayerDrawer = new OverlayGridLayerDrawer(drawingUi);
 
             _layerDrawers = new List<BaseLayerDrawer>

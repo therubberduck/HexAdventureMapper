@@ -10,32 +10,44 @@ namespace HexAdventureMapper.Database
 {
     public class DbInterface
     {
+        private readonly IDbInstance _campaignDb;
+        private readonly IDbInstance _mapDb;
+
+        public readonly DbParty Party;
+        public readonly DbSession Session;
+
         public readonly DbHex Hexes;
         public readonly DbHexConnection HexConnections;
 
-        private readonly IDbInstance _db ;
-
         public DbInterface()
         {
-            _db = new SqLiteDb();
+            _campaignDb = new SqLiteDb(Properties.Settings.Default.CampaignDatabaseName);
+            _mapDb = new SqLiteDb(Properties.Settings.Default.MapDatabaseName);
 
-            Hexes = new DbHex(this, _db);
-            HexConnections = new DbHexConnection(this, _db);
+            Party = new DbParty(this, _campaignDb);
+            Session = new DbSession(this, _campaignDb);
 
-            DbUpdater.CheckForDbSchemaUpdates(_db, Hexes, HexConnections);
+
+            Hexes = new DbHex(this, _mapDb);
+            HexConnections = new DbHexConnection(this, _mapDb);
+            DbUpdater.CheckForCampaignDbSchemaUpdates(_campaignDb, Party, Session);
+            DbUpdater.CheckForMapDbSchemaUpdates(_mapDb, Hexes, HexConnections);
         }
 
         public void UpdateDbSchema()
         {
-            _db.ReloadDb();
-            DbUpdater.CheckForDbSchemaUpdates(_db, Hexes, HexConnections);
+            _mapDb.ReloadDb();
+            DbUpdater.CheckForCampaignDbSchemaUpdates(_campaignDb, Party, Session);
+            DbUpdater.CheckForMapDbSchemaUpdates(_mapDb, Hexes, HexConnections);
         }
 
         public void ClearDb()
         {
-            _db.CreateTables(new IDbModule[] { Hexes, HexConnections });
+            //_mapDb.CreateTables(new IDbModule[] { Hexes, HexConnections });
             Hexes.ClearTable();
             HexConnections.ClearTable();
+
+            Party.ClearTable();
         }
     }
 }

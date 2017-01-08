@@ -28,6 +28,8 @@ namespace HexAdventureMapper
 
             imgPlayerMap.BackColor = ColorTranslator.FromHtml("#333333");
 
+            imgPlayerMap.SetPosition(db.Session.Get().CurrentMapCorner);
+
             DrawMap();
         }
 
