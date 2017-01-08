@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HexAdventureMapper.DataObjects;
 
 namespace HexAdventureMapper.TimeAndWeather
 {
@@ -160,6 +161,15 @@ namespace HexAdventureMapper.TimeAndWeather
         public static string GetSunset(int day)
         {
             return MinuteToTimeString(GetSunsetMinute(day));
+        }
+
+        public static bool IsDayTime(Session session)
+        {
+            var dawnTime = GetSunriseMinute(session.Day);
+            var duskTime = GetSunsetMinute(session.Day);
+            var totalMin = session.Time.TotalMinutes;
+
+            return totalMin >= dawnTime && totalMin <= duskTime;
         }
 
         public static string GetOrdinal(int num)

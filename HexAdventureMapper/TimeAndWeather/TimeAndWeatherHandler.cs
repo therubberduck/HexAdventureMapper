@@ -80,6 +80,11 @@ namespace HexAdventureMapper.TimeAndWeather
             return DateTimePresenter.GetSunset(_session.Day);
         }
 
+        public bool IsDayTime()
+        {
+            return DateTimePresenter.IsDayTime(_session);
+        }
+
         //
         // Editing Methods
         //

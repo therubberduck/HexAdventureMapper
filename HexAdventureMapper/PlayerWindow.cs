@@ -100,6 +100,21 @@ namespace HexAdventureMapper
         {
             lblDate.Text = _timeAndWeatherHandler.GetTime();
             lblWeather.Text = _timeAndWeatherHandler.GetWeather();
+
+            if (_timeAndWeatherHandler.IsDayTime())
+            {
+                pnlTimeAndWeather.BackColor = Color.FromArgb(16,175,231);
+                lblDate.ForeColor = Color.Black;
+                lblWeather.ForeColor = Color.Black;
+                imgCelestialBody.Image = Image.FromFile("Images/sun.png");
+            }
+            else
+            {
+                pnlTimeAndWeather.BackColor = Color.FromArgb(7, 38, 58);
+                lblDate.ForeColor = Color.White;
+                lblWeather.ForeColor = Color.White;
+                imgCelestialBody.Image = Image.FromFile("Images/Moon.png");
+            }
         }
 
         private void imgPlayerMap_Click(object sender, MapEventArgs e)

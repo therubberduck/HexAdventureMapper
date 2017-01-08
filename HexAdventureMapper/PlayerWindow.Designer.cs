@@ -41,12 +41,14 @@
             this.btnMoveEast2 = new System.Windows.Forms.Button();
             this.btnMoveWest1 = new System.Windows.Forms.Button();
             this.imgLoadingIndicator = new System.Windows.Forms.PictureBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lblDate = new System.Windows.Forms.Label();
+            this.pnlTimeAndWeather = new System.Windows.Forms.Panel();
             this.lblWeather = new System.Windows.Forms.Label();
+            this.lblDate = new System.Windows.Forms.Label();
+            this.imgCelestialBody = new System.Windows.Forms.PictureBox();
             this.imgPlayerMap = new HexAdventureMapper.Views.MapBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgLoadingIndicator)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.pnlTimeAndWeather.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgCelestialBody)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgPlayerMap)).BeginInit();
             this.SuspendLayout();
             // 
@@ -211,16 +213,27 @@
             this.imgLoadingIndicator.UseWaitCursor = true;
             this.imgLoadingIndicator.Visible = false;
             // 
-            // panel1
+            // pnlTimeAndWeather
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pnlTimeAndWeather.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.lblWeather);
-            this.panel1.Controls.Add(this.lblDate);
-            this.panel1.Location = new System.Drawing.Point(1105, 15);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(243, 925);
-            this.panel1.TabIndex = 41;
+            this.pnlTimeAndWeather.Controls.Add(this.imgCelestialBody);
+            this.pnlTimeAndWeather.Controls.Add(this.lblWeather);
+            this.pnlTimeAndWeather.Controls.Add(this.lblDate);
+            this.pnlTimeAndWeather.Location = new System.Drawing.Point(1105, 15);
+            this.pnlTimeAndWeather.Name = "pnlTimeAndWeather";
+            this.pnlTimeAndWeather.Size = new System.Drawing.Size(243, 925);
+            this.pnlTimeAndWeather.TabIndex = 41;
+            // 
+            // lblWeather
+            // 
+            this.lblWeather.AutoSize = true;
+            this.lblWeather.Location = new System.Drawing.Point(12, 89);
+            this.lblWeather.MaximumSize = new System.Drawing.Size(219, 0);
+            this.lblWeather.Name = "lblWeather";
+            this.lblWeather.Size = new System.Drawing.Size(51, 20);
+            this.lblWeather.TabIndex = 1;
+            this.lblWeather.Text = "label1";
             // 
             // lblDate
             // 
@@ -232,15 +245,14 @@
             this.lblDate.TabIndex = 0;
             this.lblDate.Text = "label1";
             // 
-            // lblWeather
+            // imgCelestialBody
             // 
-            this.lblWeather.AutoSize = true;
-            this.lblWeather.Location = new System.Drawing.Point(12, 89);
-            this.lblWeather.MaximumSize = new System.Drawing.Size(219, 0);
-            this.lblWeather.Name = "lblWeather";
-            this.lblWeather.Size = new System.Drawing.Size(51, 20);
-            this.lblWeather.TabIndex = 1;
-            this.lblWeather.Text = "label1";
+            this.imgCelestialBody.Location = new System.Drawing.Point(16, 697);
+            this.imgCelestialBody.Name = "imgCelestialBody";
+            this.imgCelestialBody.Size = new System.Drawing.Size(211, 211);
+            this.imgCelestialBody.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imgCelestialBody.TabIndex = 2;
+            this.imgCelestialBody.TabStop = false;
             // 
             // imgPlayerMap
             // 
@@ -261,7 +273,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1360, 952);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnlTimeAndWeather);
             this.Controls.Add(this.imgLoadingIndicator);
             this.Controls.Add(this.btnMoveSouth3);
             this.Controls.Add(this.btnMoveSouth2);
@@ -280,8 +292,9 @@
             this.Name = "PlayerWindow";
             this.Text = "PlayerWindow";
             ((System.ComponentModel.ISupportInitialize)(this.imgLoadingIndicator)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnlTimeAndWeather.ResumeLayout(false);
+            this.pnlTimeAndWeather.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgCelestialBody)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgPlayerMap)).EndInit();
             this.ResumeLayout(false);
 
@@ -303,8 +316,9 @@
         private System.Windows.Forms.Button btnMoveEast2;
         private System.Windows.Forms.Button btnMoveWest1;
         private System.Windows.Forms.PictureBox imgLoadingIndicator;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlTimeAndWeather;
         private System.Windows.Forms.Label lblWeather;
         private System.Windows.Forms.Label lblDate;
+        private System.Windows.Forms.PictureBox imgCelestialBody;
     }
 }
