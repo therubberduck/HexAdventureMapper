@@ -17,19 +17,22 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
     {
         private IDrawingUi _drawingUi;
 
+        private DbInterface _db;
+
         private HexCoordinate _partyLocation;
 
-        public PartyLayerDrawer(IDrawingUi drawingUi)
+        public PartyLayerDrawer(IDrawingUi drawingUi, DbInterface db)
         {
             _drawingUi = drawingUi;
-            _partyLocation = new HexCoordinate(Properties.Settings.Default.PartyLocation);
+            _db = db;
+
+            _partyLocation = _db.Party.Get().Location;
         }
 
         public void UpdatePartyLocation(HexCoordinate partyLocation)
         {
             _partyLocation = partyLocation;
-            Properties.Settings.Default.PartyLocation = new Point((int) _partyLocation.X, (int) _partyLocation.Y);
-            Properties.Settings.Default.Save();
+            _db.Party.UpdateLocation(partyLocation);
 
             RedrawPartyLocation();
         }

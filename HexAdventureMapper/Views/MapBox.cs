@@ -15,7 +15,7 @@ namespace HexAdventureMapper.Views
         
         private readonly Dictionary<Layer, Image> _images;
 
-        public HexCoordinate TopLeftCoordinate { get; }
+        public HexCoordinate TopLeftCoordinate { get; private set; }
 
         public Rectangle MapArea
         {
@@ -31,9 +31,14 @@ namespace HexAdventureMapper.Views
             InitializeComponent();
             _images = new Dictionary<Layer, Image>();
 
-            TopLeftCoordinate = new HexCoordinate(Properties.Settings.Default.MapCoordinate);
+            
             MouseClick += HandleMapClicked;
             MouseMove += HandleMapDragging;
+        }
+
+        public void SetPosition(HexCoordinate topLeftCoordinate)
+        {
+            TopLeftCoordinate = topLeftCoordinate;
         }
 
         public Image GetMapImage()

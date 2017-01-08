@@ -11,6 +11,7 @@ using HexAdventureMapper.DataObjects;
 using HexAdventureMapper.Helper;
 using HexAdventureMapper.Painting;
 using HexAdventureMapper.TileConfig;
+using HexAdventureMapper.TimeAndWeather;
 using HexAdventureMapper.Views;
 using HexAdventureMapper.Visualizer;
 using Timer = System.Threading.Timer;
@@ -38,7 +39,9 @@ namespace HexAdventureMapper
         private DrawingHandler _drawingHandler;
         private Painter _painter;
         private FogOfWarPainter _fogOfWarPainter;
-        
+
+        private TimeAndWeatherHandler _timeAndWeatherHandler;
+
         private DrawingTools _currentDrawingTool;
         private HexCoordinate _selectedCoordinate;
 
@@ -66,6 +69,8 @@ namespace HexAdventureMapper
             _drawingHandler = new DrawingHandler("Main", this, _tiles, _db);
             _painter = new Painter(this, _db);
             _fogOfWarPainter = new FogOfWarPainter(this, _db);
+
+            _timeAndWeatherHandler = new TimeAndWeatherHandler(_db);
 
             imgHexMap.BackColor = ColorTranslator.FromHtml("#333333");
 
@@ -99,6 +104,8 @@ namespace HexAdventureMapper
             chk100PlayerIcons.Checked = true;
 
             _formConstructed = true;
+
+            imgHexMap.SetPosition(_db.Session.Get().CurrentMapCorner);
 
             DrawMap();
 
@@ -571,7 +578,8 @@ namespace HexAdventureMapper
                 DialogResult result2 = MessageBox.Show("Do you really want to load the map? You will lose all unsaved work.", "Load Map", MessageBoxButtons.OKCancel, MessageBoxIcon.Stop);
                 if (result2 == DialogResult.OK)
                 {
-                    string dbPath = "db.sqlite";
+
+                    string dbPath = Properties.Settings.Default.MapDatabaseName;
                     string savePath = fileDialog.FileName;
                     File.Copy(savePath, dbPath, true);
                     _db.UpdateDbSchema();
@@ -590,7 +598,7 @@ namespace HexAdventureMapper
             DialogResult result = fileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                string dbPath = "db.sqlite";
+                string dbPath = Properties.Settings.Default.MapDatabaseName;
                 string savePath = fileDialog.FileName;
                 File.Copy(dbPath, savePath, true);
             }
@@ -598,13 +606,19 @@ namespace HexAdventureMapper
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _playerWindow = new PlayerWindow(_tiles, _db);
+            _playerWindow = new PlayerWindow(_tiles, _db, _timeAndWeatherHandler);
             _playerWindow.Show();
+        }
+
+        private void timeAndWeatherToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TimeAndWeatherWindow window = new TimeAndWeatherWindow(_timeAndWeatherHandler);
+            window.Show();
         }
 
         private void AutoSave()
         {
-            string dbPath = "db.sqlite";
+            string dbPath = Properties.Settings.Default.MapDatabaseName;
             string savePath = "autosave.ham";
             File.Copy(dbPath, savePath, true);
         }
@@ -702,8 +716,7 @@ namespace HexAdventureMapper
                     break;
             }
             //Save the coordinate, so we will be here next time we open the program
-            Properties.Settings.Default.MapCoordinate = new Point((int) imgHexMap.TopLeftCoordinate.X, (int) imgHexMap.TopLeftCoordinate.Y);
-            Properties.Settings.Default.Save();
+            _db.Session.UpdateLocation(imgHexMap.TopLeftCoordinate);
 
             //Draw the new map
             DrawMap();
@@ -768,6 +781,16 @@ namespace HexAdventureMapper
             {
                 Clipboard.SetText(_selectedCoordinate.ToText());
             }
+        }
+
+        private void weatherImagesDesignedByToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.freepik.com/free-photos-vectors/icon");
+        }
+
+        private void sunAndMoonImageDesignedByFreepikToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.freepik.com/free-photos-vectors/icon");
         }
     }
 }

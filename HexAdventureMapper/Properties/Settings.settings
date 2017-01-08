@@ -2,11 +2,11 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="HexAdventureMapper.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="MapCoordinate" Type="System.Drawing.Point" Scope="User">
-      <Value Profile="(Default)">0, 0</Value>
+    <Setting Name="MapDatabaseName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">map.sqlite</Value>
     </Setting>
-    <Setting Name="PartyLocation" Type="System.Drawing.Point" Scope="User">
-      <Value Profile="(Default)">0, 0</Value>
+    <Setting Name="CampaignDatabaseName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">cam.sqlite</Value>
     </Setting>
   </Settings>
 </SettingsFile>

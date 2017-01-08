@@ -10,9 +10,9 @@ namespace HexAdventureMapper.Database
     {
         private SQLiteConnection _conn;
 
-        public SqLiteDb()
+        public SqLiteDb(string dbPath)
         {
-            _conn = new SQLiteConnection("Data Source=db.sqlite;Version=3");
+            _conn = new SQLiteConnection("Data Source=" + dbPath + ";Version=3");
             //_conn.Close();
             //SQLiteConnection.CreateFile("db.sqlite");
             _conn.Open();

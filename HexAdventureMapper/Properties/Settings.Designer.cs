@@ -23,27 +23,21 @@ namespace HexAdventureMapper.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Point MapCoordinate {
+        [global::System.Configuration.DefaultSettingValueAttribute("map.sqlite")]
+        public string MapDatabaseName {
             get {
-                return ((global::System.Drawing.Point)(this["MapCoordinate"]));
-            }
-            set {
-                this["MapCoordinate"] = value;
+                return ((string)(this["MapDatabaseName"]));
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Point PartyLocation {
+        [global::System.Configuration.DefaultSettingValueAttribute("cam.sqlite")]
+        public string CampaignDatabaseName {
             get {
-                return ((global::System.Drawing.Point)(this["PartyLocation"]));
-            }
-            set {
-                this["PartyLocation"] = value;
+                return ((string)(this["CampaignDatabaseName"]));
             }
         }
     }

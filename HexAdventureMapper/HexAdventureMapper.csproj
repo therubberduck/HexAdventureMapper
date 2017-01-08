@@ -72,6 +72,8 @@
     <Compile Include="Database\DbInterface.cs" />
     <Compile Include="Database\Modules\DbHex.cs" />
     <Compile Include="Database\Modules\DbHexConnection.cs" />
+    <Compile Include="Database\Modules\DbParty.cs" />
+    <Compile Include="Database\Modules\DbSession.cs" />
     <Compile Include="Database\WorkingClasses\DatabaseString.cs" />
     <Compile Include="Database\WorkingClasses\DbColumn.cs" />
     <Compile Include="Database\WorkingClasses\DbModule.cs" />
@@ -83,6 +85,8 @@
     <Compile Include="DataObjects\Hex.cs" />
     <Compile Include="DataObjects\HexConnection.cs" />
     <Compile Include="DataObjects\HexCoordinate.cs" />
+    <Compile Include="DataObjects\Party.cs" />
+    <Compile Include="DataObjects\Session.cs" />
     <Compile Include="DataObjects\TileComponent.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -105,6 +109,16 @@
     <Compile Include="Testing\TestWatch.cs" />
     <Compile Include="TileConfig\TileConfigInterface.cs" />
     <Compile Include="TileConfig\TileIds.cs" />
+    <Compile Include="TimeAndWeatherWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimeAndWeatherWindow.Designer.cs">
+      <DependentUpon>TimeAndWeatherWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeAndWeather\DateTimePresenter.cs" />
+    <Compile Include="TimeAndWeather\ITimeAndWeatherListener.cs" />
+    <Compile Include="TimeAndWeather\TimeAndWeatherHandler.cs" />
+    <Compile Include="TimeAndWeather\WeatherGenerator.cs" />
     <Compile Include="Views\MapBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -146,6 +160,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TimeAndWeatherWindow.resx">
+      <DependentUpon>TimeAndWeatherWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\MapBox.resx">
       <DependentUpon>MapBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -373,6 +390,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\VSnow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Moon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\sun.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

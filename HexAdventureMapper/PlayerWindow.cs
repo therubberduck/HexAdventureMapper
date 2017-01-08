@@ -6,19 +6,21 @@ using HexAdventureMapper.DataObjects;
 using HexAdventureMapper.Helper;
 using HexAdventureMapper.Painting;
 using HexAdventureMapper.TileConfig;
+using HexAdventureMapper.TimeAndWeather;
 using HexAdventureMapper.Views;
 using HexAdventureMapper.Visualizer;
 
 namespace HexAdventureMapper
 {
-    public partial class PlayerWindow: Form, IDrawingUi, IFogOfWarUi
+    public partial class PlayerWindow: Form, IDrawingUi, IFogOfWarUi, ITimeAndWeatherListener
     {
         private DrawingHandler _drawingHandler;
         private FogOfWarPainter _fogOfWarPainter;
+        private TimeAndWeatherHandler _timeAndWeatherHandler;
 
         private bool _lockControls;
 
-        public PlayerWindow(TileConfigInterface tiles, DbInterface db)
+        public PlayerWindow(TileConfigInterface tiles, DbInterface db, TimeAndWeatherHandler timeAndWeatherHandler)
         {
             InitializeComponent();
             
@@ -26,9 +28,15 @@ namespace HexAdventureMapper
 
             _fogOfWarPainter = new FogOfWarPainter(this, db);
 
+            _timeAndWeatherHandler = timeAndWeatherHandler;
+            _timeAndWeatherHandler.Subscribe(this);
+
             imgPlayerMap.BackColor = ColorTranslator.FromHtml("#333333");
 
+            imgPlayerMap.SetPosition(db.Session.Get().CurrentMapCorner);
+
             DrawMap();
+            UpdateTimeAndWeather();
         }
 
         public MapBox GetMapBox()
@@ -81,6 +89,32 @@ namespace HexAdventureMapper
         public void RedrawHex(HexCoordinate coordinate, Layer layer)
         {
             _drawingHandler.RedrawHex(coordinate, layer);
+        }
+
+        public void TimeChanged()
+        {
+            UpdateTimeAndWeather();
+        }
+
+        public void UpdateTimeAndWeather()
+        {
+            lblDate.Text = _timeAndWeatherHandler.GetTime();
+            lblWeather.Text = _timeAndWeatherHandler.GetWeather();
+
+            if (_timeAndWeatherHandler.IsDayTime())
+            {
+                pnlTimeAndWeather.BackColor = Color.FromArgb(16,175,231);
+                lblDate.ForeColor = Color.Black;
+                lblWeather.ForeColor = Color.Black;
+                imgCelestialBody.Image = Image.FromFile("Images/sun.png");
+            }
+            else
+            {
+                pnlTimeAndWeather.BackColor = Color.FromArgb(7, 38, 58);
+                lblDate.ForeColor = Color.White;
+                lblWeather.ForeColor = Color.White;
+                imgCelestialBody.Image = Image.FromFile("Images/Moon.png");
+            }
         }
 
         private void imgPlayerMap_Click(object sender, MapEventArgs e)
