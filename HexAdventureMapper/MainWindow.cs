@@ -289,6 +289,7 @@ namespace HexAdventureMapper
                 if (GetDrawingTool() == DrawingTools.FogOfWar)
                 {
                     _fogOfWarPainter.RemoveFogOfWar(e.HexWorldCoordinate);
+                    _drawingHandler.RedrawFogOfWar();
                 }
                 else if (_painter.TryRemove(e)) //Try to delete
                 {

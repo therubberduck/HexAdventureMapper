@@ -65,9 +65,9 @@ namespace HexAdventureMapper.Database.Modules
             return hex != null;
         }
 
-        public List<Hex> GetArea(string handlerTag, Rectangle hexArea)
+        public List<Hex> GetArea(string handlerTag, Rectangle hexArea, bool useCache = true)
         {
-            if (_oneItemCache.ContainsKey(handlerTag) && _oneItemCache[handlerTag].Key.Equals(hexArea))
+            if (useCache && _oneItemCache.ContainsKey(handlerTag) && _oneItemCache[handlerTag].Key.Equals(hexArea))
             {
                 return _oneItemCache[handlerTag].Value;
             }

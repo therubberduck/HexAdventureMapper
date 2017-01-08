@@ -39,14 +39,14 @@ namespace HexAdventureMapper.Painting
         {
             List<Hex> revealArea = _db.Hexes.GetForCoordinates(DirectionManager.GetTwoStepAreaAround(worldCoordinate));
 
-            _db.Hexes.UpdateFogOfWar(worldCoordinate, TileId.NoFogOfWar);
-
             Hex centerHex = revealArea.Find(h => Equals(h.Coordinate, worldCoordinate));
 
             if (centerHex == null)
             {
                 return;
             }
+
+            centerHex.FogOfWar = TileId.NoFogOfWar;
 
             Hex northHex = DirectionManager.GetHexNeighbor(revealArea, centerHex, Direction.North);
             SetOuterHexFogOfWar(revealArea, centerHex, northHex, Direction.North);

@@ -83,11 +83,6 @@ namespace HexAdventureMapper
             _drawingHandler.RedrawHex(coordinate, layer);
         }
 
-        public void RedrawArea(HexCoordinate coordinate)
-        {
-            _drawingHandler.RedrawFogOfWar();
-        }
-
         private void imgPlayerMap_Click(object sender, MapEventArgs e)
         {
             if (_lockControls)

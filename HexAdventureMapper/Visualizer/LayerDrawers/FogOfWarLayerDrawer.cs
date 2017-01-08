@@ -40,7 +40,7 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
             float dAlpha = (typeAlpha / 100.0f) * (alpha / 100.0f);
 
             var iconImageLocation = "Images/FogOfWar.png";
-            using (var image = Image.FromFile(iconImageLocation))
+            using (var image = Tiles.GetImage(iconImageLocation))
             {
                 if (typeAlpha == 100 && alpha == 100)
                 {

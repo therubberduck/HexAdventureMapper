@@ -128,7 +128,7 @@ namespace HexAdventureMapper.Visualizer
 
         public void RedrawFogOfWar()
         {
-            Image newFogOfWarMap = _fogOfWarLayerDrawer.MakeLocalMap(_handlerTag, _drawingUi.GetFogOfWarIconAlpha());
+            Image newFogOfWarMap = _fogOfWarLayerDrawer.MakeLocalMap(_handlerTag, _drawingUi.GetFogOfWarIconAlpha(), false);
             _drawingUi.GetMapBox().UpdateLayerAndMap(Layer.FogOfWar, newFogOfWarMap);
         }
 
