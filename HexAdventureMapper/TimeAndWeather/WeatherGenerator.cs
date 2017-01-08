@@ -89,16 +89,21 @@ namespace HexAdventureMapper.TimeAndWeather
         {
             double seed = ((year*365) + day + hour/24) * Math.PI;
 
-            int dayOffsetFromSummer = 30;
-            int majorTemperatureSpan = 30;
+            //int dayOffsetFromSummer = 30; //Wyrmicia
+            //int majorTemperatureSpan = 30;
+            //double medTemperatureSpan = 2.5;
+            //double minorTemperatureSpan = 2.5;
+            //int averageTemperature = 10;
+            int dayOffsetFromSummer = 60; //Halacia
+            double majorTemperatureSpan = 17.5;
             double medTemperatureSpan = 2.5;
             double minorTemperatureSpan = 2.5;
-            int averageTemperature = 10;
+            double averageTemperature = 17.5;
 
             double climateVariationTemperature = Math.Cos((seed - dayOffsetFromSummer)/182.5)*majorTemperatureSpan/
-                                              2 + 10;
+                                              2 + averageTemperature;
             double temperature = climateVariationTemperature +
-                                 (Math.Cos(seed/7) + Math.Cos(seed/13))*2.5;
+                                 Math.Cos(seed/7)*minorTemperatureSpan + Math.Cos(seed/13)*medTemperatureSpan;
             return (int) temperature;
         }
 
@@ -106,7 +111,8 @@ namespace HexAdventureMapper.TimeAndWeather
         {
             double seed = ((year * 365) + day + hour / 24) * Math.PI;
 
-            double rainByDay = Math.Cos(seed/91.25)*5 + 5 + (Math.Cos(seed/3.66)*Math.Cos(seed/9.33)*Math.Cos(seed/21))*10;
+            //double rainByDay = Math.Cos(seed/91.25)*5 + 5 + (Math.Cos(seed/3.66)*Math.Cos(seed/9.33)*Math.Cos(seed/21))*10; //Wyrmicia
+            double rainByDay = Math.Cos(seed/91.25)*2.5 - 5 + (Math.Cos(seed/7)*Math.Cos(seed/49)*Math.Cos(seed/37))*25; //Halacia
 
             int rainAmount;
 
