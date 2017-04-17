@@ -26,7 +26,12 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
             _drawingUi = drawingUi;
             _db = db;
 
-            _partyLocation = _db.Party.Get().Location;
+            Party party = _db.Party.Get();
+            if (party != null)
+            {
+                _partyLocation = party.Location;
+            }
+            
         }
 
         public void UpdatePartyLocation(HexCoordinate partyLocation)
