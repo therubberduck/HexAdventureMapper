@@ -66,6 +66,10 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
                 {
                     elevationImageString = "Images/BMountains.png";
                 }
+                else if (hex.TerrainId == TileId.TerrainSolidRock || hex.TerrainId == TileId.TerrainTunnels || hex.TerrainId == TileId.TerrainSmallCave || hex.TerrainId == TileId.StrCave)
+                {
+                    elevationImageString = "Images/BSolidRock.png";
+                }
                 else
                 {
                     elevationImageString = "Images/BPlains.png";
