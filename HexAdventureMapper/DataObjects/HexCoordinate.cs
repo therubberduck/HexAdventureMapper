@@ -7,27 +7,15 @@ using System.Threading.Tasks;
 
 namespace HexAdventureMapper.DataObjects
 {
-    public class HexCoordinate
+    public class HexCoordinate : IComparable
     {
-        public long X { get; set; }
-        public long Y { get; set; }
+        public long X { get; }
+        public long Y { get; }
 
         public HexCoordinate(long x, long y)
         {
             X = x;
             Y = y;
-        }
-
-        public HexCoordinate(HexCoordinate oldCoordinate)
-        {
-            X = oldCoordinate.X;
-            Y = oldCoordinate.Y;
-        }
-
-        public HexCoordinate(Point point)
-        {
-            X = point.X;
-            Y = point.Y;
         }
 
         public override string ToString()
@@ -48,6 +36,32 @@ namespace HexAdventureMapper.DataObjects
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public int CompareTo(object obj)
+        {
+            var otherCoor = (HexCoordinate) obj;
+
+            if (X > otherCoor.X)
+            {
+                return 1;
+            }
+            if (X < otherCoor.X)
+            {
+                return -1;
+            }
+
+            if (Y > otherCoor.Y)
+            {
+                return 1;
+            }
+
+            if (Y < otherCoor.Y)
+            {
+                return -1;
+            }
+
+            return 0;
         }
 
         public HexCoordinate Plus(HexCoordinate otherCoor)

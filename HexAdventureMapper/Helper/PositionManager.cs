@@ -88,5 +88,42 @@ namespace HexAdventureMapper.Helper
             //We want global for the location, and local for the width/height
             return new Rectangle((int) globalTopLeft.X,(int) globalTopLeft.Y, (int) localBottomRight.X, (int) localBottomRight.Y);
         }
+
+        public static HexCoordinate GetTopLeftCoordinateToCenter(HexCoordinate centerCoordinate, Rectangle mapArea)
+        {
+            var newTopLeftCorner = centerCoordinate.Minus(new HexCoordinate(mapArea.Width / 2, mapArea.Height / 2));
+            var adjustedTopLeftCorner = ConvertToValidTopLeftCoordinate(newTopLeftCorner);
+            return adjustedTopLeftCorner;
+        }
+
+        //TopLeftCoordinate must be divisible by 3 or other calculations may screw up
+        public static HexCoordinate ConvertToValidTopLeftCoordinate(HexCoordinate oldCoordinate)
+        {
+            var x = ClosestNumber(oldCoordinate.X, 2);
+            var y = ClosestNumber(oldCoordinate.Y, 2);
+            return new HexCoordinate(x,y);
+        }
+
+        private static long ClosestNumber(long targetNumber, int divisibleBy)
+        {
+            var q = targetNumber / divisibleBy;
+            var n1 = divisibleBy * q;
+
+            long n2;
+            if (targetNumber * divisibleBy > 0)
+            {
+                n2 = divisibleBy * (q + 1);
+            }
+            else
+            {
+                n2 = divisibleBy * (q - 1);
+            }
+
+            if (Math.Abs(targetNumber - n1) < Math.Abs(targetNumber - n2))
+            {
+                return n1;
+            }
+            return n2;
+        }
     }
 }
