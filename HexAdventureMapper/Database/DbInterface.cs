@@ -27,7 +27,6 @@ namespace HexAdventureMapper.Database
             Party = new DbParty(this, _campaignDb);
             Session = new DbSession(this, _campaignDb);
 
-
             Hexes = new DbHex(this, _mapDb);
             HexConnections = new DbHexConnection(this, _mapDb);
             DbUpdater.CheckForCampaignDbSchemaUpdates(_campaignDb, Party, Session);
@@ -43,7 +42,6 @@ namespace HexAdventureMapper.Database
 
         public void ClearDb()
         {
-            //_mapDb.CreateTables(new IDbModule[] { Hexes, HexConnections });
             Hexes.ClearTable();
             HexConnections.ClearTable();
 

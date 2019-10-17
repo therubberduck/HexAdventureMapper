@@ -14,16 +14,20 @@ namespace HexAdventureMapper.Database
 
             if (version == 0)
             {
-                //db.CreateTables(new IDbModule[] { hexes, hexConnections });
+                db.CreateTables(new IDbModule[] { hexes, hexConnections });
             }
-            if (version <= 1)
+            else
             {
-                db.AlterAddColumn(hexes.TableName, DbHex.PlayerIcons, DbColumn.Text, true, "'0'");
+                if (version <= 1)
+                {
+                    db.AlterAddColumn(hexes.TableName, DbHex.PlayerIcons, DbColumn.Text, true, "'0'");
+                }
+                if (version <= 2)
+                {
+                    db.AlterAddColumn(hexes.TableName, DbHex.FogOfWar, DbColumn.Integer, true, "0");
+                }
             }
-            if (version <= 2)
-            {
-                db.AlterAddColumn(hexes.TableName, DbHex.FogOfWar, DbColumn.Integer, true, "0");
-            }
+            
 
             db.SetVersion(CurrentMapDbVersion);
         }
