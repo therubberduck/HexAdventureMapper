@@ -60,11 +60,25 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
                 }
                 else if (hex.TerrainId == TileId.TerrainHills)
                 {
-                    elevationImageString = "Images/BHills.png";
+                    if (hex.VegetationId == TileId.VegForest || hex.VegetationId == TileId.VegConForest)
+                    {
+                        elevationImageString = "Images/BForestHills.png";
+                    }
+                    else
+                    {
+                        elevationImageString = "Images/BHills.png";
+                    }
                 }
                 else if (hex.TerrainId == TileId.TerrainMountains)
                 {
-                    elevationImageString = "Images/BMountains.png";
+                    if (hex.VegetationId == TileId.VegForest || hex.VegetationId == TileId.VegConForest)
+                    {
+                        elevationImageString = "Images/BForestMountains.png";
+                    }
+                    else
+                    {
+                        elevationImageString = "Images/BMountains.png";
+                    }
                 }
                 else if (hex.TerrainId == TileId.TerrainSolidRock || hex.TerrainId == TileId.TerrainTunnels || hex.TerrainId == TileId.TerrainSmallCave || hex.TerrainId == TileId.StrCave)
                 {
@@ -72,7 +86,18 @@ namespace HexAdventureMapper.Visualizer.LayerDrawers
                 }
                 else
                 {
-                    elevationImageString = "Images/BPlains.png";
+                    if (hex.VegetationId == TileId.VegForest || hex.VegetationId == TileId.VegConForest)
+                    {
+                        elevationImageString = "Images/BForest.png";
+                    }
+                    else if (hex.VegetationId == TileId.VegFarmland)
+                    {
+                        elevationImageString = "Images/BFarmland.png";
+                    }
+                    else
+                    {
+                        elevationImageString = "Images/BPlains.png";
+                    }
                 }
                 using (var image = Tiles.GetImage(elevationImageString))
                 {
