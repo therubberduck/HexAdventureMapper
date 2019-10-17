@@ -54,9 +54,14 @@ namespace HexAdventureMapper
             this.bmpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pngToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.mapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.centerMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timeAndWeatherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageAttributionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.weatherImagesDesignedByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sunAndMoonImageDesignedByFreepikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveBmpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,12 +93,12 @@ namespace HexAdventureMapper
             this.rbFogOfWar = new System.Windows.Forms.RadioButton();
             this.lblCoordinates = new System.Windows.Forms.Label();
             this.chkOverlayGrid = new System.Windows.Forms.CheckBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.imgLoadingIndicator = new System.Windows.Forms.PictureBox();
             this.imgLoading = new System.Windows.Forms.PictureBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.btnGoto = new System.Windows.Forms.Button();
             this.imgHexMap = new HexAdventureMapper.Views.MapBox();
-            this.imageAttributionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.weatherImagesDesignedByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sunAndMoonImageDesignedByFreepikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgLoadingIndicator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgLoading)).BeginInit();
@@ -285,14 +290,15 @@ namespace HexAdventureMapper
             | System.Windows.Forms.AnchorStyles.Right)));
             this.menuStrip.AutoSize = false;
             this.menuStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStrip.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem1,
+            this.mapToolStripMenuItem,
             this.playerToolStripMenuItem,
             this.imageAttributionToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
             this.menuStrip.Size = new System.Drawing.Size(1328, 35);
             this.menuStrip.TabIndex = 17;
             this.menuStrip.Text = "menuStrip1";
@@ -306,27 +312,27 @@ namespace HexAdventureMapper
             this.saveImageToolStripMenuItem,
             this.exitToolStripMenuItem1});
             this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
-            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(50, 29);
+            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(54, 29);
             this.fileToolStripMenuItem1.Text = "File";
             // 
             // newToolStripMenuItem1
             // 
             this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
-            this.newToolStripMenuItem1.Size = new System.Drawing.Size(189, 30);
+            this.newToolStripMenuItem1.Size = new System.Drawing.Size(206, 34);
             this.newToolStripMenuItem1.Text = "New";
             this.newToolStripMenuItem1.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem1
             // 
             this.loadToolStripMenuItem1.Name = "loadToolStripMenuItem1";
-            this.loadToolStripMenuItem1.Size = new System.Drawing.Size(189, 30);
+            this.loadToolStripMenuItem1.Size = new System.Drawing.Size(206, 34);
             this.loadToolStripMenuItem1.Text = "Load";
             this.loadToolStripMenuItem1.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem1
             // 
             this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
-            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(189, 30);
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(206, 34);
             this.saveToolStripMenuItem1.Text = "Save";
             this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -336,30 +342,45 @@ namespace HexAdventureMapper
             this.bmpToolStripMenuItem,
             this.pngToolStripMenuItem1});
             this.saveImageToolStripMenuItem.Name = "saveImageToolStripMenuItem";
-            this.saveImageToolStripMenuItem.Size = new System.Drawing.Size(189, 30);
+            this.saveImageToolStripMenuItem.Size = new System.Drawing.Size(206, 34);
             this.saveImageToolStripMenuItem.Text = "Save Image";
             this.saveImageToolStripMenuItem.Click += new System.EventHandler(this.saveImageToolStripMenuItem_Click);
             // 
             // bmpToolStripMenuItem
             // 
             this.bmpToolStripMenuItem.Name = "bmpToolStripMenuItem";
-            this.bmpToolStripMenuItem.Size = new System.Drawing.Size(134, 30);
+            this.bmpToolStripMenuItem.Size = new System.Drawing.Size(151, 34);
             this.bmpToolStripMenuItem.Text = "Bmp";
             this.bmpToolStripMenuItem.Click += new System.EventHandler(this.bitmapToolStripMenuItem_Click);
             // 
             // pngToolStripMenuItem1
             // 
             this.pngToolStripMenuItem1.Name = "pngToolStripMenuItem1";
-            this.pngToolStripMenuItem1.Size = new System.Drawing.Size(134, 30);
+            this.pngToolStripMenuItem1.Size = new System.Drawing.Size(151, 34);
             this.pngToolStripMenuItem1.Text = "Png";
             this.pngToolStripMenuItem1.Click += new System.EventHandler(this.pngToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(189, 30);
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(206, 34);
             this.exitToolStripMenuItem1.Text = "Exit";
             this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // mapToolStripMenuItem
+            // 
+            this.mapToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.centerMapToolStripMenuItem});
+            this.mapToolStripMenuItem.Name = "mapToolStripMenuItem";
+            this.mapToolStripMenuItem.Size = new System.Drawing.Size(64, 29);
+            this.mapToolStripMenuItem.Text = "Map";
+            // 
+            // centerMapToolStripMenuItem
+            // 
+            this.centerMapToolStripMenuItem.Name = "centerMapToolStripMenuItem";
+            this.centerMapToolStripMenuItem.Size = new System.Drawing.Size(206, 34);
+            this.centerMapToolStripMenuItem.Text = "Center Map";
+            this.centerMapToolStripMenuItem.Click += new System.EventHandler(this.centerMapToolStripMenuItem_Click);
             // 
             // playerToolStripMenuItem
             // 
@@ -367,22 +388,45 @@ namespace HexAdventureMapper
             this.openWindowToolStripMenuItem,
             this.timeAndWeatherToolStripMenuItem});
             this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
-            this.playerToolStripMenuItem.Size = new System.Drawing.Size(71, 29);
+            this.playerToolStripMenuItem.Size = new System.Drawing.Size(75, 29);
             this.playerToolStripMenuItem.Text = "Player";
             // 
             // openWindowToolStripMenuItem
             // 
             this.openWindowToolStripMenuItem.Name = "openWindowToolStripMenuItem";
-            this.openWindowToolStripMenuItem.Size = new System.Drawing.Size(243, 30);
+            this.openWindowToolStripMenuItem.Size = new System.Drawing.Size(260, 34);
             this.openWindowToolStripMenuItem.Text = "Open Window";
             this.openWindowToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // timeAndWeatherToolStripMenuItem
             // 
             this.timeAndWeatherToolStripMenuItem.Name = "timeAndWeatherToolStripMenuItem";
-            this.timeAndWeatherToolStripMenuItem.Size = new System.Drawing.Size(243, 30);
+            this.timeAndWeatherToolStripMenuItem.Size = new System.Drawing.Size(260, 34);
             this.timeAndWeatherToolStripMenuItem.Text = "Time And Weather";
             this.timeAndWeatherToolStripMenuItem.Click += new System.EventHandler(this.timeAndWeatherToolStripMenuItem_Click);
+            // 
+            // imageAttributionToolStripMenuItem
+            // 
+            this.imageAttributionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.weatherImagesDesignedByToolStripMenuItem,
+            this.sunAndMoonImageDesignedByFreepikToolStripMenuItem});
+            this.imageAttributionToolStripMenuItem.Name = "imageAttributionToolStripMenuItem";
+            this.imageAttributionToolStripMenuItem.Size = new System.Drawing.Size(169, 29);
+            this.imageAttributionToolStripMenuItem.Text = "Image Attribution";
+            // 
+            // weatherImagesDesignedByToolStripMenuItem
+            // 
+            this.weatherImagesDesignedByToolStripMenuItem.Name = "weatherImagesDesignedByToolStripMenuItem";
+            this.weatherImagesDesignedByToolStripMenuItem.Size = new System.Drawing.Size(638, 34);
+            this.weatherImagesDesignedByToolStripMenuItem.Text = "Weather images designed by Designed by Titusurya - Freepik.com";
+            this.weatherImagesDesignedByToolStripMenuItem.Click += new System.EventHandler(this.weatherImagesDesignedByToolStripMenuItem_Click);
+            // 
+            // sunAndMoonImageDesignedByFreepikToolStripMenuItem
+            // 
+            this.sunAndMoonImageDesignedByFreepikToolStripMenuItem.Name = "sunAndMoonImageDesignedByFreepikToolStripMenuItem";
+            this.sunAndMoonImageDesignedByFreepikToolStripMenuItem.Size = new System.Drawing.Size(638, 34);
+            this.sunAndMoonImageDesignedByFreepikToolStripMenuItem.Text = "Sun and Moon image designed by Freepik";
+            this.sunAndMoonImageDesignedByFreepikToolStripMenuItem.Click += new System.EventHandler(this.sunAndMoonImageDesignedByFreepikToolStripMenuItem_Click);
             // 
             // fileToolStripMenuItem
             // 
@@ -399,7 +443,7 @@ namespace HexAdventureMapper
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(189, 30);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(206, 34);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -409,42 +453,42 @@ namespace HexAdventureMapper
             this.bitmapToolStripMenuItem,
             this.pngToolStripMenuItem});
             this.saveBmpToolStripMenuItem.Name = "saveBmpToolStripMenuItem";
-            this.saveBmpToolStripMenuItem.Size = new System.Drawing.Size(189, 30);
+            this.saveBmpToolStripMenuItem.Size = new System.Drawing.Size(206, 34);
             this.saveBmpToolStripMenuItem.Text = "Save Image";
             this.saveBmpToolStripMenuItem.Click += new System.EventHandler(this.saveImageToolStripMenuItem_Click);
             // 
             // bitmapToolStripMenuItem
             // 
             this.bitmapToolStripMenuItem.Name = "bitmapToolStripMenuItem";
-            this.bitmapToolStripMenuItem.Size = new System.Drawing.Size(153, 30);
+            this.bitmapToolStripMenuItem.Size = new System.Drawing.Size(170, 34);
             this.bitmapToolStripMenuItem.Text = "Bitmap";
             this.bitmapToolStripMenuItem.Click += new System.EventHandler(this.bitmapToolStripMenuItem_Click);
             // 
             // pngToolStripMenuItem
             // 
             this.pngToolStripMenuItem.Name = "pngToolStripMenuItem";
-            this.pngToolStripMenuItem.Size = new System.Drawing.Size(153, 30);
+            this.pngToolStripMenuItem.Size = new System.Drawing.Size(170, 34);
             this.pngToolStripMenuItem.Text = "Png";
             this.pngToolStripMenuItem.Click += new System.EventHandler(this.pngToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(189, 30);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(206, 34);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(189, 30);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(206, 34);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(189, 30);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(206, 34);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -459,7 +503,7 @@ namespace HexAdventureMapper
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(141, 30);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(158, 34);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -707,6 +751,17 @@ namespace HexAdventureMapper
             this.chkOverlayGrid.UseVisualStyleBackColor = true;
             this.chkOverlayGrid.CheckedChanged += new System.EventHandler(this.CheckBox_LayerChanged);
             // 
+            // btnSearch
+            // 
+            this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSearch.Location = new System.Drawing.Point(13, 853);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(84, 35);
+            this.btnSearch.TabIndex = 40;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // imgLoadingIndicator
             // 
             this.imgLoadingIndicator.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -734,6 +789,26 @@ namespace HexAdventureMapper
             this.imgLoading.TabIndex = 39;
             this.imgLoading.TabStop = false;
             // 
+            // txtSearch
+            // 
+            this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtSearch.Location = new System.Drawing.Point(13, 821);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(166, 26);
+            this.txtSearch.TabIndex = 41;
+            this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
+            // 
+            // btnGoto
+            // 
+            this.btnGoto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnGoto.Location = new System.Drawing.Point(104, 853);
+            this.btnGoto.Name = "btnGoto";
+            this.btnGoto.Size = new System.Drawing.Size(75, 35);
+            this.btnGoto.TabIndex = 42;
+            this.btnGoto.Text = "GoTo";
+            this.btnGoto.UseVisualStyleBackColor = true;
+            this.btnGoto.Click += new System.EventHandler(this.btnGoto_Click);
+            // 
             // imgHexMap
             // 
             this.imgHexMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -750,34 +825,14 @@ namespace HexAdventureMapper
             this.imgHexMap.MapDrag += new HexAdventureMapper.Views.MapEventHandler(this.imgHexMap_MapDrag);
             this.imgHexMap.SizeChanged += new System.EventHandler(this.imgHexMap_SizeChanged);
             // 
-            // imageAttributionToolStripMenuItem
-            // 
-            this.imageAttributionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.weatherImagesDesignedByToolStripMenuItem,
-            this.sunAndMoonImageDesignedByFreepikToolStripMenuItem});
-            this.imageAttributionToolStripMenuItem.Name = "imageAttributionToolStripMenuItem";
-            this.imageAttributionToolStripMenuItem.Size = new System.Drawing.Size(165, 29);
-            this.imageAttributionToolStripMenuItem.Text = "Image Attribution";
-            // 
-            // weatherImagesDesignedByToolStripMenuItem
-            // 
-            this.weatherImagesDesignedByToolStripMenuItem.Name = "weatherImagesDesignedByToolStripMenuItem";
-            this.weatherImagesDesignedByToolStripMenuItem.Size = new System.Drawing.Size(621, 30);
-            this.weatherImagesDesignedByToolStripMenuItem.Text = "Weather images designed by Designed by Titusurya - Freepik.com";
-            this.weatherImagesDesignedByToolStripMenuItem.Click += new System.EventHandler(this.weatherImagesDesignedByToolStripMenuItem_Click);
-            // 
-            // sunAndMoonImageDesignedByFreepikToolStripMenuItem
-            // 
-            this.sunAndMoonImageDesignedByFreepikToolStripMenuItem.Name = "sunAndMoonImageDesignedByFreepikToolStripMenuItem";
-            this.sunAndMoonImageDesignedByFreepikToolStripMenuItem.Size = new System.Drawing.Size(621, 30);
-            this.sunAndMoonImageDesignedByFreepikToolStripMenuItem.Text = "Sun and Moon image designed by Freepik";
-            this.sunAndMoonImageDesignedByFreepikToolStripMenuItem.Click += new System.EventHandler(this.sunAndMoonImageDesignedByFreepikToolStripMenuItem_Click);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1328, 900);
+            this.Controls.Add(this.btnGoto);
+            this.Controls.Add(this.txtSearch);
+            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.imgLoadingIndicator);
             this.Controls.Add(this.chkOverlayGrid);
             this.Controls.Add(this.lblCoordinates);
@@ -896,6 +951,11 @@ namespace HexAdventureMapper
         private System.Windows.Forms.ToolStripMenuItem imageAttributionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem weatherImagesDesignedByToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sunAndMoonImageDesignedByFreepikToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mapToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem centerMapToolStripMenuItem;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Button btnGoto;
     }
 }
 

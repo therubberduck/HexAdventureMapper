@@ -101,14 +101,19 @@ namespace HexAdventureMapper.Views
             Image = GetMapImage();
         }
 
+        public void ReturnViewToOrigin()
+        {
+            TopLeftCoordinate = new HexCoordinate(0 ,0);
+        }
+
         public void UpdateVerticalOffset(long offsetY)
         {
-            TopLeftCoordinate.Y += offsetY;
+            TopLeftCoordinate = new HexCoordinate(TopLeftCoordinate.X, TopLeftCoordinate.Y + offsetY);
         }
 
         public void UpdateHorizontalOffset(long offsetX)
         {
-            TopLeftCoordinate.X += offsetX;
+            TopLeftCoordinate = new HexCoordinate(TopLeftCoordinate.X + offsetX, TopLeftCoordinate.Y);
         }
 
         private void HandleMapClicked(object sender, MouseEventArgs e)

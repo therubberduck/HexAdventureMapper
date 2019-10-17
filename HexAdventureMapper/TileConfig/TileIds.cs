@@ -13,6 +13,10 @@ namespace HexAdventureMapper.TileConfig
         public static int TerrainHills = 2;
         public static int TerrainMountains = 3;
         public static int TerrainVolcano = 4;
+        public static int TerrainSolidRock = 5;
+        public static int TerrainTunnels = 6;
+        public static int TerrainSmallCave = 7;
+        public static int TerrainLargeCave = 8;
 
         public static int VegNone = 0;
         public static int VegGrassland = 1;
@@ -26,6 +30,8 @@ namespace HexAdventureMapper.TileConfig
         public static int VegDesert = 9;
         public static int VegRocky = 10;
         public static int VegSnow = 11;
+        public static int VegMushCopse = 12;
+        public static int VegMushForest = 13;
 
         public static int StrNone = 0;
         public static int StrStructure = 1;
@@ -47,6 +53,10 @@ namespace HexAdventureMapper.TileConfig
         public static int StrTown = 17;
         public static int StrVillage = 18;
         public static int StrLake = 19;
+        public static int StrRuinedFort = 20;
+        public static int StrHut = 21;
+        public static int StrMining = 22;
+        public static int StrTribe = 23;
 
         public static int FullFogOfWar = 0;
         public static int PartialFogOfWar = 1;

@@ -269,7 +269,7 @@ namespace HexAdventureMapper
             {
                 if (_currentDrawingTool == DrawingTools.Select)
                 {
-                    SelectHex(e);
+                    SelectHex(e.HexWorldCoordinate);
                 }
                 else
                 {
@@ -287,7 +287,7 @@ namespace HexAdventureMapper
                         }
                     }
                     DrawHex(e.HexWorldCoordinate, DrawingToolToLayer(_currentDrawingTool)); //Redraw the changed hex
-                    SelectHex(e);
+                    SelectHex(e.HexWorldCoordinate);
                     txtDetail.Focus();
                 }
             }
@@ -340,7 +340,7 @@ namespace HexAdventureMapper
             }
         }
 
-        private void SelectHex(MapEventArgs e)
+        private void SelectHex(HexCoordinate hexWorldCoordinate)
         {
             if (_selectedCoordinate != null) //Redraw the previously selected hex (deselect) if there was a previously selected hex
             {
@@ -349,11 +349,11 @@ namespace HexAdventureMapper
                 _drawingHandler.RedrawSelectedHex(oldSelectedCoordinate);
             }
 
-            _selectedCoordinate = e.HexWorldCoordinate; //Mark the new hex as selected
+            _selectedCoordinate = hexWorldCoordinate; //Mark the new hex as selected
             _drawingHandler.RedrawSelectedHex(_selectedCoordinate);
 
             //Update the textfield with the hex's detail (if any)
-            Hex hex = _db.Hexes.GetForCoordinate(e.HexWorldCoordinate);
+            Hex hex = _db.Hexes.GetForCoordinate(hexWorldCoordinate);
             if (hex != null)
             {
                 txtDetail.Text = hex.Detail;
@@ -503,7 +503,7 @@ namespace HexAdventureMapper
                 _changeSizeTimer.Dispose();
             }
 
-            //Schedule a detail update after 1 second (so we wait to update until the user is done typing)
+            //Schedule a detail update after 1 second (so we wait to update until the user is done resizing)
             TimerCallback callback = ChangeMapSize;
             _changeSizeTimer = new Timer(callback, null, TimeSpan.FromSeconds(1), TimeSpan.FromMilliseconds(-1));
 
@@ -608,6 +608,17 @@ namespace HexAdventureMapper
         {
             _playerWindow = new PlayerWindow(_tiles, _db, _timeAndWeatherHandler);
             _playerWindow.Show();
+        }
+
+        private void centerMapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            imgHexMap.ReturnViewToOrigin();
+
+            //Save the coordinate, so we will be here next time we open the program
+            _db.Session.UpdateLocation(imgHexMap.TopLeftCoordinate);
+
+            //Draw the new map
+            DrawMap();
         }
 
         private void timeAndWeatherToolStripMenuItem_Click(object sender, EventArgs e)
@@ -791,6 +802,53 @@ namespace HexAdventureMapper
         private void sunAndMoonImageDesignedByFreepikToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.freepik.com/free-photos-vectors/icon");
+        }
+
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char) Keys.Enter)
+            {
+                btnSearch_Click(txtSearch, e);
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            SearchWindow window = new SearchWindow(_db.Hexes, txtSearch.Text);
+            window.ShowDialog();
+            if (window.DialogResult == DialogResult.OK)
+            {
+                var selectedHexCoordinate = window.ReturnValue;
+                GoToHex(selectedHexCoordinate);
+            }
+        }
+
+        private void btnGoto_Click(object sender, EventArgs e)
+        {
+            var potentialTerm = txtSearch.Text;
+            potentialTerm = potentialTerm.Trim('(', ')', ' ');
+            var coords = potentialTerm.Split(',');
+            if (coords.Length == 2 && 
+                int.TryParse(coords[0], out var x) && 
+                int.TryParse(coords[1], out var y))
+            {
+                var coor = new HexCoordinate(x,y);
+                GoToHex(coor);
+            }
+        }
+
+        private void GoToHex(HexCoordinate coor)
+        {
+            var newTopLeftCorner = PositionManager.GetTopLeftCoordinateToCenter(coor, imgHexMap.MapArea);
+            imgHexMap.SetPosition(newTopLeftCorner);
+
+            //Save the coordinate, so we will be here next time we open the program
+            _db.Session.UpdateLocation(imgHexMap.TopLeftCoordinate);
+
+            //Draw the new map
+            DrawMap();
+
+            SelectHex(coor);
         }
     }
 }

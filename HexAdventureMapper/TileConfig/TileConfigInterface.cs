@@ -27,6 +27,10 @@ namespace HexAdventureMapper.TileConfig
             _terrain.Add(new TileComponent { TileType = TileComponent.Type.Terrain, Id = 2, Name = "Hills", ImageLocation = "Images/THills.png" });
             _terrain.Add(new TileComponent { TileType = TileComponent.Type.Terrain, Id = 3, Name = "Mountains", ImageLocation = "Images/TMountains.png" });
             _terrain.Add(new TileComponent { TileType = TileComponent.Type.Terrain, Id = 4, Name = "Volcano", ImageLocation = "Images/TVolcano.png" });
+            _terrain.Add(new TileComponent { TileType = TileComponent.Type.Terrain, Id = TileId.TerrainSolidRock, Name = "Solid Rock", ImageLocation = "Images/Transparent.png" });
+            _terrain.Add(new TileComponent { TileType = TileComponent.Type.Terrain, Id = TileId.TerrainTunnels, Name = "Cave Tunnels", ImageLocation = "Images/TTunnels.png" });
+            _terrain.Add(new TileComponent { TileType = TileComponent.Type.Terrain, Id = TileId.TerrainSmallCave, Name = "Small Cave", ImageLocation = "Images/TSmallCave.png" });
+            _terrain.Add(new TileComponent { TileType = TileComponent.Type.Terrain, Id = TileId.TerrainLargeCave, Name = "Large Cave", ImageLocation = "Images/TCave.png" });
 
             _vegetation = new List<TileComponent>();
             _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = 1, Name = "Grassland", ImageLocation = "Images/VGrassland.png" });
@@ -40,6 +44,8 @@ namespace HexAdventureMapper.TileConfig
             _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = 9, Name = "Desert", ImageLocation = "Images/VDesert.png" });
             _vegetation.Add(new TileComponent {TileType = TileComponent.Type.Vegetation, Id = TileId.VegSnow, Name = "Snow", ImageLocation = "Images/VSnow.png"});
             _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = 10, Name = "Rocky", ImageLocation = "Images/VRocky.png" });
+            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = TileId.VegMushCopse, Name = "Mushroom Copse", ImageLocation = "Images/VMCopse.png" });
+            _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = TileId.VegMushForest, Name = "Mushroom Forest", ImageLocation = "Images/VMForest.png" });
             _vegetation.Add(new TileComponent { TileType = TileComponent.Type.Vegetation, Id = 0, Name = "None", ImageLocation = "Images/Transparent.png" });
 
             _icons = new List<TileComponent>();
@@ -49,17 +55,21 @@ namespace HexAdventureMapper.TileConfig
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 18, Name = "Village", ImageLocation = "Images/IcVillage.png" }); ;
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 17, Name = "Town", ImageLocation = "Images/IcTown.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 6, Name = "City", ImageLocation = "Images/IcCity.png" });
+            _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = TileId.StrMining, Name = "Mining", ImageLocation = "Images/IcMining.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 3, Name = "Landmark, Small", ImageLocation = "Images/IcLandmarkSmall.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 11, Name = "Landmark, Large", ImageLocation = "Images/IcLandmarkLarge.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 10, Name = "Landmark, Huge", ImageLocation = "Images/IcLandmarkHuge.png" });
-            _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 7, Name = "Flags", ImageLocation = "Images/IcFlags.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 12, Name = "Monument", ImageLocation = "Images/IcMonument.png" });
-            _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 19, Name = "Lake", ImageLocation = "Images/IcLake.png" });
+            _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = TileId.StrHut, Name = "Hut", ImageLocation = "Images/IcHut.png" });
+            _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = TileId.StrTribe, Name = "Tribe", ImageLocation = "Images/IcTribe.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 5, Name = "Cave", ImageLocation = "Images/IcCave.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 2, Name = "Ruin", ImageLocation = "Images/IcRuinStructure.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 15, Name = "Ruined Tower", ImageLocation = "Images/IcRuinTower.png" });
+            _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = TileId.StrRuinedFort, Name = "Ruined Fort", ImageLocation = "Images/IcRuinFort.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 14, Name = "Ruined Settlement", ImageLocation = "Images/IcRuinSettlement.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 13, Name = "Ruined City", ImageLocation = "Images/IcRuinCity.png" });
+            _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 19, Name = "Lake", ImageLocation = "Images/IcLake.png" });
+            _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 7, Name = "Flags", ImageLocation = "Images/IcFlags.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 16, Name = "Tower", ImageLocation = "Images/IcTower.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 8, Name = "Fort", ImageLocation = "Images/IcFort.png" });
             _icons.Add(new TileComponent { TileType = TileComponent.Type.Icon, Id = 4, Name = "Castle", ImageLocation = "Images/IcCastle.png" });
