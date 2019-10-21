@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using HexAdventureMapper.Database;
@@ -52,6 +53,7 @@ namespace HexAdventureMapper
 
         private HexCoordinate _lastScheduledDetailSave;
         private Timer _saveDetailTimer;
+        private bool _saveDetailDisabled = false;
 
         private Size _previousMapSize;
         private Timer _changeSizeTimer;
@@ -356,7 +358,18 @@ namespace HexAdventureMapper
             Hex hex = _db.Hexes.GetForCoordinate(hexWorldCoordinate);
             if (hex != null)
             {
+                _saveDetailDisabled = true;
                 txtDetail.Text = hex.Detail;
+                var text = hex.Detail;
+                var pattern = "[(](|[-])\\d{4}([,]|[,][ ])(|[-])\\d{4}[)]";
+                var matches = System.Text.RegularExpressions.Regex.Matches(text, pattern);
+                foreach (Match match in matches)
+                {
+                    txtDetail.Text = txtDetail.Text.Remove(match.Index, match.Length);
+                    txtDetail.InsertLink(match.Value, match.Index);
+                }
+
+                _saveDetailDisabled = false;
             }
             else
             {
@@ -463,6 +476,11 @@ namespace HexAdventureMapper
             if (_selectedCoordinate == null)
             {
                 txtDetail.Text = "No hex selected";
+                return;
+            }
+
+            if (_saveDetailDisabled)
+            {
                 return;
             }
 
@@ -825,14 +843,23 @@ namespace HexAdventureMapper
 
         private void btnGoto_Click(object sender, EventArgs e)
         {
-            var potentialTerm = txtSearch.Text;
+            GoToHex(txtSearch.Text);
+        }
+
+        private void txtDetail_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            GoToHex(e.LinkText);
+        }
+
+        private void GoToHex(string potentialTerm)
+        {
             potentialTerm = potentialTerm.Trim('(', ')', ' ');
             var coords = potentialTerm.Split(',');
-            if (coords.Length == 2 && 
-                int.TryParse(coords[0], out var x) && 
+            if (coords.Length == 2 &&
+                int.TryParse(coords[0], out var x) &&
                 int.TryParse(coords[1], out var y))
             {
-                var coor = new HexCoordinate(x,y);
+                var coor = new HexCoordinate(x, y);
                 GoToHex(coor);
             }
         }

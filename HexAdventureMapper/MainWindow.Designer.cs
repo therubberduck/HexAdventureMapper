@@ -30,7 +30,7 @@ namespace HexAdventureMapper
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtDetail = new System.Windows.Forms.TextBox();
+            this.txtDetail = new RichTextBoxLinks.RichTextBoxEx();
             this.btnMoveWest1 = new System.Windows.Forms.Button();
             this.btnMoveEast2 = new System.Windows.Forms.Button();
             this.btnMoveNorth1 = new System.Windows.Forms.Button();
@@ -111,10 +111,11 @@ namespace HexAdventureMapper
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDetail.Location = new System.Drawing.Point(994, 42);
             this.txtDetail.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtDetail.Multiline = true;
             this.txtDetail.Name = "txtDetail";
             this.txtDetail.Size = new System.Drawing.Size(313, 813);
             this.txtDetail.TabIndex = 1;
+            this.txtDetail.Text = "";
+            this.txtDetail.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtDetail_LinkClicked);
             this.txtDetail.TextChanged += new System.EventHandler(this.txtDetail_TextChanged);
             // 
             // btnMoveWest1
@@ -312,7 +313,7 @@ namespace HexAdventureMapper
             this.saveImageToolStripMenuItem,
             this.exitToolStripMenuItem1});
             this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
-            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(54, 29);
+            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(54, 31);
             this.fileToolStripMenuItem1.Text = "File";
             // 
             // newToolStripMenuItem1
@@ -372,7 +373,7 @@ namespace HexAdventureMapper
             this.mapToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.centerMapToolStripMenuItem});
             this.mapToolStripMenuItem.Name = "mapToolStripMenuItem";
-            this.mapToolStripMenuItem.Size = new System.Drawing.Size(64, 29);
+            this.mapToolStripMenuItem.Size = new System.Drawing.Size(64, 31);
             this.mapToolStripMenuItem.Text = "Map";
             // 
             // centerMapToolStripMenuItem
@@ -388,7 +389,7 @@ namespace HexAdventureMapper
             this.openWindowToolStripMenuItem,
             this.timeAndWeatherToolStripMenuItem});
             this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
-            this.playerToolStripMenuItem.Size = new System.Drawing.Size(75, 29);
+            this.playerToolStripMenuItem.Size = new System.Drawing.Size(75, 31);
             this.playerToolStripMenuItem.Text = "Player";
             // 
             // openWindowToolStripMenuItem
@@ -411,7 +412,7 @@ namespace HexAdventureMapper
             this.weatherImagesDesignedByToolStripMenuItem,
             this.sunAndMoonImageDesignedByFreepikToolStripMenuItem});
             this.imageAttributionToolStripMenuItem.Name = "imageAttributionToolStripMenuItem";
-            this.imageAttributionToolStripMenuItem.Size = new System.Drawing.Size(169, 29);
+            this.imageAttributionToolStripMenuItem.Size = new System.Drawing.Size(169, 31);
             this.imageAttributionToolStripMenuItem.Text = "Image Attribution";
             // 
             // weatherImagesDesignedByToolStripMenuItem
@@ -887,7 +888,7 @@ namespace HexAdventureMapper
         }
 
         #endregion
-        private System.Windows.Forms.TextBox txtDetail;
+        private RichTextBoxLinks.RichTextBoxEx txtDetail;
         private System.Windows.Forms.Button btnMoveWest1;
         private System.Windows.Forms.Button btnMoveEast2;
         private System.Windows.Forms.Button btnMoveNorth1;
