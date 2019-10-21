@@ -363,9 +363,22 @@ namespace HexAdventureMapper
                 var text = hex.Detail;
                 var pattern = "[(](|[-])\\d{4}([,]|[,][ ])(|[-])\\d{4}[)]";
                 var matches = System.Text.RegularExpressions.Regex.Matches(text, pattern);
+                var removedLength = 0;
                 foreach (Match match in matches)
                 {
-                    txtDetail.Text = txtDetail.Text.Remove(match.Index, match.Length);
+                    try
+                    {
+                        txtDetail.Text = txtDetail.Text.Remove(match.Index - removedLength, match.Length);
+                        removedLength += match.Length;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+                }
+
+                foreach (Match match in matches)
+                {
                     txtDetail.InsertLink(match.Value, match.Index);
                 }
 
