@@ -866,14 +866,17 @@ namespace HexAdventureMapper
 
         private void GoToHex(HexCoordinate coor)
         {
-            var newTopLeftCorner = PositionManager.GetTopLeftCoordinateToCenter(coor, imgHexMap.MapArea);
-            imgHexMap.SetPosition(newTopLeftCorner);
+            if (!imgHexMap.MapArea.Contains((int) coor.X, (int) coor.Y))
+            {
+                var newTopLeftCorner = PositionManager.GetTopLeftCoordinateToCenter(coor, imgHexMap.MapArea);
+                imgHexMap.SetPosition(newTopLeftCorner);
 
-            //Save the coordinate, so we will be here next time we open the program
-            _db.Session.UpdateLocation(imgHexMap.TopLeftCoordinate);
+                //Save the coordinate, so we will be here next time we open the program
+                _db.Session.UpdateLocation(imgHexMap.TopLeftCoordinate);
 
-            //Draw the new map
-            DrawMap();
+                //Draw the new map
+                DrawMap();
+            }
 
             SelectHex(coor);
         }
