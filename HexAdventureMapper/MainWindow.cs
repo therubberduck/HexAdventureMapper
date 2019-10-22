@@ -169,6 +169,11 @@ namespace HexAdventureMapper
             _lockControls = false;
         }
 
+        public bool ShouldOverlayGridShowSubRegionBorders()
+        {
+            return chkShowSubregions.Checked;
+        }
+
         private int GetLayerAlphaFor(CheckBox chk50, CheckBox chk100)
         {
             if (chk50.Checked)
@@ -814,6 +819,17 @@ namespace HexAdventureMapper
             else if (checkBox == chkOverlayGrid)
             {
                 DrawMap();
+            }
+            else if (checkBox == chkShowSubregions)
+            {
+                if (chkOverlayGrid.Checked == chkShowSubregions.Checked)
+                {
+                    DrawMap();
+                }
+                else
+                {
+                    chkOverlayGrid.Checked = chkShowSubregions.Checked;
+                }
             }
         }
 

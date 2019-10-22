@@ -81,6 +81,11 @@ namespace HexAdventureMapper
             _lockControls = false;
         }
 
+        public bool ShouldOverlayGridShowSubRegionBorders()
+        {
+            return false;
+        }
+
         private void DrawMap()
         {
             _drawingHandler.DrawMap();

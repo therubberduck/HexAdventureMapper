@@ -99,6 +99,7 @@ namespace HexAdventureMapper
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnGoto = new System.Windows.Forms.Button();
             this.imgHexMap = new HexAdventureMapper.Views.MapBox();
+            this.chkShowSubregions = new System.Windows.Forms.CheckBox();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgLoadingIndicator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgLoading)).BeginInit();
@@ -109,10 +110,10 @@ namespace HexAdventureMapper
             // 
             this.txtDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDetail.Location = new System.Drawing.Point(994, 42);
+            this.txtDetail.Location = new System.Drawing.Point(1644, 42);
             this.txtDetail.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtDetail.Name = "txtDetail";
-            this.txtDetail.Size = new System.Drawing.Size(313, 813);
+            this.txtDetail.Size = new System.Drawing.Size(313, 1257);
             this.txtDetail.TabIndex = 1;
             this.txtDetail.Text = "";
             this.txtDetail.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtDetail_LinkClicked);
@@ -125,7 +126,7 @@ namespace HexAdventureMapper
             this.btnMoveWest1.Location = new System.Drawing.Point(208, 260);
             this.btnMoveWest1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveWest1.Name = "btnMoveWest1";
-            this.btnMoveWest1.Size = new System.Drawing.Size(45, 403);
+            this.btnMoveWest1.Size = new System.Drawing.Size(45, 847);
             this.btnMoveWest1.TabIndex = 13;
             this.btnMoveWest1.Text = "<";
             this.btnMoveWest1.UseVisualStyleBackColor = true;
@@ -134,7 +135,7 @@ namespace HexAdventureMapper
             // btnMoveEast2
             // 
             this.btnMoveEast2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMoveEast2.Location = new System.Drawing.Point(940, 97);
+            this.btnMoveEast2.Location = new System.Drawing.Point(1590, 97);
             this.btnMoveEast2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveEast2.Name = "btnMoveEast2";
             this.btnMoveEast2.Size = new System.Drawing.Size(45, 154);
@@ -150,7 +151,7 @@ namespace HexAdventureMapper
             this.btnMoveNorth1.Location = new System.Drawing.Point(422, 42);
             this.btnMoveNorth1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveNorth1.Name = "btnMoveNorth1";
-            this.btnMoveNorth1.Size = new System.Drawing.Size(351, 46);
+            this.btnMoveNorth1.Size = new System.Drawing.Size(1001, 46);
             this.btnMoveNorth1.TabIndex = 15;
             this.btnMoveNorth1.Text = "^";
             this.btnMoveNorth1.UseVisualStyleBackColor = true;
@@ -160,10 +161,10 @@ namespace HexAdventureMapper
             // 
             this.btnMoveSouth1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMoveSouth1.Location = new System.Drawing.Point(422, 835);
+            this.btnMoveSouth1.Location = new System.Drawing.Point(422, 1279);
             this.btnMoveSouth1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveSouth1.Name = "btnMoveSouth1";
-            this.btnMoveSouth1.Size = new System.Drawing.Size(351, 46);
+            this.btnMoveSouth1.Size = new System.Drawing.Size(1001, 46);
             this.btnMoveSouth1.TabIndex = 16;
             this.btnMoveSouth1.Text = "V";
             this.btnMoveSouth1.UseVisualStyleBackColor = true;
@@ -300,7 +301,7 @@ namespace HexAdventureMapper
             this.imageAttributionToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1328, 35);
+            this.menuStrip.Size = new System.Drawing.Size(1978, 35);
             this.menuStrip.TabIndex = 17;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -512,10 +513,10 @@ namespace HexAdventureMapper
             // 
             this.btnMoveEast1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMoveEast1.Location = new System.Drawing.Point(940, 260);
+            this.btnMoveEast1.Location = new System.Drawing.Point(1590, 260);
             this.btnMoveEast1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveEast1.Name = "btnMoveEast1";
-            this.btnMoveEast1.Size = new System.Drawing.Size(45, 403);
+            this.btnMoveEast1.Size = new System.Drawing.Size(45, 847);
             this.btnMoveEast1.TabIndex = 18;
             this.btnMoveEast1.Text = ">";
             this.btnMoveEast1.UseVisualStyleBackColor = true;
@@ -524,7 +525,7 @@ namespace HexAdventureMapper
             // btnMoveEast3
             // 
             this.btnMoveEast3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMoveEast3.Location = new System.Drawing.Point(940, 672);
+            this.btnMoveEast3.Location = new System.Drawing.Point(1590, 1116);
             this.btnMoveEast3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveEast3.Name = "btnMoveEast3";
             this.btnMoveEast3.Size = new System.Drawing.Size(45, 154);
@@ -547,7 +548,7 @@ namespace HexAdventureMapper
             // btnMoveWest3
             // 
             this.btnMoveWest3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnMoveWest3.Location = new System.Drawing.Point(208, 672);
+            this.btnMoveWest3.Location = new System.Drawing.Point(208, 1116);
             this.btnMoveWest3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveWest3.Name = "btnMoveWest3";
             this.btnMoveWest3.Size = new System.Drawing.Size(45, 154);
@@ -570,7 +571,7 @@ namespace HexAdventureMapper
             // btnMoveNorth3
             // 
             this.btnMoveNorth3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMoveNorth3.Location = new System.Drawing.Point(782, 42);
+            this.btnMoveNorth3.Location = new System.Drawing.Point(1432, 42);
             this.btnMoveNorth3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveNorth3.Name = "btnMoveNorth3";
             this.btnMoveNorth3.Size = new System.Drawing.Size(150, 46);
@@ -582,7 +583,7 @@ namespace HexAdventureMapper
             // btnMoveSouth2
             // 
             this.btnMoveSouth2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnMoveSouth2.Location = new System.Drawing.Point(262, 835);
+            this.btnMoveSouth2.Location = new System.Drawing.Point(262, 1279);
             this.btnMoveSouth2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveSouth2.Name = "btnMoveSouth2";
             this.btnMoveSouth2.Size = new System.Drawing.Size(150, 46);
@@ -594,7 +595,7 @@ namespace HexAdventureMapper
             // btnMoveSouth3
             // 
             this.btnMoveSouth3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMoveSouth3.Location = new System.Drawing.Point(782, 835);
+            this.btnMoveSouth3.Location = new System.Drawing.Point(1432, 1279);
             this.btnMoveSouth3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMoveSouth3.Name = "btnMoveSouth3";
             this.btnMoveSouth3.Size = new System.Drawing.Size(150, 46);
@@ -733,7 +734,7 @@ namespace HexAdventureMapper
             // 
             this.lblCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCoordinates.AutoSize = true;
-            this.lblCoordinates.Location = new System.Drawing.Point(990, 862);
+            this.lblCoordinates.Location = new System.Drawing.Point(1640, 1306);
             this.lblCoordinates.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCoordinates.Name = "lblCoordinates";
             this.lblCoordinates.Size = new System.Drawing.Size(0, 20);
@@ -755,7 +756,7 @@ namespace HexAdventureMapper
             // btnSearch
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSearch.Location = new System.Drawing.Point(13, 853);
+            this.btnSearch.Location = new System.Drawing.Point(13, 1297);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(84, 35);
             this.btnSearch.TabIndex = 40;
@@ -768,7 +769,7 @@ namespace HexAdventureMapper
             this.imgLoadingIndicator.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.imgLoadingIndicator.BackColor = System.Drawing.SystemColors.Control;
             this.imgLoadingIndicator.Image = global::HexAdventureMapper.Properties.Resources.LoadingIndicator;
-            this.imgLoadingIndicator.Location = new System.Drawing.Point(940, 42);
+            this.imgLoadingIndicator.Location = new System.Drawing.Point(1590, 42);
             this.imgLoadingIndicator.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.imgLoadingIndicator.Name = "imgLoadingIndicator";
             this.imgLoadingIndicator.Size = new System.Drawing.Size(45, 46);
@@ -793,7 +794,7 @@ namespace HexAdventureMapper
             // txtSearch
             // 
             this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtSearch.Location = new System.Drawing.Point(13, 821);
+            this.txtSearch.Location = new System.Drawing.Point(13, 1265);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(166, 26);
             this.txtSearch.TabIndex = 41;
@@ -802,7 +803,7 @@ namespace HexAdventureMapper
             // btnGoto
             // 
             this.btnGoto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnGoto.Location = new System.Drawing.Point(104, 853);
+            this.btnGoto.Location = new System.Drawing.Point(104, 1297);
             this.btnGoto.Name = "btnGoto";
             this.btnGoto.Size = new System.Drawing.Size(75, 35);
             this.btnGoto.TabIndex = 42;
@@ -819,18 +820,31 @@ namespace HexAdventureMapper
             this.imgHexMap.Location = new System.Drawing.Point(262, 97);
             this.imgHexMap.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.imgHexMap.Name = "imgHexMap";
-            this.imgHexMap.Size = new System.Drawing.Size(669, 729);
+            this.imgHexMap.Size = new System.Drawing.Size(1319, 1173);
             this.imgHexMap.TabIndex = 4;
             this.imgHexMap.TabStop = false;
             this.imgHexMap.MapClick += new HexAdventureMapper.Views.MapEventHandler(this.imgHexMap_MapClick);
             this.imgHexMap.MapDrag += new HexAdventureMapper.Views.MapEventHandler(this.imgHexMap_MapDrag);
             this.imgHexMap.SizeChanged += new System.EventHandler(this.imgHexMap_SizeChanged);
             // 
+            // chkShowSubregions
+            // 
+            this.chkShowSubregions.AutoSize = true;
+            this.chkShowSubregions.Location = new System.Drawing.Point(48, 579);
+            this.chkShowSubregions.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chkShowSubregions.Name = "chkShowSubregions";
+            this.chkShowSubregions.Size = new System.Drawing.Size(160, 24);
+            this.chkShowSubregions.TabIndex = 43;
+            this.chkShowSubregions.Text = "Show Subregions";
+            this.chkShowSubregions.UseVisualStyleBackColor = true;
+            this.chkShowSubregions.CheckedChanged += new System.EventHandler(this.CheckBox_LayerChanged);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1328, 900);
+            this.ClientSize = new System.Drawing.Size(1978, 1344);
+            this.Controls.Add(this.chkShowSubregions);
             this.Controls.Add(this.btnGoto);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.btnSearch);
@@ -874,7 +888,7 @@ namespace HexAdventureMapper
             this.Controls.Add(this.txtDetail);
             this.Controls.Add(this.menuStrip);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.MinimumSize = new System.Drawing.Size(1039, 739);
+            this.MinimumSize = new System.Drawing.Size(2000, 1400);
             this.Name = "MainWindow";
             this.Text = "Hex Adventure Mapper";
             this.menuStrip.ResumeLayout(false);
@@ -957,6 +971,7 @@ namespace HexAdventureMapper
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnGoto;
+        private System.Windows.Forms.CheckBox chkShowSubregions;
     }
 }
 

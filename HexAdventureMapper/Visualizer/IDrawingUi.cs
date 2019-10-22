@@ -20,5 +20,7 @@ namespace HexAdventureMapper.Visualizer
 
         void StartBusyIndicator();
         void StopBusyIndicator();
+
+        bool ShouldOverlayGridShowSubRegionBorders();
     }
 }
