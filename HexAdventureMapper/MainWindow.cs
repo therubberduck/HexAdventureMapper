@@ -19,7 +19,6 @@ using Timer = System.Threading.Timer;
 
 namespace HexAdventureMapper
 {
-
     public partial class MainWindow : Form, IDrawingUi, IPainterUi, IFogOfWarUi
     {
         public enum DrawingTools
@@ -78,7 +77,7 @@ namespace HexAdventureMapper
 
             cmbTerrain.Items.AddRange(_tiles.GetTerrainNames());
             cmbTerrain.SelectedIndex = 1;
-            
+
             cmbVegetation.Items.AddRange(_tiles.GetVegetationNames());
             cmbVegetation.SelectedIndex = 0;
 
@@ -92,11 +91,11 @@ namespace HexAdventureMapper
             cmbRiver.Items.AddRange(riverSizes);
             cmbRiver.SelectedIndex = 0;
 
-            object[] roadSizes = { "Trail", "Dirt Road", "Cobbled Road", "Ancient Road" };
+            object[] roadSizes = {"Trail", "Dirt Road", "Cobbled Road", "Ancient Road"};
             cmbRoad.Items.AddRange(roadSizes);
             cmbRoad.SelectedIndex = 0;
 
-            object[] fogOfWarTypes = { "Full", "Half" };
+            object[] fogOfWarTypes = {"Full", "Half"};
             cmbFogOfWar.Items.AddRange(fogOfWarTypes);
             cmbFogOfWar.SelectedIndex = 0;
 
@@ -160,7 +159,6 @@ namespace HexAdventureMapper
         {
             _lockControls = true;
             imgLoadingIndicator.Show();
-            
         }
 
         public void StopBusyIndicator()
@@ -293,6 +291,7 @@ namespace HexAdventureMapper
                             DrawHex(neighborHex, DrawingToolToLayer(_currentDrawingTool));
                         }
                     }
+
                     DrawHex(e.HexWorldCoordinate, DrawingToolToLayer(_currentDrawingTool)); //Redraw the changed hex
                     SelectHex(e.HexWorldCoordinate);
                     txtDetail.Focus();
@@ -349,10 +348,12 @@ namespace HexAdventureMapper
 
         private void SelectHex(HexCoordinate hexWorldCoordinate)
         {
-            if (_selectedCoordinate != null) //Redraw the previously selected hex (deselect) if there was a previously selected hex
+            if (_selectedCoordinate != null
+            ) //Redraw the previously selected hex (deselect) if there was a previously selected hex
             {
                 var oldSelectedCoordinate = _selectedCoordinate;
-                _selectedCoordinate = null; //We set the SelectedCoordinate to null, so that hexMapFactory knows it is not selected
+                _selectedCoordinate =
+                    null; //We set the SelectedCoordinate to null, so that hexMapFactory knows it is not selected
                 _drawingHandler.RedrawSelectedHex(oldSelectedCoordinate);
             }
 
@@ -507,6 +508,7 @@ namespace HexAdventureMapper
             {
                 _saveDetailTimer.Dispose();
             }
+
             //Schedule a detail update after 1 second (so we wait to update until the user is done typing)
             TimerCallback callback = SaveDetailText;
             object[] state = {_selectedCoordinate, txtDetail.Text};
@@ -528,7 +530,8 @@ namespace HexAdventureMapper
         private void imgHexMap_SizeChanged(object sender, System.EventArgs e)
         {
             //If new map is smaller than old map, we don't need to update the image, as the image is larger than the mapbox
-            if (_previousMapSize != null && imgHexMap.Size.Height <= _previousMapSize.Height && imgHexMap.Size.Width <= _previousMapSize.Width)
+            if (_previousMapSize != null && imgHexMap.Size.Height <= _previousMapSize.Height &&
+                imgHexMap.Size.Width <= _previousMapSize.Width)
             {
                 return;
             }
@@ -555,7 +558,8 @@ namespace HexAdventureMapper
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Do you really want a new map? You will lose all unsaved work.", "New Map", MessageBoxButtons.OKCancel, MessageBoxIcon.Stop);
+            DialogResult result = MessageBox.Show("Do you really want a new map? You will lose all unsaved work.",
+                "New Map", MessageBoxButtons.OKCancel, MessageBoxIcon.Stop);
             if (result == DialogResult.OK)
             {
                 _db.ClearDb();
@@ -593,6 +597,7 @@ namespace HexAdventureMapper
                 fileDialog.DefaultExt = "bmp";
                 fileDialog.Filter = "Bmp File|*.bmp";
             }
+
             DialogResult result = fileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -611,10 +616,11 @@ namespace HexAdventureMapper
             DialogResult result = fileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                DialogResult result2 = MessageBox.Show("Do you really want to load the map? You will lose all unsaved work.", "Load Map", MessageBoxButtons.OKCancel, MessageBoxIcon.Stop);
+                DialogResult result2 =
+                    MessageBox.Show("Do you really want to load the map? You will lose all unsaved work.", "Load Map",
+                        MessageBoxButtons.OKCancel, MessageBoxIcon.Stop);
                 if (result2 == DialogResult.OK)
                 {
-
                     string dbPath = Properties.Settings.Default.MapDatabaseName;
                     string savePath = fileDialog.FileName;
                     File.Copy(savePath, dbPath, true);
@@ -672,7 +678,8 @@ namespace HexAdventureMapper
 
         private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Do you want to exit?", "Exit Hex Adventure Mapper", MessageBoxButtons.OKCancel, MessageBoxIcon.Stop);
+            DialogResult result = MessageBox.Show("Do you want to exit?", "Exit Hex Adventure Mapper",
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Stop);
             if (result == DialogResult.OK)
             {
                 Application.Exit();
@@ -762,6 +769,7 @@ namespace HexAdventureMapper
                     imgHexMap.UpdateHorizontalOffset(-distance);
                     break;
             }
+
             //Save the coordinate, so we will be here next time we open the program
             _db.Session.UpdateLocation(imgHexMap.TopLeftCoordinate);
 
@@ -801,6 +809,7 @@ namespace HexAdventureMapper
                     chk50FogOfWar.Checked = false;
                 }
             }
+
             CheckBox[] iconBoxes = {chk50GmIcons, chk100GmIcons, chk50PlayerIcons, chk100PlayerIcons};
             if (iconBoxes.Contains(checkBox))
             {
@@ -809,7 +818,7 @@ namespace HexAdventureMapper
                     DrawMap();
                 }
             }
-            else if(checkBox == chk50FogOfWar || checkBox == chk100FogOfWar)
+            else if (checkBox == chk50FogOfWar || checkBox == chk100FogOfWar)
             {
                 if (!_drawingDisabled)
                 {
@@ -862,12 +871,13 @@ namespace HexAdventureMapper
         private void btnSearch_Click(object sender, EventArgs e)
         {
             SearchWindow window = new SearchWindow(_db.Hexes, txtSearch.Text, _selectedCoordinate);
-            window.ShowDialog();
-            if (window.DialogResult == DialogResult.OK)
-            {
-                var selectedHexCoordinate = window.ReturnValue;
-                GoToHex(selectedHexCoordinate);
-            }
+            window.SearchResultSelected += WindowOnSearchResultSelected;
+            window.Show();
+        }
+
+        private void WindowOnSearchResultSelected(HexCoordinate searchCoordinate)
+        {
+            GoToHex(searchCoordinate);
         }
 
         private void btnGoto_Click(object sender, EventArgs e)

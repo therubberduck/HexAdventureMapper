@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HexAdventureMapper.Database.Modules;
 using HexAdventureMapper.DataObjects;
 
 namespace HexAdventureMapper
 {
+    public delegate void SearchResultSelectedHandler(HexCoordinate searchCoordinate);
+
     public partial class SearchWindow : Form
     {
-        private DbHex _dbHexes;
+        private readonly DbHex _dbHexes;
         private List<Hex> _results;
 
         private bool _allowSelection;
         private HexCoordinate _selectedCoordinate;
+
+        public event SearchResultSelectedHandler SearchResultSelected;
 
         public HexCoordinate ReturnValue { get; private set; }
 
@@ -44,6 +44,11 @@ namespace HexAdventureMapper
             if (e.KeyChar == (char) Keys.Enter) btnSearch_Click(txtSearchTerm, e);
         }
 
+        public void SelectedCoordinateChanged(HexCoordinate selectedCoordinate)
+        {
+            _selectedCoordinate = selectedCoordinate;
+        }
+
         private void DoSearch(string searchTerm)
         {
             uint.TryParse(txtRange.Text, out var range);
@@ -58,6 +63,7 @@ namespace HexAdventureMapper
                 var hexArea = _selectedCoordinate.HexArea(range);
                 results = _dbHexes.GetHexesWithDetail(searchTerm, hexArea);
             }
+
             var orderedResults = results.OrderBy(hex => hex.Coordinate).ToList();
             _results = orderedResults;
 
@@ -96,9 +102,8 @@ namespace HexAdventureMapper
             {
                 var selectedIndex = lstResults.SelectedIndices[0];
                 var selectedHex = _results[selectedIndex];
-                ReturnValue = selectedHex.Coordinate;
-                DialogResult = DialogResult.OK;
-                Close();
+
+                SearchResultSelected?.Invoke(selectedHex.Coordinate);
             }
         }
 
@@ -106,7 +111,7 @@ namespace HexAdventureMapper
 
         private void txtRange_Enter(object sender, EventArgs e)
         {
-            var box = (TextBox)sender;
+            var box = (TextBox) sender;
             if (box.Text == RangeLabel)
             {
                 box.Text = "";
@@ -118,7 +123,7 @@ namespace HexAdventureMapper
 
         private void txtRange_Leave(object sender, EventArgs e)
         {
-            var box = (TextBox)sender;
+            var box = (TextBox) sender;
             if (box.Text == "")
             {
                 box.Text = RangeLabel;
