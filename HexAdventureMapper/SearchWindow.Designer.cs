@@ -33,6 +33,7 @@
             this.lstResults = new System.Windows.Forms.ListView();
             this.rtxtDetail = new System.Windows.Forms.RichTextBox();
             this.txtRange = new System.Windows.Forms.TextBox();
+            this.chkCloseWindow = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txtSearchTerm
@@ -64,7 +65,7 @@
             this.lstResults.HideSelection = false;
             this.lstResults.Location = new System.Drawing.Point(12, 53);
             this.lstResults.Name = "lstResults";
-            this.lstResults.Size = new System.Drawing.Size(450, 697);
+            this.lstResults.Size = new System.Drawing.Size(450, 727);
             this.lstResults.TabIndex = 2;
             this.lstResults.UseCompatibleStateImageBehavior = false;
             this.lstResults.View = System.Windows.Forms.View.List;
@@ -78,7 +79,7 @@
             this.rtxtDetail.Enabled = false;
             this.rtxtDetail.Location = new System.Drawing.Point(468, 53);
             this.rtxtDetail.Name = "rtxtDetail";
-            this.rtxtDetail.Size = new System.Drawing.Size(320, 697);
+            this.rtxtDetail.Size = new System.Drawing.Size(320, 727);
             this.rtxtDetail.TabIndex = 3;
             this.rtxtDetail.Text = "";
             // 
@@ -96,11 +97,25 @@
             this.txtRange.Enter += new System.EventHandler(this.txtRange_Enter);
             this.txtRange.Leave += new System.EventHandler(this.txtRange_Leave);
             // 
+            // chkCloseWindow
+            // 
+            this.chkCloseWindow.AutoSize = true;
+            this.chkCloseWindow.Checked = true;
+            this.chkCloseWindow.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkCloseWindow.Location = new System.Drawing.Point(561, 786);
+            this.chkCloseWindow.Name = "chkCloseWindow";
+            this.chkCloseWindow.Size = new System.Drawing.Size(227, 24);
+            this.chkCloseWindow.TabIndex = 5;
+            this.chkCloseWindow.Text = "Close Window after Search";
+            this.chkCloseWindow.UseVisualStyleBackColor = true;
+            this.chkCloseWindow.CheckedChanged += new System.EventHandler(this.chkCloseWindow_CheckedChanged);
+            // 
             // SearchWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 762);
+            this.ClientSize = new System.Drawing.Size(800, 822);
+            this.Controls.Add(this.chkCloseWindow);
             this.Controls.Add(this.txtRange);
             this.Controls.Add(this.rtxtDetail);
             this.Controls.Add(this.lstResults);
@@ -120,5 +135,6 @@
         private System.Windows.Forms.ListView lstResults;
         private System.Windows.Forms.RichTextBox rtxtDetail;
         private System.Windows.Forms.TextBox txtRange;
+        private System.Windows.Forms.CheckBox chkCloseWindow;
     }
 }

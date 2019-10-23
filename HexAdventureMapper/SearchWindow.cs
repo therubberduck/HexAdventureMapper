@@ -16,6 +16,7 @@ namespace HexAdventureMapper
         private List<Hex> _results;
 
         private bool _allowSelection;
+        private bool _closeWindowAfterSearch = true;
         private HexCoordinate _selectedCoordinate;
 
         public event SearchResultSelectedHandler SearchResultSelected;
@@ -47,6 +48,11 @@ namespace HexAdventureMapper
         public void SelectedCoordinateChanged(HexCoordinate selectedCoordinate)
         {
             _selectedCoordinate = selectedCoordinate;
+        }
+
+        private void chkCloseWindow_CheckedChanged(object sender, EventArgs e)
+        {
+            _closeWindowAfterSearch = chkCloseWindow.Checked;
         }
 
         private void DoSearch(string searchTerm)
@@ -104,6 +110,10 @@ namespace HexAdventureMapper
                 var selectedHex = _results[selectedIndex];
 
                 SearchResultSelected?.Invoke(selectedHex.Coordinate);
+                if (_closeWindowAfterSearch)
+                {
+                    Close();
+                }
             }
         }
 
