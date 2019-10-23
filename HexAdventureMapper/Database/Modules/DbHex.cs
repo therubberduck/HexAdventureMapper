@@ -136,6 +136,24 @@ namespace HexAdventureMapper.Database.Modules
             return returnList;
         }
 
+        public List<Hex> GetHexesWithDetail(string searchTerm, HexArea hexArea)
+        {
+            string otherClauses = "WHERE " + 
+                CoordinateX + " >= " + hexArea.Left + " AND " + CoordinateX + " <= " + hexArea.Right +
+                " AND " + CoordinateY + " >= " + hexArea.Top + " AND " + CoordinateY + " <= " + hexArea.Bottom + 
+                " AND " + Detail + " LIKE '%" + searchTerm + "%'";
+            otherClauses += " ORDER BY " + CoordinateX + "," + CoordinateY;
+            var results = Db.Select(TableName, AllColumnNames, otherClauses);
+
+            var returnList = new List<Hex>();
+            foreach (object[] o in results)
+            {
+                var resultObject = MakeObject(o);
+                returnList.Add(resultObject);
+            }
+            return returnList;
+        }
+
         public void UpdateTerrain(HexCoordinate coor, int terrainId, int vegetationId)
         {
             Db.Update(TableName, new[] {Terrain, Vegetation}, new object[] {terrainId, vegetationId}, new [] {CoordinateX, CoordinateY}, new object[] { coor.X, coor.Y});

@@ -74,6 +74,11 @@ namespace HexAdventureMapper.DataObjects
             return new HexCoordinate(X - otherCoor.X, Y - otherCoor.Y);
         }
 
+        public HexArea HexArea(uint range)
+        {
+            return new HexArea(X, Y, range);
+        }
+
         public string ToText()
         {
             return X.ToString("D4") + ", " + Y.ToString("D4");

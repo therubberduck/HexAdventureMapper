@@ -32,6 +32,7 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.lstResults = new System.Windows.Forms.ListView();
             this.rtxtDetail = new System.Windows.Forms.RichTextBox();
+            this.txtRange = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // txtSearchTerm
@@ -40,7 +41,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSearchTerm.Location = new System.Drawing.Point(12, 16);
             this.txtSearchTerm.Name = "txtSearchTerm";
-            this.txtSearchTerm.Size = new System.Drawing.Size(695, 26);
+            this.txtSearchTerm.Size = new System.Drawing.Size(567, 26);
             this.txtSearchTerm.TabIndex = 0;
             this.txtSearchTerm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearchTerm_KeyPress);
             // 
@@ -81,11 +82,26 @@
             this.rtxtDetail.TabIndex = 3;
             this.rtxtDetail.Text = "";
             // 
+            // txtRange
+            // 
+            this.txtRange.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRange.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRange.ForeColor = System.Drawing.Color.Silver;
+            this.txtRange.Location = new System.Drawing.Point(585, 16);
+            this.txtRange.Name = "txtRange";
+            this.txtRange.Size = new System.Drawing.Size(122, 26);
+            this.txtRange.TabIndex = 4;
+            this.txtRange.Text = "Range";
+            this.txtRange.Enter += new System.EventHandler(this.txtRange_Enter);
+            this.txtRange.Leave += new System.EventHandler(this.txtRange_Leave);
+            // 
             // SearchWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 762);
+            this.Controls.Add(this.txtRange);
             this.Controls.Add(this.rtxtDetail);
             this.Controls.Add(this.lstResults);
             this.Controls.Add(this.btnSearch);
@@ -103,5 +119,6 @@
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.ListView lstResults;
         private System.Windows.Forms.RichTextBox rtxtDetail;
+        private System.Windows.Forms.TextBox txtRange;
     }
 }

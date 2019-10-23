@@ -17,17 +17,20 @@ namespace HexAdventureMapper
         private DbHex _dbHexes;
         private List<Hex> _results;
 
-        private bool _allowSelection = false;
+        private bool _allowSelection;
+        private HexCoordinate _selectedCoordinate;
 
         public HexCoordinate ReturnValue { get; private set; }
 
-        public SearchWindow(DbHex dbHexes, string searchText)
+        public SearchWindow(DbHex dbHexes, string searchText, HexCoordinate selectedCoordinate)
         {
             InitializeComponent();
 
             _dbHexes = dbHexes;
             txtSearchTerm.Text = searchText;
             if (searchText != "") DoSearch(searchText);
+
+            _selectedCoordinate = selectedCoordinate;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -43,7 +46,18 @@ namespace HexAdventureMapper
 
         private void DoSearch(string searchTerm)
         {
-            var results = _dbHexes.GetHexesWithDetail(searchTerm);
+            uint.TryParse(txtRange.Text, out var range);
+
+            List<Hex> results;
+            if (range == 0)
+            {
+                results = _dbHexes.GetHexesWithDetail(searchTerm);
+            }
+            else
+            {
+                var hexArea = _selectedCoordinate.HexArea(range);
+                results = _dbHexes.GetHexesWithDetail(searchTerm, hexArea);
+            }
             var orderedResults = results.OrderBy(hex => hex.Coordinate).ToList();
             _results = orderedResults;
 
@@ -85,6 +99,32 @@ namespace HexAdventureMapper
                 ReturnValue = selectedHex.Coordinate;
                 DialogResult = DialogResult.OK;
                 Close();
+            }
+        }
+
+        private const string RangeLabel = "Range";
+
+        private void txtRange_Enter(object sender, EventArgs e)
+        {
+            var box = (TextBox)sender;
+            if (box.Text == RangeLabel)
+            {
+                box.Text = "";
+                Font textFont = box.Font;
+                box.Font = new Font(textFont.FontFamily, textFont.Size, FontStyle.Regular);
+                box.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtRange_Leave(object sender, EventArgs e)
+        {
+            var box = (TextBox)sender;
+            if (box.Text == "")
+            {
+                box.Text = RangeLabel;
+                Font textFont = box.Font;
+                box.Font = new Font(textFont.FontFamily, textFont.Size, FontStyle.Bold);
+                box.ForeColor = Color.Silver;
             }
         }
     }

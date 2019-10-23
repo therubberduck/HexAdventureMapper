@@ -861,7 +861,7 @@ namespace HexAdventureMapper
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            SearchWindow window = new SearchWindow(_db.Hexes, txtSearch.Text);
+            SearchWindow window = new SearchWindow(_db.Hexes, txtSearch.Text, _selectedCoordinate);
             window.ShowDialog();
             if (window.DialogResult == DialogResult.OK)
             {
