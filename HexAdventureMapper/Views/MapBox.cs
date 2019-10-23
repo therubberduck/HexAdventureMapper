@@ -17,12 +17,12 @@ namespace HexAdventureMapper.Views
 
         public HexCoordinate TopLeftCoordinate { get; private set; }
 
-        public Rectangle MapArea
+        public HexArea MapArea
         {
             get
             {
                 HexCoordinate mapSizeInHexes = PositionManager.ScreenToHex(Size.Width + 1, Size.Height + 1);
-                return new Rectangle((int) TopLeftCoordinate.X - 1, (int)TopLeftCoordinate.Y - 1, (int) mapSizeInHexes.X + 1, (int) mapSizeInHexes.Y + 1);
+                return new HexArea((int) TopLeftCoordinate.X - 1, (int)TopLeftCoordinate.Y - 1, (int) mapSizeInHexes.X + 1, (int) mapSizeInHexes.Y + 1);
             }
         }
 

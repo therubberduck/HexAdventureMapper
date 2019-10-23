@@ -82,14 +82,14 @@ namespace HexAdventureMapper.Helper
             return Direction.None;
         }
 
-        public static Rectangle ScreenAreaToHexArea(HexCoordinate globalTopLeft, Size screenSize)
+        public static HexArea ScreenAreaToHexArea(HexCoordinate globalTopLeft, Size screenSize)
         {
             var localBottomRight = ScreenToHex(screenSize.Width, screenSize.Height);
             //We want global for the location, and local for the width/height
-            return new Rectangle((int) globalTopLeft.X,(int) globalTopLeft.Y, (int) localBottomRight.X, (int) localBottomRight.Y);
+            return new HexArea((int) globalTopLeft.X,(int) globalTopLeft.Y, (int) localBottomRight.X, (int) localBottomRight.Y);
         }
 
-        public static HexCoordinate GetTopLeftCoordinateToCenter(HexCoordinate centerCoordinate, Rectangle mapArea)
+        public static HexCoordinate GetTopLeftCoordinateToCenter(HexCoordinate centerCoordinate, HexArea mapArea)
         {
             var newTopLeftCorner = centerCoordinate.Minus(new HexCoordinate(mapArea.Width / 2, mapArea.Height / 2));
             var adjustedTopLeftCorner = ConvertToValidTopLeftCoordinate(newTopLeftCorner);

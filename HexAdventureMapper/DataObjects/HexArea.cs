@@ -33,5 +33,10 @@ namespace HexAdventureMapper.DataObjects
             Width = range * 2 + 1;
             Height = range * 2 + 1;
         }
+
+        public bool Contains(long x, long y)
+        {
+            return Left <= x && Right >= x && Top <= y && Bottom >= y;
+        }
     }
 }
