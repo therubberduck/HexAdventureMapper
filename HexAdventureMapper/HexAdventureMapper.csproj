@@ -131,6 +131,7 @@
     <Compile Include="SearchWindow.Designer.cs">
       <DependentUpon>SearchWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="SearchWindowHandler.cs" />
     <Compile Include="Testing\TestWatch.cs" />
     <Compile Include="TileConfig\TileConfigInterface.cs" />
     <Compile Include="TileConfig\TileIds.cs" />

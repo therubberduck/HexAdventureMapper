@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -34,12 +35,13 @@ namespace HexAdventureMapper
         private PlayerWindow _playerWindow;
 
         private DbInterface _db;
-        private TileConfigInterface _tiles;
-        private DrawingHandler _drawingHandler;
-        private Painter _painter;
-        private FogOfWarPainter _fogOfWarPainter;
+        private readonly TileConfigInterface _tiles;
+        private readonly DrawingHandler _drawingHandler;
+        private readonly Painter _painter;
+        private readonly FogOfWarPainter _fogOfWarPainter;
 
-        private TimeAndWeatherHandler _timeAndWeatherHandler;
+        private readonly SearchWindowHandler _searchWindowHandler;
+        private readonly TimeAndWeatherHandler _timeAndWeatherHandler;
 
         private DrawingTools _currentDrawingTool;
         private HexCoordinate _selectedCoordinate;
@@ -70,6 +72,8 @@ namespace HexAdventureMapper
             _painter = new Painter(this, _db);
             _fogOfWarPainter = new FogOfWarPainter(this, _db);
 
+            _searchWindowHandler = new SearchWindowHandler(_db.Hexes);
+            _searchWindowHandler.SearchResultSelected += WindowOnSearchResultSelected;
             _timeAndWeatherHandler = new TimeAndWeatherHandler(_db);
 
             imgHexMap.BackColor = ColorTranslator.FromHtml("#333333");
@@ -358,6 +362,7 @@ namespace HexAdventureMapper
 
             _selectedCoordinate = hexWorldCoordinate; //Mark the new hex as selected
             _drawingHandler.RedrawSelectedHex(_selectedCoordinate);
+            _searchWindowHandler.SelectedCoordinate = _selectedCoordinate;
 
             //Update the textfield with the hex's detail (if any)
             Hex hex = _db.Hexes.GetForCoordinate(hexWorldCoordinate);
@@ -869,8 +874,7 @@ namespace HexAdventureMapper
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            SearchWindow window = new SearchWindow(_db.Hexes, txtSearch.Text, _selectedCoordinate);
-            window.SearchResultSelected += WindowOnSearchResultSelected;
+            var window = new SearchWindow(_searchWindowHandler, txtSearch.Text);
             window.Show();
         }
 

@@ -8,30 +8,24 @@ using HexAdventureMapper.DataObjects;
 
 namespace HexAdventureMapper
 {
-    public delegate void SearchResultSelectedHandler(HexCoordinate searchCoordinate);
-
+    
     public partial class SearchWindow : Form
     {
-        private readonly DbHex _dbHexes;
+        private SearchWindowHandler _handler;
         private List<Hex> _results;
 
         private bool _allowSelection;
         private bool _closeWindowAfterSearch = true;
-        private HexCoordinate _selectedCoordinate;
-
-        public event SearchResultSelectedHandler SearchResultSelected;
 
         public HexCoordinate ReturnValue { get; private set; }
 
-        public SearchWindow(DbHex dbHexes, string searchText, HexCoordinate selectedCoordinate)
+        public SearchWindow(SearchWindowHandler searchWindowHandler, string searchText)
         {
             InitializeComponent();
 
-            _dbHexes = dbHexes;
+            _handler = searchWindowHandler;
             txtSearchTerm.Text = searchText;
             if (searchText != "") DoSearch(searchText);
-
-            _selectedCoordinate = selectedCoordinate;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -45,11 +39,6 @@ namespace HexAdventureMapper
             if (e.KeyChar == (char) Keys.Enter) btnSearch_Click(txtSearchTerm, e);
         }
 
-        public void SelectedCoordinateChanged(HexCoordinate selectedCoordinate)
-        {
-            _selectedCoordinate = selectedCoordinate;
-        }
-
         private void chkCloseWindow_CheckedChanged(object sender, EventArgs e)
         {
             _closeWindowAfterSearch = chkCloseWindow.Checked;
@@ -60,14 +49,15 @@ namespace HexAdventureMapper
             uint.TryParse(txtRange.Text, out var range);
 
             List<Hex> results;
-            if (range == 0)
+            var selectedCoordinate = _handler.SelectedCoordinate;
+            if (range != 0 && selectedCoordinate != null)
             {
-                results = _dbHexes.GetHexesWithDetail(searchTerm);
+                var hexArea = selectedCoordinate.HexArea(range);
+                results = _handler.Db.GetHexesWithDetail(searchTerm, hexArea);
             }
             else
             {
-                var hexArea = _selectedCoordinate.HexArea(range);
-                results = _dbHexes.GetHexesWithDetail(searchTerm, hexArea);
+                results = _handler.Db.GetHexesWithDetail(searchTerm);
             }
 
             var orderedResults = results.OrderBy(hex => hex.Coordinate).ToList();
@@ -109,7 +99,7 @@ namespace HexAdventureMapper
                 var selectedIndex = lstResults.SelectedIndices[0];
                 var selectedHex = _results[selectedIndex];
 
-                SearchResultSelected?.Invoke(selectedHex.Coordinate);
+                _handler.TriggerSearchResult(selectedHex.Coordinate);
                 if (_closeWindowAfterSearch)
                 {
                     Close();
