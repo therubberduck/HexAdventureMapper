@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -16,6 +15,9 @@ using HexAdventureMapper.TimeAndWeather;
 using HexAdventureMapper.Views;
 using HexAdventureMapper.Visualizer;
 using Timer = System.Threading.Timer;
+// ReSharper disable LocalizableElement
+// ReSharper disable CommentTypo
+// ReSharper disable IdentifierTypo
 
 namespace HexAdventureMapper
 {
@@ -34,7 +36,7 @@ namespace HexAdventureMapper
 
         private PlayerWindow _playerWindow;
 
-        private DbInterface _db;
+        private readonly DbInterface _db;
         private readonly TileConfigInterface _tiles;
         private readonly DrawingHandler _drawingHandler;
         private readonly Painter _painter;
@@ -47,18 +49,16 @@ namespace HexAdventureMapper
         private HexCoordinate _selectedCoordinate;
 
         private HexCoordinate _lastDraggedHex;
-        private bool _formConstructed;
+        private readonly bool _formConstructed;
         private bool _drawingDisabled;
         private bool _lockControls;
 
         private HexCoordinate _lastScheduledDetailSave;
         private Timer _saveDetailTimer;
-        private bool _saveDetailDisabled = false;
+        private bool _saveDetailDisabled;
 
         private Size _previousMapSize;
         private Timer _changeSizeTimer;
-
-        private Timer _autoSaveTimer;
 
         public MainWindow()
         {
@@ -112,8 +112,6 @@ namespace HexAdventureMapper
             imgHexMap.SetPosition(_db.Session.Get().CurrentMapCorner);
 
             DrawMap();
-
-            _autoSaveTimer = new Timer(e => AutoSave(), null, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
         }
 
         public DrawingTools GetDrawingTool()
@@ -365,14 +363,14 @@ namespace HexAdventureMapper
             _searchWindowHandler.SelectedCoordinate = _selectedCoordinate;
 
             //Update the textfield with the hex's detail (if any)
-            Hex hex = _db.Hexes.GetForCoordinate(hexWorldCoordinate);
+            var hex = _db.Hexes.GetForCoordinate(hexWorldCoordinate);
             if (hex != null)
             {
                 _saveDetailDisabled = true;
                 txtDetail.Text = hex.Detail;
                 var text = hex.Detail;
                 var pattern = "[(](|[-])\\d{4}([,]|[,][ ])(|[-])\\d{4}[)]";
-                var matches = System.Text.RegularExpressions.Regex.Matches(text, pattern);
+                var matches = Regex.Matches(text, pattern);
                 var removedLength = 0;
                 foreach (Match match in matches)
                 {
@@ -435,7 +433,7 @@ namespace HexAdventureMapper
             ((ComboBox) sender).DroppedDown = true;
         }
 
-        private void RadioButton_CheckedChanged(object sender, System.EventArgs e)
+        private void RadioButton_CheckedChanged(object sender, EventArgs e)
         {
             var radioButton = (RadioButton) sender;
             if (sender == rbSelect && radioButton.Checked)
@@ -494,7 +492,7 @@ namespace HexAdventureMapper
             }
         }
 
-        private void txtDetail_TextChanged(object sender, System.EventArgs e)
+        private void txtDetail_TextChanged(object sender, EventArgs e)
         {
             if (_selectedCoordinate == null)
             {
@@ -531,7 +529,7 @@ namespace HexAdventureMapper
             _db.Hexes.UpdateDetail(hex, detail);
         }
 
-        private void imgHexMap_SizeChanged(object sender, System.EventArgs e)
+        private void imgHexMap_SizeChanged(object sender, EventArgs e)
         {
             //If new map is smaller than old map, we don't need to update the image, as the image is larger than the mapbox
             if (_previousMapSize != null && imgHexMap.Size.Height <= _previousMapSize.Height &&
@@ -541,10 +539,7 @@ namespace HexAdventureMapper
             }
 
             //Dispose of the timer, as we'll be making a new one
-            if (_changeSizeTimer != null)
-            {
-                _changeSizeTimer.Dispose();
-            }
+            _changeSizeTimer?.Dispose();
 
             //Schedule a detail update after 1 second (so we wait to update until the user is done resizing)
             TimerCallback callback = ChangeMapSize;
@@ -557,7 +552,7 @@ namespace HexAdventureMapper
         private void ChangeMapSize(object state)
         {
             _selectedCoordinate = null;
-            Invoke(new Action(() => DrawMap()));
+            Invoke(new Action(DrawMap));
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -573,25 +568,26 @@ namespace HexAdventureMapper
 
         private void saveImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveImage(ImageFormat.Bmp);
+            SaveImage(ImageFormat.Bmp);
         }
 
         private void bitmapToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveImage(ImageFormat.Bmp);
+            SaveImage(ImageFormat.Bmp);
         }
 
         private void pngToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveImage(ImageFormat.Png);
+            SaveImage(ImageFormat.Png);
         }
 
-        private void saveImage(ImageFormat imageFormat)
+        private void SaveImage(ImageFormat imageFormat)
         {
-            SaveFileDialog fileDialog = new SaveFileDialog();
-            fileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            fileDialog.AddExtension = true;
-            if (imageFormat == ImageFormat.Png)
+            SaveFileDialog fileDialog = new SaveFileDialog
+            {
+                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory, AddExtension = true
+            };
+            if (Equals(imageFormat, ImageFormat.Png))
             {
                 fileDialog.DefaultExt = "png";
                 fileDialog.Filter = "Png File|*.png";
@@ -610,23 +606,24 @@ namespace HexAdventureMapper
             }
         }
 
-        private void loadToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            fileDialog.AddExtension = true;
-            fileDialog.DefaultExt = "ham";
-            fileDialog.Filter = "Save File|*.ham";
-            DialogResult result = fileDialog.ShowDialog();
+            var fileDialog = new OpenFileDialog
+            {
+                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory,
+                AddExtension = true,
+                DefaultExt = "ham",
+                Filter = "Save File|*.ham"
+            };
+            var result = fileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                DialogResult result2 =
-                    MessageBox.Show("Do you really want to load the map? You will lose all unsaved work.", "Load Map",
-                        MessageBoxButtons.OKCancel, MessageBoxIcon.Stop);
+                var result2 = MessageBox.Show("Do you really want to load the map? You will lose all unsaved work.",
+                    "Load Map", MessageBoxButtons.OKCancel, MessageBoxIcon.Stop);
                 if (result2 == DialogResult.OK)
                 {
-                    string dbPath = Properties.Settings.Default.MapDatabaseName;
-                    string savePath = fileDialog.FileName;
+                    var dbPath = Properties.Settings.Default.MapDatabaseName;
+                    var savePath = fileDialog.FileName;
                     File.Copy(savePath, dbPath, true);
                     _db.UpdateDbSchema();
                     DrawMap();
@@ -634,18 +631,20 @@ namespace HexAdventureMapper
             }
         }
 
-        private void saveToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FileDialog fileDialog = new SaveFileDialog();
-            fileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            fileDialog.AddExtension = true;
-            fileDialog.DefaultExt = "ham";
-            fileDialog.Filter = "Save File|*.ham";
-            DialogResult result = fileDialog.ShowDialog();
+            var fileDialog = new SaveFileDialog
+            {
+                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory,
+                AddExtension = true,
+                DefaultExt = "ham",
+                Filter = "Save File|*.ham"
+            };
+            var result = fileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                string dbPath = Properties.Settings.Default.MapDatabaseName;
-                string savePath = fileDialog.FileName;
+                var dbPath = Properties.Settings.Default.MapDatabaseName;
+                var savePath = fileDialog.FileName;
                 File.Copy(dbPath, savePath, true);
             }
         }
@@ -673,16 +672,9 @@ namespace HexAdventureMapper
             window.Show();
         }
 
-        private void AutoSave()
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dbPath = Properties.Settings.Default.MapDatabaseName;
-            string savePath = "autosave.ham";
-            File.Copy(dbPath, savePath, true);
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Do you want to exit?", "Exit Hex Adventure Mapper",
+            var result = MessageBox.Show("Do you want to exit?", "Exit Hex Adventure Mapper",
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Stop);
             if (result == DialogResult.OK)
             {
@@ -901,16 +893,16 @@ namespace HexAdventureMapper
                 int.TryParse(coords[0], out var x) &&
                 int.TryParse(coords[1], out var y))
             {
-                var coor = new HexCoordinate(x, y);
-                GoToHex(coor);
+                var coordinate = new HexCoordinate(x, y);
+                GoToHex(coordinate);
             }
         }
 
-        private void GoToHex(HexCoordinate coor)
+        private void GoToHex(HexCoordinate coordinate)
         {
-            if (!imgHexMap.MapArea.Contains((int) coor.X, (int) coor.Y))
+            if (!imgHexMap.MapArea.Contains((int)coordinate.X, (int)coordinate.Y))
             {
-                var newTopLeftCorner = PositionManager.GetTopLeftCoordinateToCenter(coor, imgHexMap.MapArea);
+                var newTopLeftCorner = PositionManager.GetTopLeftCoordinateToCenter(coordinate, imgHexMap.MapArea);
                 imgHexMap.SetPosition(newTopLeftCorner);
 
                 //Save the coordinate, so we will be here next time we open the program
@@ -920,7 +912,7 @@ namespace HexAdventureMapper
                 DrawMap();
             }
 
-            SelectHex(coor);
+            SelectHex(coordinate);
         }
     }
 }
